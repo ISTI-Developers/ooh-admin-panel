@@ -1,0 +1,2162 @@
+[
+    {
+        "site_id": "1EDSMKT003-1AA01",
+        "site": "UNAI0001",
+        "address": "PILIPINAS SHELL STATION EDSA COR. SEN. GIL PUYAT AVENUE BRGY. BEL-AIR 1 MAKATI CITY"
+    },
+    {
+        "site_id": "1EDSMKT003-2AA01",
+        "site": "UNAI0002",
+        "address": "PILIPINAS SHELL STATION EDSA COR. SEN. GIL PUYAT AVENUE BRGY. BEL-AIR 1 MAKATI CITY"
+    },
+    {
+        "site_id": "1EDSMKT004-1AA01",
+        "site": "UNAI0003",
+        "address": "GLEAN ROBERTO BLDG. EDSA BRGY. GUADALUPE MAKATI CITY"
+    },
+    {
+        "site_id": "1EDSPSY001-1AA01",
+        "site": "UNAI0004",
+        "address": "DON ROMAN BUILDING # 641 EDSA BRGY. 144 ZONE 17 PASAY (CATHAY BUILDERS) (Former M. Ainsley)"
+    },
+    {
+        "site_id": "1EDSPSY001-2AA01",
+        "site": "UNAI0005",
+        "address": "DON ROMAN BUILDING # 641 EDSA BRGY. 144 ZONE 17 PASAY (CATHAY BUILDERS) (Former M. Ainsley)"
+    },
+    {
+        "site_id": "1EDSPSY005-1AA01",
+        "site": "UNAI0006",
+        "address": "#815 EDSA COR. P. SANTOS ST. BRGY.144 ZONE 17 MALIBAY PASAY CITY (TOYOSCO)"
+    },
+    {
+        "site_id": "1EDSPSY005-2AA01",
+        "site": "UNAI0007",
+        "address": "#815 EDSA COR. P. SANTOS ST. BRGY.144 ZONE 17 MALIBAY PASAY CITY (TOYOSCO)"
+    },
+    {
+        "site_id": "1EDSPSY006-1AA01",
+        "site": "UNAI0008",
+        "address": "UNIT #7 JOLLILAND COMMERCIAL TOWNHOMES #680 EDSA. BRGY. SAN ROQUE PASAY CITY"
+    },
+    {
+        "site_id": "1EDSPSY006-2AA01",
+        "site": "UNAI0009",
+        "address": "UNIT #7 JOLLILAND COMMERCIAL TOWNHOMES #680 EDSA. BRGY. SAN ROQUE PASAY CITY"
+    },
+    {
+        "site_id": "1MKTKAL100-1AA01",
+        "site": "UNAI0010",
+        "address": "TOWER 5768 KALAYAAN AVENUE, BRGY. PINAGKAISAHAN, MAKATI CITY"
+    },
+    {
+        "site_id": "1EDSMDY004-1AA01",
+        "site": "UNAI0011",
+        "address": "#151 EDSA BRGY. WACK-WACK GREENHILLS EAST MANDALUYONG CITY (FILTRUCK)"
+    },
+    {
+        "site_id": "1EDSMDY004-1AA01",
+        "site": "UNAI0012",
+        "address": "#151 EDSA BRGY. WACK-WACK GREENHILLS EAST MANDALUYONG CITY (FILTRUCK)"
+    },
+    {
+        "site_id": "1EDSMDY004-2AD01",
+        "site": "UNAI0013",
+        "address": "#151 EDSA BRGY. WACK-WACK GREENHILLS EAST MANDALUYONG CITY (FILTRUCK)"
+    },
+    {
+        "site_id": "1EDSMDY008X-1AB01",
+        "site": "UNAI0014",
+        "address": "EDSA CORNER MAYON ST. BRGY. BARRANCA MANDALUYONG CITY (TRAFALGAR-PARALLEL TO EDSA)"
+    },
+    {
+        "site_id": "1EDSMDY014-1AB01",
+        "site": "UNAI0015",
+        "address": "EDSA CORNER MAYON ST. BRGY. BARRANCA MANDALUYONG CITY (TRAFALGAR)"
+    },
+    {
+        "site_id": "1EDSMDY014-2AB04",
+        "site": "UNAI0016",
+        "address": "EDSA CORNER MAYON ST. BRGY. BARRANCA MANDALUYONG CITY (TRAFALGAR)"
+    },
+    {
+        "site_id": "1EDSMDY014-2AB04",
+        "site": "UNAI0017",
+        "address": "EDSA CORNER MAYON ST. BRGY. BARRANCA MANDALUYONG CITY (TRAFALGAR)"
+    },
+    {
+        "site_id": "1EDSMDY014-2AB04",
+        "site": "UNAI0018",
+        "address": "EDSA CORNER MAYON ST. BRGY. BARRANCA MANDALUYONG CITY (TRAFALGAR)"
+    },
+    {
+        "site_id": "1EDSMDY014-2AB04",
+        "site": "UNAI0019",
+        "address": "EDSA CORNER MAYON ST. BRGY. BARRANCA MANDALUYONG CITY (TRAFALGAR)"
+    },
+    {
+        "site_id": "1EDSMDY112-2AA01",
+        "site": "UNAI0020",
+        "address": "BELSON HOUSE BUILDING NO. 271 EDSA, MANDALUYONG CITY"
+    },
+    {
+        "site_id": "1EDSQZC005-1AA01",
+        "site": "UNAI0021",
+        "address": "BONA COMMERCIAL BLDG. #541 EDSA (CUBAO) BRGY. BAGONG LIPUNAN NG CRAME QUEZON CITY"
+    },
+    {
+        "site_id": "1EDSSJN003-1AA01",
+        "site": "UNAI0022",
+        "address": "VV SOLIVEN SHOPPING COMPLEX BLDG I EDSA BRGY. NORTH EAST GREENHILLS SAN JUAN CITY"
+    },
+    {
+        "site_id": "1EDSSJN003-2AA01",
+        "site": "UNAI0023",
+        "address": "VV SOLIVEN SHOPPING COMPLEX BLDG I EDSA BRGY. NORTH EAST GREENHILLS SAN JUAN CITY"
+    },
+    {
+        "site_id": "1PSGORT100-2AA01",
+        "site": "UNAI0024",
+        "address": "OCAI PEDESTRIAN FOOTBRIDGE, INTERSECTION OF DO\u00d1A JULIA VARGAS AVENUE, BANK DRIVE, AND ST. FRANCIS STREETS, ORTIGAS CENTER, MANDALUYONG CITY (LEFT)"
+    },
+    {
+        "site_id": "1EDSCLC001-1AA01",
+        "site": "UNAI0025",
+        "address": "COMMEX BLDG. EDSA CORNER ARELLANO ST. CALOOCAN CITY"
+    },
+    {
+        "site_id": "1EDSCLC001-2AA01",
+        "site": "UNAI0026",
+        "address": "COMMEX BLDG. EDSA CORNER ARELLANO ST. CALOOCAN CITY"
+    },
+    {
+        "site_id": "1EDSCLC003-1AA01",
+        "site": "UNAI0027",
+        "address": "LOL REALTY BLDG. EDSA COR. ASUNCION ST. BRGY. 83 ZONE 8 MONUMENTO CALOOCAN CITY"
+    },
+    {
+        "site_id": "1EDSCLC003-2AA01",
+        "site": "UNAI0028",
+        "address": "LOL REALTY BLDG. EDSA COR. ASUNCION ST. BRGY. 83 ZONE 8 MONUMENTO CALOOCAN CITY"
+    },
+    {
+        "site_id": "1EDSQZC002-1AA01",
+        "site": "UNAI0029",
+        "address": "RNCD BLDG. EDSA (BALINTAWAK) BRGY. BALINGASA DIST. 1 AREA V QUEZON CITY (GUBAT SA CIUDAD)"
+    },
+    {
+        "site_id": "1EDSQZC002-2AA01",
+        "site": "UNAI0030",
+        "address": "RNCD BLDG. EDSA (BALINTAWAK) BRGY. BALINGASA DIST. 1 AREA V QUEZON CITY (GUBAT SA CIUDAD)"
+    },
+    {
+        "site_id": "1EDSQZC004-1AA01",
+        "site": "UNAI0031",
+        "address": "#695 GOODLEAP APARTELLE EDSA CUBAO BRGY. IMMACULATE CONCEPTION QUEZON CITY (GEORGE LIM)"
+    },
+    {
+        "site_id": "1EDSQZC014X-1AA01",
+        "site": "UNAI0032",
+        "address": "EVEREST LUMBER BLDG. #663 EDSA CUBAO QUEZON CITY (2ND STRUCTURE)"
+    },
+    {
+        "site_id": "1EDSQZC016-1AF01",
+        "site": "UNAI0033",
+        "address": "PANAY BLDG. #160 EDSA COR. PANAY AVE BRGY. SOUTH TRIANGLE QUEZON CITY"
+    },
+    {
+        "site_id": "1EDSQZC016-2AC01",
+        "site": "UNAI0034",
+        "address": "PANAY BLDG. #160 EDSA COR. PANAY AVE BRGY. SOUTH TRIANGLE QUEZON CITY"
+    },
+    {
+        "site_id": "1EDSQZC018-1AA01",
+        "site": "UNAI0035",
+        "address": "TRINITY LUTHERAN CHURCH #835 EDSA CORNER TIMOG AVE. BRGY. SACRED HEART QUEZON CITY (ROAD SIDE)"
+    },
+    {
+        "site_id": "1EDSQZC018-1AA01",
+        "site": "UNAI0037",
+        "address": "TRINITY LUTHERAN CHURCH #835 EDSA CORNER TIMOG AVE. BRGY. SACRED HEART QUEZON CITY (ROAD SIDE)"
+    },
+    {
+        "site_id": "1EDSQZC018-2AA01",
+        "site": "UNAI0036",
+        "address": "TRINITY LUTHERAN CHURCH #835 EDSA CORNER TIMOG AVE. BRGY. SACRED HEART QUEZON CITY (ROAD SIDE)"
+    },
+    {
+        "site_id": "1EDSQZC018-2AA01",
+        "site": "UNAI0038",
+        "address": "TRINITY LUTHERAN CHURCH #835 EDSA CORNER TIMOG AVE. BRGY. SACRED HEART QUEZON CITY (ROAD SIDE)"
+    },
+    {
+        "site_id": "1EDSQZC019-1AF01",
+        "site": "UNAI0039",
+        "address": "EDSA CENTRUM BLDG. #817 EDSA COR. KAMUNING RD. BRGY. KAMUNING QUEZON CITY (INNER STRUCTURE)"
+    },
+    {
+        "site_id": "1EDSQZC019-1AF01",
+        "site": "UNAI0041",
+        "address": "EDSA CENTRUM BLDG. #817 EDSA COR. KAMUNING RD. BRGY. KAMUNING QUEZON CITY (INNER STRUCTURE)"
+    },
+    {
+        "site_id": "1EDSQZC019-2AA01",
+        "site": "UNAI0040",
+        "address": "EDSA CENTRUM BLDG. #817 EDSA COR. KAMUNING RD. BRGY. KAMUNING QUEZON CITY (INNER STRUCTURE)"
+    },
+    {
+        "site_id": "1EDSQZC022-1AA01",
+        "site": "UNAI0042",
+        "address": "DHC BLDG. #1115 EDSA BRGY. VETERANS VILLAGE QUEZON CITY (WALL SIGN)"
+    },
+    {
+        "site_id": "1SLXMTL001-1AD01",
+        "site": "UNAI0043",
+        "address": "SOUTH BUILDERS BLDG. KM. 22 EAST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL001-2AB01",
+        "site": "UNAI0044",
+        "address": "SOUTH BUILDERS BLDG. KM. 22 EAST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL004-1AA01",
+        "site": "UNAI0045",
+        "address": "J.Y. & SONS REALTY CO. KM. 23 WEST SERVICE RD. SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL004-2AA01",
+        "site": "UNAI0046",
+        "address": "J.Y. & SONS REALTY CO. KM. 23 WEST SERVICE RD. SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL006-1AA01",
+        "site": "UNAI0047",
+        "address": "LUNAR STEEL CORP. KM. 22 WEST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL006-1AA01",
+        "site": "UNAI0048",
+        "address": "LUNAR STEEL CORP. KM. 22 WEST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL006-2AA01",
+        "site": "UNAI0049",
+        "address": "LUNAR STEEL CORP. KM. 22 WEST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL006-2AA01",
+        "site": "UNAI0050",
+        "address": "LUNAR STEEL CORP. KM. 22 WEST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL008-1AA01",
+        "site": "UNAI0051",
+        "address": "DMETYANGS CO. # 199 SITIO RIZAL DVI WEST SERVICE ROAD SSH BRGY. ALABANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL008-2AA01",
+        "site": "UNAI0052",
+        "address": "DMETYANGS CO. # 199 SITIO RIZAL DVI WEST SERVICE ROAD SSH BRGY. ALABANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL009-1AA01",
+        "site": "UNAI0053",
+        "address": "ANGLO PHIL. MARITIME INC. KM. 22 WEST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL009-1AA01",
+        "site": "UNAI0054",
+        "address": "ANGLO PHIL. MARITIME INC. KM. 22 WEST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL009-2AA01",
+        "site": "UNAI0055",
+        "address": "ANGLO PHIL. MARITIME INC. KM. 22 WEST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL013-1AA01",
+        "site": "UNAI0056",
+        "address": "GENUINO TUBE ICE CO. KM. 23 EAST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL013-2AA01",
+        "site": "UNAI0057",
+        "address": "GENUINO TUBE ICE CO. KM. 23 EAST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL018X-1AA01",
+        "site": "UNAI0058",
+        "address": "EXECUTIVE BLDG. CENTER KM. 23 EAST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL018X-2AA01",
+        "site": "UNAI0059",
+        "address": "EXECUTIVE BLDG. CENTER KM. 23 EAST SERVICE ROAD SSH BRGY. CUPANG MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXPNQ001-1AA01",
+        "site": "UNAI0060",
+        "address": "SABRINA REALTY. KM. 19 WEST SERVICE ROAD SSH BRGY. MARCELO GREEN PARA\u00d1AQUE"
+    },
+    {
+        "site_id": "1SLXPNQ001-2AA01",
+        "site": "UNAI0061",
+        "address": "SABRINA REALTY. KM. 19 WEST SERVICE ROAD SSH BRGY. MARCELO GREEN PARA\u00d1AQUE"
+    },
+    {
+        "site_id": "1SLXPNQ001-2AA01",
+        "site": "UNAI0062",
+        "address": "SABRINA REALTY. KM. 19 WEST SERVICE ROAD SSH BRGY. MARCELO GREEN PARA\u00d1AQUE"
+    },
+    {
+        "site_id": "1SLXPNQ002-1AA01",
+        "site": "UNAI0063",
+        "address": "STA. AGUEDA COMPOUND KM. 12 SSH BRGY. MERVILLE PARA\u00d1AQUE (ROAD STRUCTURE)"
+    },
+    {
+        "site_id": "1SLXPNQ002-1AA01",
+        "site": "UNAI0065",
+        "address": "STA. AGUEDA COMPOUND KM. 12 SSH BRGY. MERVILLE PARA\u00d1AQUE (ROAD STRUCTURE)"
+    },
+    {
+        "site_id": "1SLXPNQ002-2AA01",
+        "site": "UNAI0064",
+        "address": "STA. AGUEDA COMPOUND KM. 12 SSH BRGY. MERVILLE PARA\u00d1AQUE (ROAD STRUCTURE)"
+    },
+    {
+        "site_id": "1SLXPNQ002-2AA01",
+        "site": "UNAI0066",
+        "address": "STA. AGUEDA COMPOUND KM. 12 SSH BRGY. MERVILLE PARA\u00d1AQUE (ROAD STRUCTURE)"
+    },
+    {
+        "site_id": "1SLXPNQ003-1AA01",
+        "site": "UNAI0067",
+        "address": "#8468 KM. 18 EAST SERVICE ROAD SSH BRGY. SAN MARTIN DE PORRES PARA\u00d1AQUE CITY(PRISCILLA SO)"
+    },
+    {
+        "site_id": "1SLXPNQ003-1AA01",
+        "site": "UNAI0068",
+        "address": "#8468 KM. 18 EAST SERVICE ROAD SSH BRGY. SAN MARTIN DE PORRES PARA\u00d1AQUE CITY(PRISCILLA SO)"
+    },
+    {
+        "site_id": "1SLXPNQ003-2AA01",
+        "site": "UNAI0069",
+        "address": "#8468 KM. 18 EAST SERVICE ROAD SSH BRGY. SAN MARTIN DE PORRES PARA\u00d1AQUE CITY(PRISCILLA SO)"
+    },
+    {
+        "site_id": "1SLXPNQ004-1AA01",
+        "site": "UNAI0070",
+        "address": "DOW JONES BLDG. KM. 19 WEST SERVICE ROAD SSH BRGY. MARCELO GREEN PARA\u00d1AQUE"
+    },
+    {
+        "site_id": "1SLXPNQ004-2AA01",
+        "site": "UNAI0071",
+        "address": "DOW JONES BLDG. KM. 19 WEST SERVICE ROAD SSH BRGY. MARCELO GREEN PARA\u00d1AQUE"
+    },
+    {
+        "site_id": "1SLXPNQ006-1AA01",
+        "site": "UNAI0072",
+        "address": "KM. 19 EAST SERVICE ROAD SSH BRGY. SAN MARTIN DE PORRES PARA\u00d1AQUE (former GASANCO)"
+    },
+    {
+        "site_id": "1SLXPNQ006-2AA01",
+        "site": "UNAI0073",
+        "address": "KM. 19 EAST SERVICE ROAD SSH BRGY. SAN MARTIN DE PORRES PARA\u00d1AQUE (former GASANCO)"
+    },
+    {
+        "site_id": "1SLXPNQ012-1AA01",
+        "site": "UNAI0074",
+        "address": "KM. 18 EAST SERVICE ROAD SSH BRGY. SAN MARTIN DE PORRES PARA\u00d1AQUE(LITAO SANDRA SILVA)"
+    },
+    {
+        "site_id": "1SLXPNQ012-1AA01",
+        "site": "UNAI0075",
+        "address": "KM. 18 EAST SERVICE ROAD SSH BRGY. SAN MARTIN DE PORRES PARA\u00d1AQUE(LITAO SANDRA SILVA)"
+    },
+    {
+        "site_id": "1SLXPNQ012-2AA01",
+        "site": "UNAI0076",
+        "address": "KM. 18 EAST SERVICE ROAD SSH BRGY. SAN MARTIN DE PORRES PARA\u00d1AQUE(LITAO SANDRA SILVA)"
+    },
+    {
+        "site_id": "1SLXPSY100-1AA01",
+        "site": "UNAI0077",
+        "address": "PICCIO GARDEN, BARANGAY VILLAMOR, SOUTH LUZON EXPRESSWAY, PASAY CITY"
+    },
+    {
+        "site_id": "1SLXPSY100-2AA01",
+        "site": "UNAI0078",
+        "address": "PICCIO GARDEN, BARANGAY VILLAMOR, SOUTH LUZON EXPRESSWAY, PASAY CITY"
+    },
+    {
+        "site_id": "1SLXMTL002-1AA01",
+        "site": "UNAI0079",
+        "address": "BESIDE SHELL STATION SSH BRGY. POBLACION MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL002-2AA01",
+        "site": "UNAI0080",
+        "address": "BESIDE SHELL STATION SSH BRGY. POBLACION MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL003-1AA01",
+        "site": "UNAI0081",
+        "address": "NEAR PUTATAN CEMETERY SSH BRGY. PUTATAN MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL003-2AA01",
+        "site": "UNAI0082",
+        "address": "NEAR PUTATAN CEMETERY SSH BRGY. PUTATAN MUNTINLUPA"
+    },
+    {
+        "site_id": "1SLXMTL011-1AA01",
+        "site": "UNAI0083",
+        "address": "SSH BRGY. PUTATAN MUNTINLUPA (MUNAR)"
+    },
+    {
+        "site_id": "1SLXMTL011-2AA01",
+        "site": "UNAI0084",
+        "address": "SSH BRGY. PUTATAN MUNTINLUPA (MUNAR)"
+    },
+    {
+        "site_id": "1SLXMTL017-1AA01",
+        "site": "UNAI0085",
+        "address": "469 PUROK 1 BLK 3 BAYANAN MUNTINLUPA CITY (DMR 2)"
+    },
+    {
+        "site_id": "1SLXMTL017-2AA01",
+        "site": "UNAI0086",
+        "address": "469 PUROK 1 BLK 3 BAYANAN MUNTINLUPA CITY (DMR 2)"
+    },
+    {
+        "site_id": "1SLXMTL128-1AA01",
+        "site": "UNAI0087",
+        "address": "NO. 888 CATLEYA STREET, COUNTRY HOMES, PHASE 3, BRGY. PUTATAN, MUNTINLUPA CITY"
+    },
+    {
+        "site_id": "1SLXMTL128-1AA02",
+        "site": "UNAI0088",
+        "address": "NO. 888 CATLEYA STREET, COUNTRY HOMES, PHASE 3, BRGY. PUTATAN, MUNTINLUPA CITY"
+    },
+    {
+        "site_id": "1SLXSTR100-1AA01",
+        "site": "UNAI0089",
+        "address": "STA. ROSA EXIT BRGY. PULONG STA. CRUZ, STA. ROSA LAGUNA (DMR 10)"
+    },
+    {
+        "site_id": "1SLXSTR100-1AA01",
+        "site": "UNAI0090",
+        "address": "STA. ROSA EXIT BRGY. PULONG STA. CRUZ, STA. ROSA LAGUNA (DMR 10)"
+    },
+    {
+        "site_id": "1SLXSTR100-1AA01",
+        "site": "UNAI0091",
+        "address": "STA. ROSA EXIT BRGY. PULONG STA. CRUZ, STA. ROSA LAGUNA (DMR 10)"
+    },
+    {
+        "site_id": "1SLXBNN001-2AA01",
+        "site": "UNAI0092",
+        "address": "ALONG SLEX BESIDE SHELL STATION MAMPLASAN BI\u00d1AN LAGUNA"
+    },
+    {
+        "site_id": "1SLXBNN001-2AA01",
+        "site": "UNAI0093",
+        "address": "ALONG SLEX BESIDE SHELL STATION MAMPLASAN BI\u00d1AN LAGUNA"
+    },
+    {
+        "site_id": "1SLXBNN001-1AD01",
+        "site": "UNAI0094",
+        "address": "ALONG SLEX BESIDE SHELL STATION MAMPLASAN BI\u00d1AN LAGUNA"
+    },
+    {
+        "site_id": "1CC5MKT001-1AA01",
+        "site": "UNAI0095",
+        "address": "LOT 59 BLOCK 166 BRGY. PEMBO MAKATI CITY"
+    },
+    {
+        "site_id": "1CC5MKT001-2AA01",
+        "site": "UNAI0096",
+        "address": "LOT 59 BLOCK 166 BRGY. PEMBO MAKATI CITY"
+    },
+    {
+        "site_id": "1CC5MKT002-1AA01",
+        "site": "UNAI0097",
+        "address": "LOT 7 BLOCK 37 C5 ROAD CORNER KALAYAAN AVE. MAKATI CITY (LED)"
+    },
+    {
+        "site_id": "1CC5MKT002-2AA01",
+        "site": "UNAI0098",
+        "address": "LOT 7 BLOCK 37 C5 ROAD CORNER KALAYAAN AVE. MAKATI CITY (LED)"
+    },
+    {
+        "site_id": "1CC5PSG002-1AB02",
+        "site": "UNAI0099",
+        "address": "#66 SAN ROQUE EXTENSION BRGY. BAGONG ILOG PASIG CITY"
+    },
+    {
+        "site_id": "1CC5PSG002-2AA01",
+        "site": "UNAI0100",
+        "address": "#66 SAN ROQUE EXTENSION BRGY. BAGONG ILOG PASIG CITY"
+    },
+    {
+        "site_id": "1CC5PSG003-1AA01",
+        "site": "UNAI0101",
+        "address": "#18 ARELLANO ST. BRGY. BAGONG ILOG PASIG CITY"
+    },
+    {
+        "site_id": "1CC5PSG003-1AA02",
+        "site": "UNAI0102",
+        "address": "#18 ARELLANO ST. BRGY. BAGONG ILOG PASIG CITY"
+    },
+    {
+        "site_id": "1CC5PSG005-1AD01",
+        "site": "UNAI0103",
+        "address": "JADC COMPOUND #7 E. RODRIGUEZ JR. AVE. BRGY. BAGONG ILOG PASIG CITY(FORMER MENZI - INNER STRUCTURE)"
+    },
+    {
+        "site_id": "1CC5PSG005-2AA01",
+        "site": "UNAI0104",
+        "address": "JADC COMPOUND #7 E. RODRIGUEZ JR. AVE. BRGY. BAGONG ILOG PASIG CITY(FORMER MENZI - INNER STRUCTURE)"
+    },
+    {
+        "site_id": "1CC5PSG006-1AA01",
+        "site": "UNAI0105",
+        "address": "MAJA DEVELOPMENT CORP. #54 E. RODRIGUEZ AVENUE BRGY. BAGONG ILOG PASIG CITY(AVILES)"
+    },
+    {
+        "site_id": "1CC5PSG006-2AA01",
+        "site": "UNAI0106",
+        "address": "MAJA DEVELOPMENT CORP. #54 E. RODRIGUEZ AVENUE BRGY. BAGONG ILOG PASIG CITY(AVILES)"
+    },
+    {
+        "site_id": "1CC5PSG122-1AA01",
+        "site": "UNAI0107",
+        "address": "#21 J. P. RIZAL ST. BRGY. BAGONG ILOG PASIG CITY (C5 BORJA)"
+    },
+    {
+        "site_id": "1CC5QZC001-1AA01",
+        "site": "UNAI0108",
+        "address": "WILCON BUILDERS BLDG. E. RODRIGUEZ JR. AVE. BRGY. UGONG NORTE LIBIS QUEZON CITY (WILCON)"
+    },
+    {
+        "site_id": "1CC5QZC001-2AA01",
+        "site": "UNAI0109",
+        "address": "WILCON BUILDERS BLDG. E. RODRIGUEZ JR. AVE. BRGY. UGONG NORTE LIBIS QUEZON CITY (WILCON)"
+    },
+    {
+        "site_id": "1CC5QZC002-1AA01",
+        "site": "UNAI0110",
+        "address": "C5 LIBIS BRGY. BAGUMBAYAN DIST. III AREA 17 QUEZON CITY (INTREPID PLAZA)"
+    },
+    {
+        "site_id": "1CC5QZC002-2AA01",
+        "site": "UNAI0111",
+        "address": "C5 LIBIS BRGY. BAGUMBAYAN DIST. III AREA 17 QUEZON CITY (INTREPID PLAZA)"
+    },
+    {
+        "site_id": "1CC5QZC104-1AA01",
+        "site": "UNAI0112",
+        "address": "NO. 9 TOPSIDE LIBIS, ESCOPA II, PROJECT 4, QUEZON CITY"
+    },
+    {
+        "site_id": "1CC5QZC104-2AA02",
+        "site": "UNAI0113",
+        "address": "NO. 9 TOPSIDE LIBIS, ESCOPA II, PROJECT 4, QUEZON CITY"
+    },
+    {
+        "site_id": "1CC5QZC106-1AA01",
+        "site": "UNAI0114",
+        "address": "BLOCK 4, LOT 20 BRGY. ESCOPA IV, PROJECT 4, QUEZON CITY"
+    },
+    {
+        "site_id": "1CC5QZC106-1AA01",
+        "site": "UNAI0115",
+        "address": "BLOCK 4, LOT 20 BRGY. ESCOPA IV, PROJECT 4, QUEZON CITY"
+    },
+    {
+        "site_id": "1CC5QZC109-1AA02",
+        "site": "UNAI0117",
+        "address": "BLOCK 57, LOT 10, BRGY. ESCOPA IV, QUEZON CITY"
+    },
+    {
+        "site_id": "1CC5QZC109-1AA02",
+        "site": "UNAI0116",
+        "address": "BLOCK 57, LOT 10, BRGY. ESCOPA IV, QUEZON CITY"
+    },
+    {
+        "site_id": "1CC5QZC109-1AA02",
+        "site": "UNAI0118",
+        "address": "BLOCK 57, LOT 10, BRGY. ESCOPA IV, QUEZON CITY"
+    },
+    {
+        "site_id": "1NLXBCU003-1AA01",
+        "site": "UNAI0119",
+        "address": "NORTH LUZON EXPRESSWAY BRGY. BOLAKAN BOCAUE (NLEX) BULACAN (CONCEPCION)"
+    },
+    {
+        "site_id": "1NLXBCU003-2AA01",
+        "site": "UNAI0120",
+        "address": "NORTH LUZON EXPRESSWAY BRGY. BOLAKAN BOCAUE (NLEX) BULACAN (CONCEPCION)"
+    },
+    {
+        "site_id": "1NLXBCU004-1AA01",
+        "site": "UNAI0121",
+        "address": "NORTH LUZON EXPRESSWAY (NLEX) BRGY. TAAL BOCAUE BULACAN"
+    },
+    {
+        "site_id": "1NLXBCU004-2AA01",
+        "site": "UNAI0122",
+        "address": "NORTH LUZON EXPRESSWAY (NLEX) BRGY. TAAL BOCAUE BULACAN"
+    },
+    {
+        "site_id": "1NLXBCU002-1AA01",
+        "site": "UNAI0123",
+        "address": "NORTH LUZON EXPRESSWAY, BOLACAN, BOCAUE BULACAN(DEL ROSARIO)"
+    },
+    {
+        "site_id": "1NLXBCU002-2AA01",
+        "site": "UNAI0124",
+        "address": "NORTH LUZON EXPRESSWAY, BOLACAN, BOCAUE BULACAN(DEL ROSARIO)"
+    },
+    {
+        "site_id": "1NLXBLC100-1AA01",
+        "site": "UNAI0125",
+        "address": "NORTH DIVERSION RD., BRGY. BORROL II (NLEX), BALAGTAS, BULACAN"
+    },
+    {
+        "site_id": "1NLXBLC100-2AA02",
+        "site": "UNAI0126",
+        "address": "NORTH DIVERSION RD., BRGY. BORROL II (NLEX), BALAGTAS, BULACAN"
+    },
+    {
+        "site_id": "1NLXBLC101-1AA01",
+        "site": "UNAI0127",
+        "address": "NORTH DIVERSION RD., BRGY PANDAYAN, MEYCAUAYAN (NLEX), BULACAN"
+    },
+    {
+        "site_id": "1NLXBLC101-2AA02",
+        "site": "UNAI0128",
+        "address": "NORTH DIVERSION RD., BRGY PANDAYAN, MEYCAUAYAN (NLEX), BULACAN"
+    },
+    {
+        "site_id": "1NLXCLC002-1AA01",
+        "site": "UNAI0129",
+        "address": "UBS MARKETING CORP. #5 INT. 3 REPARO EXTENSION BRGY. BAESA CALOOCAN CITY"
+    },
+    {
+        "site_id": "1NLXCLC002-1AA01",
+        "site": "UNAI0130",
+        "address": "UBS MARKETING CORP. #5 INT. 3 REPARO EXTENSION BRGY. BAESA CALOOCAN CITY"
+    },
+    {
+        "site_id": "1NLXCLC002-2AA01",
+        "site": "UNAI0131",
+        "address": "UBS MARKETING CORP. #5 INT. 3 REPARO EXTENSION BRGY. BAESA CALOOCAN CITY"
+    },
+    {
+        "site_id": "1NLXCLC002-2AA01",
+        "site": "UNAI0132",
+        "address": "UBS MARKETING CORP. #5 INT. 3 REPARO EXTENSION BRGY. BAESA CALOOCAN CITY"
+    },
+    {
+        "site_id": "1NLXCLC003-2AA01",
+        "site": "UNAI0133",
+        "address": "#754 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY(EMAAS)"
+    },
+    {
+        "site_id": "1NLXCLC004-1AA01",
+        "site": "UNAI0134",
+        "address": "#753 BARRIO LIBIS BRGY. BAESA CALOOCAN CITY"
+    },
+    {
+        "site_id": "1NLXCLC006-1AA02",
+        "site": "UNAI0135",
+        "address": "#179 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY (TIU - MIDDLE)"
+    },
+    {
+        "site_id": "1NLXCLC006-1AA02",
+        "site": "UNAI0136",
+        "address": "#179 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY (TIU - MIDDLE)"
+    },
+    {
+        "site_id": "1NLXCLC006-1AA02",
+        "site": "UNAI0137",
+        "address": "#179 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY (TIU - MIDDLE)"
+    },
+    {
+        "site_id": "1NLXCLC006-1AA02",
+        "site": "UNAI0139",
+        "address": "#179 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY (TIU - MIDDLE)"
+    },
+    {
+        "site_id": "1NLXCLC006-1AA02",
+        "site": "UNAI0140",
+        "address": "#179 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY (TIU - MIDDLE)"
+    },
+    {
+        "site_id": "1NLXCLC006-1AA02",
+        "site": "UNAI0142",
+        "address": "#179 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY (TIU - MIDDLE)"
+    },
+    {
+        "site_id": "1NLXCLC008-1AA01",
+        "site": "UNAI0143",
+        "address": "#4 BRGY. 157 ZONE 14 NORTH SERVICE ROAD(NLEX) CALOOCAN CITY(BRIONES)"
+    },
+    {
+        "site_id": "1NLXCLC008-2AA01",
+        "site": "UNAI0144",
+        "address": "#4 BRGY. 157 ZONE 14 NORTH SERVICE ROAD(NLEX) CALOOCAN CITY(BRIONES)"
+    },
+    {
+        "site_id": "1NLXCLC010-2AF01",
+        "site": "UNAI0138",
+        "address": "#179 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY (TIU - INNER)"
+    },
+    {
+        "site_id": "1NLXCLC010-2AF01",
+        "site": "UNAI0141",
+        "address": "#179 BARRIO LIBIS BRGY. BAESA (NLEX) CALOOCAN CITY (TIU - INNER)"
+    },
+    {
+        "site_id": "1NLXVLZ002X-1AA01",
+        "site": "UNAI0145",
+        "address": "BRGY. KAYBIGA EAST SERVICE ROAD NORTH DIVERSION ROAD (NLEX) VALENZUELA (ESCRU)"
+    },
+    {
+        "site_id": "1NLXVLZ002X-2AA01",
+        "site": "UNAI0146",
+        "address": "BRGY. KAYBIGA EAST SERVICE ROAD NORTH DIVERSION ROAD (NLEX) VALENZUELA (ESCRU)"
+    },
+    {
+        "site_id": "1NLXVLZ005-1AC01",
+        "site": "UNAI0147",
+        "address": "BRGY. MAPULANG LUPA NLEX VALENZUELA CITY (1ST STRUCTURE-ROAD SIDE)"
+    },
+    {
+        "site_id": "1NLXVLZ005-2AC01",
+        "site": "UNAI0148",
+        "address": "BRGY. MAPULANG LUPA NLEX VALENZUELA CITY (2ND STRUCTURE-INNER)"
+    },
+    {
+        "site_id": "1MNLEPN001-1AA01",
+        "site": "UNAI0149",
+        "address": "BARON THEATER BLDG. ESPA\u00d1A ST. COR. M. DELA FUENTE ST. SAMPALOC MANILA"
+    },
+    {
+        "site_id": "1MNLEPN001-2AB01",
+        "site": "UNAI0150",
+        "address": "BARON THEATER BLDG. ESPA\u00d1A ST. COR. M. DELA FUENTE ST. SAMPALOC MANILA"
+    },
+    {
+        "site_id": "1MNLQPO001-1AA01",
+        "site": "UNAI0151",
+        "address": "CLASSIQUE WORLD PLAZA BLDG. QUEZON BLVD. QUIAPO MANILA"
+    },
+    {
+        "site_id": "1MNLQPO001-2AA01",
+        "site": "UNAI0152",
+        "address": "CLASSIQUE WORLD PLAZA BLDG. QUEZON BLVD. QUIAPO MANILA"
+    },
+    {
+        "site_id": "1MNLQPO002-1AA01",
+        "site": "UNAI0154",
+        "address": "DON JUAN SANTOS BLDG. QUEZON BLVD. CORNER CARLOS PALANCA ST. QUIAPO MANILA (RIGHT STRUCTURE)"
+    },
+    {
+        "site_id": "1MNLQPO002-1AA01",
+        "site": "UNAI0153",
+        "address": "DON JUAN SANTOS BLDG. QUEZON BLVD. CORNER CARLOS PALANCA ST. QUIAPO MANILA (RIGHT STRUCTURE)"
+    },
+    {
+        "site_id": "1MNLQPO005-1AA01",
+        "site": "UNAI0155",
+        "address": "CORNER QUEZON BLVD. AND R. HIDALGO-BARBOSA STREET QUIAPO, MANILA"
+    },
+    {
+        "site_id": "1MNLSCZ001-1AA01",
+        "site": "UNAI0156",
+        "address": "SCANETWORK BLDG. # 804-806 QUEZON BLVD. COR. C.M. RECTO MANILA"
+    },
+    {
+        "site_id": "1MNLSCZ001-2AB01",
+        "site": "UNAI0157",
+        "address": "SCANETWORK BLDG. # 804-806 QUEZON BLVD. COR. C.M. RECTO MANILA"
+    },
+    {
+        "site_id": "1MNLSPL001-1AA01",
+        "site": "UNAI0158",
+        "address": "NEW WORLD BLDG. # 1101-1118 ESPA\u00d1A COR. P. PAREDES ST. SAMPALOC MANILA (ROOFSIGN)"
+    },
+    {
+        "site_id": "1MNLSPL001-1AA01",
+        "site": "UNAI0159",
+        "address": "NEW WORLD BLDG. # 1101-1118 ESPA\u00d1A COR. P. PAREDES ST. SAMPALOC MANILA (ROOFSIGN)"
+    },
+    {
+        "site_id": "1MNLSPL005-1AA01",
+        "site": "UNAI0160",
+        "address": "NEW WORLD BLDG. # 1101-1118 ESPA\u00d1A COR. P. PAREDES SAMPALOC MANILA (ROOF SIGN - UN)"
+    },
+    {
+        "site_id": "1QZCQZA001-1AA01",
+        "site": "UNAI0161",
+        "address": "#295 QUEZON AVE. BRGY. STA. CRUZ QUEZON CITY(LUSTRE)"
+    },
+    {
+        "site_id": "1QZCQZA001-2AB01",
+        "site": "UNAI0162",
+        "address": "#295 QUEZON AVE. BRGY. STA. CRUZ QUEZON CITY(LUSTRE)"
+    },
+    {
+        "site_id": "1QZCQZA002-1AA01",
+        "site": "UNAI0163",
+        "address": "CSP BLDG. #815 QUEZON AVE. BRGY. STA. CRUZ QUEZON CITY"
+    },
+    {
+        "site_id": "1QZCQZA002-2AA01",
+        "site": "UNAI0164",
+        "address": "CSP BLDG. #815 QUEZON AVE. BRGY. STA. CRUZ QUEZON CITY"
+    },
+    {
+        "site_id": "1QZCQZA003-1AA01",
+        "site": "UNAI0165",
+        "address": "TOFEMI BLDG. #955 QUEZON AVE. EXT. BRGY. STA. CRUZ QUEZON CITY"
+    },
+    {
+        "site_id": "1QZCQZA003-2AA01",
+        "site": "UNAI0166",
+        "address": "TOFEMI BLDG. #955 QUEZON AVE. EXT. BRGY. STA. CRUZ QUEZON CITY"
+    },
+    {
+        "site_id": "1QZCQZA004-1AA01",
+        "site": "UNAI0167",
+        "address": "LM BLDG. #111 QUEZON AVE. BRGY. MATALAHIB QUEZON CITY"
+    },
+    {
+        "site_id": "1QZCQZA004-2AA01",
+        "site": "UNAI0168",
+        "address": "LM BLDG. #111 QUEZON AVE. BRGY. MATALAHIB QUEZON CITY"
+    },
+    {
+        "site_id": "1QZCCMW003-1AA01",
+        "site": "UNAI0169",
+        "address": "COMMONWEALTH AVE.(NEAR GASOLINE STATION) BRGY. MATANDANG BALARA QUEZON CITY(DIAZ)"
+    },
+    {
+        "site_id": "1QZCCMW003-2AB01",
+        "site": "UNAI0170",
+        "address": "COMMONWEALTH AVE.(NEAR GASOLINE STATION) BRGY. MATANDANG BALARA QUEZON CITY(DIAZ)"
+    },
+    {
+        "site_id": "1QZCCMW004-1AA01",
+        "site": "UNAI0171",
+        "address": "CRISSANT BLDG. #279 COMMONWEALTH AVE. BRGY. MATANDANG BALARA QUEZON CITY"
+    },
+    {
+        "site_id": "1QZCCMW004-2AA01",
+        "site": "UNAI0172",
+        "address": "CRISSANT BLDG. #279 COMMONWEALTH AVE. BRGY. MATANDANG BALARA QUEZON CITY"
+    },
+    {
+        "site_id": "1QZCCMW004X-1AA01",
+        "site": "UNAI0173",
+        "address": "BRGY. MATANDANG BALARA COMMONWEALTH AVE. QUEZON CITY (ZUZUARREGI)"
+    },
+    {
+        "site_id": "1QZCCMW004X-1AA01",
+        "site": "UNAI0174",
+        "address": "BRGY. MATANDANG BALARA COMMONWEALTH AVE. QUEZON CITY (ZUZUARREGI)"
+    },
+    {
+        "site_id": "1QZCCMW004X-2AA01",
+        "site": "UNAI0175",
+        "address": "BRGY. MATANDANG BALARA COMMONWEALTH AVE. QUEZON CITY (ZUZUARREGI)"
+    },
+    {
+        "site_id": "1QZCCMW004X-2AA01",
+        "site": "UNAI0176",
+        "address": "BRGY. MATANDANG BALARA COMMONWEALTH AVE. QUEZON CITY (ZUZUARREGI)"
+    },
+    {
+        "site_id": "1LSPZPT001-1AA01",
+        "site": "UNAI0177",
+        "address": "DMARRCHS REALTY CORP. ALABANG ZAPOTE ROAD BRGY. ALMANZA1 LAS PI\u00d1AS CITY"
+    },
+    {
+        "site_id": "1LSPZPT001-2AA01",
+        "site": "UNAI0178",
+        "address": "DMARRCHS REALTY CORP. ALABANG ZAPOTE ROAD BRGY. ALMANZA1 LAS PI\u00d1AS CITY"
+    },
+    {
+        "site_id": "1PSGRSR001-1AA01",
+        "site": "UNAI0179",
+        "address": "51 ORTIGAS AVE. BO. ROSARIO PASIG CITY"
+    },
+    {
+        "site_id": "1PSGRSR001-2AA01",
+        "site": "UNAI0180",
+        "address": "51 ORTIGAS AVE. BO. ROSARIO PASIG CITY"
+    },
+    {
+        "site_id": "1PSGUGO002-1AB01",
+        "site": "UNAI0181",
+        "address": "CW MKTG. & DEVELOPMENT CORP. ALONG JULIA VARGAS AVE. BRGY. UGONG PASIG CITY"
+    },
+    {
+        "site_id": "1PSGUGO002-2AD01",
+        "site": "UNAI0182",
+        "address": "CW MKTG. & DEVELOPMENT CORP. ALONG JULIA VARGAS AVE. BRGY. UGONG PASIG CITY"
+    },
+    {
+        "site_id": "1PSGUGO002-3AC01",
+        "site": "UNAI0183",
+        "address": "CW MKTG. & DEVELOPMENT CORP. ALONG JULIA VARGAS AVE. BRGY. UGONG PASIG CITY"
+    },
+    {
+        "site_id": "1PSGUGO002-4AB02",
+        "site": "UNAI0184",
+        "address": "CW MKTG. & DEVELOPMENT CORP. ALONG JULIA VARGAS AVE. BRGY. UGONG PASIG CITY"
+    },
+    {
+        "site_id": "1PSYNAI001-1AA01",
+        "site": "UNAI0185",
+        "address": "#101 ANDREWS AVE. GATE 3 BRGY. MARICABAN PASAY CITY (GARCIA)"
+    },
+    {
+        "site_id": "1PSYNAI001-2AA01",
+        "site": "UNAI0186",
+        "address": "#101 ANDREWS AVE. GATE 3 BRGY. MARICABAN PASAY CITY (GARCIA)"
+    },
+    {
+        "site_id": "1PSYNAI002-1AA01",
+        "site": "UNAI0187",
+        "address": "BLK 1 LOT 13 PH1 AIRMEN'S VILLAGE PROJECT VILLAMOR AIRBASE PASAY CITY (OLAVE)"
+    },
+    {
+        "site_id": "1PSYNAI002-2AA01",
+        "site": "UNAI0188",
+        "address": "BLK 1 LOT 13 PH1 AIRMEN'S VILLAGE PROJECT VILLAMOR AIRBASE PASAY CITY (OLAVE)"
+    },
+    {
+        "site_id": "1MKTBUE001-1AA01",
+        "site": "UNAI0189",
+        "address": "HPL BLDG. #60 SEN. GIL PUYAT AVE. BRGY. SAN ISIDRO MAKATI CITY"
+    },
+    {
+        "site_id": "1MKTBUE001-2AA01",
+        "site": "UNAI0190",
+        "address": "HPL BLDG. #60 SEN. GIL PUYAT AVE. BRGY. SAN ISIDRO MAKATI CITY"
+    },
+    {
+        "site_id": "1MKTMGL001-1AA01",
+        "site": "UNAI0191",
+        "address": "HENERAL NATIVIDAD COR. HENERAL BELARMINO ST. BANGKAL MAKATI CITY"
+    },
+    {
+        "site_id": "1PSGSTL001-1AA01",
+        "site": "UNAI0192",
+        "address": "#201 MAHOGANY ST. CORNER MARCOS HIGHWAY BRGY. SANTOLAN PASIG CITY"
+    },
+    {
+        "site_id": "1PSGSTL001-2AA01",
+        "site": "UNAI0193",
+        "address": "#201 MAHOGANY ST. CORNER MARCOS HIGHWAY BRGY. SANTOLAN PASIG CITY"
+    },
+    {
+        "site_id": "3RZLSMT001-1AA01",
+        "site": "UNAI0194",
+        "address": "GEN. LUNA ST. BRGY. GITNANG BAYAN II SAN MATEO RIZAL (ROOF)"
+    },
+    {
+        "site_id": "2BGTBGO003-1AA01",
+        "site": "UNAI0195",
+        "address": "YWCA BLDG. #37 HARRISON ROAD BAGUIO"
+    },
+    {
+        "site_id": "2BGTBGO003-2AA01",
+        "site": "UNAI0196",
+        "address": "YWCA BLDG. #37 HARRISON ROAD BAGUIO"
+    },
+    {
+        "site_id": "2BGTLAT001-1AA01",
+        "site": "UNAI0197",
+        "address": "KM. 5 ALONG NATIONAL HIGHWAY BRGY. BALILI LA TRINIDAD BENGUET PROVINCE"
+    },
+    {
+        "site_id": "2PNGBYG001-1AA01",
+        "site": "UNAI0198",
+        "address": "MANGANAAN BLDG. M.H. DEL PILAR ST. BAYAMBANG PANGASINAN"
+    },
+    {
+        "site_id": "2PNGBYG001-2AA01",
+        "site": "UNAI0199",
+        "address": "MANGANAAN BLDG. M.H. DEL PILAR ST. BAYAMBANG PANGASINAN"
+    },
+    {
+        "site_id": "2PNGDGP003-1AA01",
+        "site": "UNAI0200",
+        "address": "CARANGLAAN DISTRICT DAGUPAN CITY PANGASINAN"
+    },
+    {
+        "site_id": "2PNGDGP003-2AA01",
+        "site": "UNAI0201",
+        "address": "CARANGLAAN DISTRICT DAGUPAN CITY PANGASINAN"
+    },
+    {
+        "site_id": "2PNGDGP004-1AA01",
+        "site": "UNAI0202",
+        "address": "PEREZ BLVD. CORNER HERERO ST. DAGUPAN CITY PANGASINAN"
+    },
+    {
+        "site_id": "2PNGDGP005-1AA01",
+        "site": "UNAI0203",
+        "address": "NCS BLDG. A.B. FERNANDEZ AVE. DAGUPAN CITY PANGASINAN"
+    },
+    {
+        "site_id": "2PNGMLQ001-1AA01",
+        "site": "UNAI0204",
+        "address": "MC ARTHUR HIGHWAY NEAR CARMEN BRIDGE ROSALES PANGASINAN"
+    },
+    {
+        "site_id": "2PNGMLQ001-2AA01",
+        "site": "UNAI0205",
+        "address": "MC ARTHUR HIGHWAY NEAR CARMEN BRIDGE ROSALES PANGASINAN"
+    },
+    {
+        "site_id": "2PNGMLQ002-1AA01",
+        "site": "UNAI0206",
+        "address": "#10 DON QUINTANS ST. BRGY. POBLACION MALASIQUI PANGASINAN"
+    },
+    {
+        "site_id": "2PNGSCR001-1AA01",
+        "site": "UNAI0207",
+        "address": "#10 ROXAS BLVD. SAN CARLOS CITY PANGASINAN"
+    },
+    {
+        "site_id": "2PNGSCR001-2AA01",
+        "site": "UNAI0208",
+        "address": "#10 ROXAS BLVD. SAN CARLOS CITY PANGASINAN"
+    },
+    {
+        "site_id": "2PNGURD001-1AA01",
+        "site": "UNAI0209",
+        "address": "#64 MC ARTHUR HIGHWAY BRGY. POB. URDANETA PANGASINAN"
+    },
+    {
+        "site_id": "2PNGURD001-2AA03",
+        "site": "UNAI0210",
+        "address": "#64 MC ARTHUR HIGHWAY BRGY. POB. URDANETA PANGASINAN"
+    },
+    {
+        "site_id": "2PNGURD002-1AA01",
+        "site": "UNAI0211",
+        "address": "BRGY. NANCAYASAN SUR URDANETA PANGASINAN"
+    },
+    {
+        "site_id": "2PNGURD002-2AA01",
+        "site": "UNAI0212",
+        "address": "BRGY. NANCAYASAN SUR URDANETA PANGASINAN"
+    },
+    {
+        "site_id": "2LAURSR001-1AA01",
+        "site": "UNAI0213",
+        "address": "BRGY. UDIAO ROSARIO LA UNION"
+    },
+    {
+        "site_id": "2LAURSR001-2AA01",
+        "site": "UNAI0214",
+        "address": "BRGY. UDIAO ROSARIO LA UNION"
+    },
+    {
+        "site_id": "2LAUSFN002-1AA01",
+        "site": "UNAI0215",
+        "address": "NATIONAL HIGHWAY BRGY. SEVILLA SAN FERNANDO LA UNION"
+    },
+    {
+        "site_id": "2LAUSFN003-1AA01",
+        "site": "UNAI0216",
+        "address": "#12 BRGY. PAGDALAGAN NORTE SAN FERNANDO LA UNION"
+    },
+    {
+        "site_id": "2LAUSFN005-1AA01",
+        "site": "UNAI0217",
+        "address": "QUEZON AVE. BRGY. PARIAN SAN FERNANDO LA UNION"
+    },
+    {
+        "site_id": "2CGYTGR002-1AA01",
+        "site": "UNAI0218",
+        "address": "RT DIWA BLDG. COLLEGE AVE. TUGUEGARAO CAGAYAN"
+    },
+    {
+        "site_id": "2CGYTGR003-1AA01",
+        "site": "UNAI0219",
+        "address": "#48 TANZA HIGHWAY, TUGUEGARAO CITY, CAGAYAN"
+    },
+    {
+        "site_id": "2ILNBTC001-1AA01",
+        "site": "UNAI0220",
+        "address": "TAFT ST. #5 BRGY. CALLAGUIP (POB) BATAC ILOCOS NORTE"
+    },
+    {
+        "site_id": "2ILNBTC001-2AA01",
+        "site": "UNAI0221",
+        "address": "TAFT ST. #5 BRGY. CALLAGUIP (POB) BATAC ILOCOS NORTE"
+    },
+    {
+        "site_id": "2ILNLAO002-1AA01",
+        "site": "UNAI0222",
+        "address": "NANGALISAN ST. BRGY. 51-A LAOAG ILOCOS NORTE"
+    },
+    {
+        "site_id": "2ILSBTY001-1AA01",
+        "site": "UNAI0223",
+        "address": "CABAROAN ST. MAHARLIKA HIGHWAY BRGY. BANTAY ILOCOS SUR"
+    },
+    {
+        "site_id": "2ISBILG001-1AA01",
+        "site": "UNAI0224",
+        "address": "RIZAL ST. BRGY. CENTRO ILAGAN ISABELA"
+    },
+    {
+        "site_id": "2ISBILG001-2AA01",
+        "site": "UNAI0225",
+        "address": "RIZAL ST. BRGY. CENTRO ILAGAN ISABELA"
+    },
+    {
+        "site_id": "2ISBSTG100-1AA01",
+        "site": "UNAI0226",
+        "address": "HERITAGE BUILDING, SANTIAGO, ISABELA"
+    },
+    {
+        "site_id": "2ISBSTG100-2AA01",
+        "site": "UNAI0227",
+        "address": "HERITAGE BUILDING, SANTIAGO, ISABELA"
+    },
+    {
+        "site_id": "1NLXBCU106-1AA01",
+        "site": "UNAI0228",
+        "address": "TURO, BOCAUE, BULACAN"
+    },
+    {
+        "site_id": "1NLXBCU106-2AA02",
+        "site": "UNAI0229",
+        "address": "TURO, BOCAUE, BULACAN"
+    },
+    {
+        "site_id": "1NLXBLC103-1AA01",
+        "site": "UNAI0230",
+        "address": "BRGY. LIBTONG, MEYCAUAYAN CITY, BULACAN (NLEX DONA MERCEDES, MALHACAN, MEYCAUAYAN, BULACAN)"
+    },
+    {
+        "site_id": "1NLXBLC103-1AA02",
+        "site": "UNAI0231",
+        "address": "BRGY. LIBTONG, MEYCAUAYAN CITY, BULACAN (NLEX DONA MERCEDES, MALHACAN, MEYCAUAYAN, BULACAN)"
+    },
+    {
+        "site_id": "1NLXBLC104-1AA01",
+        "site": "UNAI0232",
+        "address": "NO. 6 EAST SERVICE ROAD, METROGATE COMPLEX MEYCAUAYAN CITY BULACAN (NLEX)"
+    },
+    {
+        "site_id": "1NLXBLC104-1AA02",
+        "site": "UNAI0233",
+        "address": "NO. 6 EAST SERVICE ROAD, METROGATE COMPLEX MEYCAUAYAN CITY BULACAN (NLEX)"
+    },
+    {
+        "site_id": "2BLCMCY001-1AA01",
+        "site": "UNAI0234",
+        "address": "#63 BRGY. POBLACION MEYCAUAYAN BULACAN"
+    },
+    {
+        "site_id": "2BLCMLL002-1AA01",
+        "site": "UNAI0235",
+        "address": "BRGY. SAN VICENTE MALOLOS BULACAN"
+    },
+    {
+        "site_id": "2BLCMRL002-1AA01",
+        "site": "UNAI0236",
+        "address": "ROSAS NORTE BRGY. SALUYSOY MC ARTHUR HIWAY MEYCAUAYAN BULACAN (BET. MARILAO & MEYCAUAYAN)"
+    },
+    {
+        "site_id": "2BLCMRL002-2AA01",
+        "site": "UNAI0237",
+        "address": "ROSAS NORTE BRGY. SALUYSOY MC ARTHUR HIWAY MEYCAUAYAN BULACAN (BET. MARILAO & MEYCAUAYAN)"
+    },
+    {
+        "site_id": "2BLCSMG002-1AA01",
+        "site": "UNAI0238",
+        "address": "NORBERTO ST. SAN JOSE BRGY. SALAKOT SAN MIGUEL BULACAN"
+    },
+    {
+        "site_id": "2BLCBLG002-1AA01",
+        "site": "UNAI0239",
+        "address": "J.P. RIZAL ST. BALIUAG BULACAN"
+    },
+    {
+        "site_id": "2PMPANG004-1AA01",
+        "site": "UNAI0240",
+        "address": "DEGWANG TRADING BLDG. ALONG NATIONAL RD. DAU PAMPANGA"
+    },
+    {
+        "site_id": "2PMPANG004-2AA01",
+        "site": "UNAI0241",
+        "address": "DEGWANG TRADING BLDG. ALONG NATIONAL RD. DAU PAMPANGA"
+    },
+    {
+        "site_id": "2PMPMBL002-1AA01",
+        "site": "UNAI0242",
+        "address": "LOT 1319 BLK. 5 LOT 5 SAMSONVILLE SUBDIVISION BRGY. DAU MABALACAT PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN003-1AD01",
+        "site": "UNAI0243",
+        "address": "H. ABAD SANTOS BLDG. #2 B. MENDOZA ST. SAN FERNANDO PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN003-2AB01",
+        "site": "UNAI0244",
+        "address": "H. ABAD SANTOS BLDG. #2 B. MENDOZA ST. SAN FERNANDO PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN004-1AA01",
+        "site": "UNAI0245",
+        "address": "PLAZA CRISTINA BLDG. OLONGAPO - GAPAN ROAD BRGY. DOLORES SAN FERNANDO CITY PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN004-2AA01",
+        "site": "UNAI0246",
+        "address": "PLAZA CRISTINA BLDG. OLONGAPO - GAPAN ROAD BRGY. DOLORES SAN FERNANDO CITY PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-1AB01",
+        "site": "UNAI0247",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-1AB01",
+        "site": "UNAI0248",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-1AB01",
+        "site": "UNAI0249",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-1AA01",
+        "site": "UNAI0250",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-1AA01",
+        "site": "UNAI0251",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-1AA01",
+        "site": "UNAI0252",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-2AB01",
+        "site": "UNAI0253",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-2AB01",
+        "site": "UNAI0254",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN005-2AB01",
+        "site": "UNAI0255",
+        "address": "OLONGAPO-GAPAN ROAD, NEAR SM & ROBINSONS MALL, SAN FERNANDO CITY, PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN009-1AB01",
+        "site": "UNAI0256",
+        "address": "OLONGAPO - GAPAN RD. BRGY. DOLORES JUNCTION SAN FERNANDO PAMPANGA"
+    },
+    {
+        "site_id": "2PMPSFN009-2AA01",
+        "site": "UNAI0257",
+        "address": "OLONGAPO - GAPAN RD. BRGY. DOLORES JUNCTION SAN FERNANDO PAMPANGA"
+    },
+    {
+        "site_id": "2TRLSMG001-1AA01",
+        "site": "UNAI0258",
+        "address": "#265 MC ARHTUR HIGHWAY BRGY. MALIGAYA SAN MIGUEL TARLAC"
+    },
+    {
+        "site_id": "2TRLSMG001-2AA01",
+        "site": "UNAI0259",
+        "address": "#265 MC ARHTUR HIGHWAY BRGY. MALIGAYA SAN MIGUEL TARLAC"
+    },
+    {
+        "site_id": "2TRLTRL004-1AA01",
+        "site": "UNAI0260",
+        "address": "MAPALAD BLDG. C. SANTOS ST., POBLACION, TARLAC CITY"
+    },
+    {
+        "site_id": "2TRLTRL005-1AA01",
+        "site": "UNAI0261",
+        "address": "ALONG MC ARTHUR HIGHWAY BRGY. SAN RAFAEL TARLAC, TARLAC CITY"
+    },
+    {
+        "site_id": "2TRLTRL005-2AA01",
+        "site": "UNAI0262",
+        "address": "ALONG MC ARTHUR HIGHWAY BRGY. SAN RAFAEL TARLAC, TARLAC CITY"
+    },
+    {
+        "site_id": "3CAVBCR003-1AA01",
+        "site": "UNAI0263",
+        "address": "COASTAL RD. BRGY. TALABA BACOOR CAVITE (ZAPOTE SIDE)"
+    },
+    {
+        "site_id": "3CAVBCR003X-1AA01",
+        "site": "UNAI0265",
+        "address": "ALONG AGUINALDO HIGHWAY BRGY. NIOG III BACOOR CAVITE (MEDINA)"
+    },
+    {
+        "site_id": "3CAVBCR003X-2AA01",
+        "site": "UNAI0266",
+        "address": "ALONG AGUINALDO HIGHWAY BRGY. NIOG III BACOOR CAVITE (MEDINA)"
+    },
+    {
+        "site_id": "3CAVBCR004-1AA01",
+        "site": "UNAI0267",
+        "address": "COASTAL RD. BRGY. TALABA BACOOR CAVITE (COASTAL SIDE)"
+    },
+    {
+        "site_id": "3CAVBCR005-1AB01",
+        "site": "UNAI0268",
+        "address": "MPZ VENTURES ALONG COASTAL RD. CORNER AGUINALDO HIGHWAY BRGY. TALABA BACOOR CAVITE"
+    },
+    {
+        "site_id": "3CAVBCR005-2AB01",
+        "site": "UNAI0269",
+        "address": "MPZ VENTURES ALONG COASTAL RD. CORNER AGUINALDO HIGHWAY BRGY. TALABA BACOOR CAVITE"
+    },
+    {
+        "site_id": "3CAVBCR009-1AA01",
+        "site": "UNAI0264",
+        "address": "COASTAL RD. BRGY. TALABA BACOOR CAVITE (LOWER LEVEL)"
+    },
+    {
+        "site_id": "3CAVCVT001-1AA01",
+        "site": "UNAI0270",
+        "address": "#485 P. BURGOS ST. CARIDAD CAVITE CITY"
+    },
+    {
+        "site_id": "3CAVDMR001-1AA01",
+        "site": "UNAI0271",
+        "address": "GOVERNOR'S DRIVE BRGY. SAMPALOC IV DASMARI\u00d1AS CAVITE (SOLID GOLD)"
+    },
+    {
+        "site_id": "3CAVDMR001-2AA01",
+        "site": "UNAI0272",
+        "address": "GOVERNOR'S DRIVE BRGY. SAMPALOC IV DASMARI\u00d1AS CAVITE (SOLID GOLD)"
+    },
+    {
+        "site_id": "3CAVDMR002-1AA01",
+        "site": "UNAI0273",
+        "address": "AGUINALDO HIGHWAY BRGY. SAN AGUSTIN 1 DASMARI\u00d1AS CAVITE (CANTIMBUHAN)"
+    },
+    {
+        "site_id": "3CAVDMR002-2AB01",
+        "site": "UNAI0274",
+        "address": "AGUINALDO HIGHWAY BRGY. SAN AGUSTIN 1 DASMARI\u00d1AS CAVITE (CANTIMBUHAN)"
+    },
+    {
+        "site_id": "3CAVGTR001-1AA01",
+        "site": "UNAI0275",
+        "address": "GOVERNOR'S DRIVE BRGY. MANGGAHAN GEN. TRIAS CAVITE (RADAM)"
+    },
+    {
+        "site_id": "3CAVGTR001-1AA02",
+        "site": "UNAI0276",
+        "address": "GOVERNOR'S DRIVE BRGY. MANGGAHAN GEN. TRIAS CAVITE (RADAM)"
+    },
+    {
+        "site_id": "3CAVGTR001-2AA01",
+        "site": "UNAI0277",
+        "address": "GOVERNOR'S DRIVE BRGY. MANGGAHAN GEN. TRIAS CAVITE (RADAM)"
+    },
+    {
+        "site_id": "3CAVIMU001-1AA01",
+        "site": "UNAI0278",
+        "address": "NUENO AVE. BRGY. B. LUMA IMUS CAVITE (BESIDE GOLDILOCKS)"
+    },
+    {
+        "site_id": "3CAVIMU001-2AA01",
+        "site": "UNAI0279",
+        "address": "NUENO AVE. BRGY. B. LUMA IMUS CAVITE (BESIDE GOLDILOCKS)"
+    },
+    {
+        "site_id": "3CAVSIL001-1AA01",
+        "site": "UNAI0280",
+        "address": "BRGY. BUHO SILANG CAVITE"
+    },
+    {
+        "site_id": "3CAVSIL001-2AA01",
+        "site": "UNAI0281",
+        "address": "BRGY. BUHO SILANG CAVITE"
+    },
+    {
+        "site_id": "3BTGBTG001-1AA01",
+        "site": "UNAI0282",
+        "address": "#103 BRGY. 12 P. BURGOS ST. BATANGAS CITY"
+    },
+    {
+        "site_id": "3BTGBTG002-1AA01",
+        "site": "UNAI0283",
+        "address": "JPMM BLDG. CUTA BATANGAS CITY"
+    },
+    {
+        "site_id": "3BTGBTG003-1AA01",
+        "site": "UNAI0284",
+        "address": "BAYANIHAN ROAD 3 TINGGA LABAC, BATANGAS CITY"
+    },
+    {
+        "site_id": "3BTGBTG003-2AA01",
+        "site": "UNAI0285",
+        "address": "BAYANIHAN ROAD 3 TINGGA LABAC, BATANGAS CITY"
+    },
+    {
+        "site_id": "3BTGLPA001-1AA01",
+        "site": "UNAI0286",
+        "address": "AYALA-BYPASS (BESIDE LTFRB BLDG. REGION 4) LIPA CITY BATANGAS"
+    },
+    {
+        "site_id": "3BTGLPA001-2AA01",
+        "site": "UNAI0287",
+        "address": "AYALA-BYPASS (BESIDE LTFRB BLDG. REGION 4) LIPA CITY BATANGAS"
+    },
+    {
+        "site_id": "3BTGSTT001-1AB01",
+        "site": "UNAI0288",
+        "address": "BRGY. SANTIAGO STO. TOMAS BATANGAS (GAISER)"
+    },
+    {
+        "site_id": "3BTGSTT001-1AB01",
+        "site": "UNAI0289",
+        "address": "BRGY. SANTIAGO STO. TOMAS BATANGAS (GAISER)"
+    },
+    {
+        "site_id": "3BTGTNU001-1AA01",
+        "site": "UNAI0290",
+        "address": "ALONG J.P LAUREL ST. BRGY. POBLACION I TANUAN BATANGAS"
+    },
+    {
+        "site_id": "3BTGTNU001-2AA01",
+        "site": "UNAI0291",
+        "address": "ALONG J.P LAUREL ST. BRGY. POBLACION I TANUAN BATANGAS"
+    },
+    {
+        "site_id": "3LAGCLB003-1AA01",
+        "site": "UNAI0292",
+        "address": "#5 CANICOSA BLDG. BRGY. UNO REAL CROSSING CALAMBA LAGUNA (TANYAG)"
+    },
+    {
+        "site_id": "3LAGCLB004-1AA01",
+        "site": "UNAI0293",
+        "address": "BRGY. REAL CALAMBA LAGUNA (RAMOS)"
+    },
+    {
+        "site_id": "3LAGCLB004-1AA02",
+        "site": "UNAI0294",
+        "address": "BRGY. REAL CALAMBA LAGUNA (RAMOS)"
+    },
+    {
+        "site_id": "3LAGCLB005-1AB01",
+        "site": "UNAI0295",
+        "address": "NATIONAL HIGHWAY BRGY. 1 CROSSING CALAMBA CITY LAGUNA (BAYANI)"
+    },
+    {
+        "site_id": "3LAGCLB005-2AB01",
+        "site": "UNAI0296",
+        "address": "NATIONAL HIGHWAY BRGY. 1 CROSSING CALAMBA CITY LAGUNA (BAYANI)"
+    },
+    {
+        "site_id": "3LAGSCZ002-1AA01",
+        "site": "UNAI0297",
+        "address": "NATIONAL HIGHWAY BRGY. LABUIN STA CRUZ LAGUNA"
+    },
+    {
+        "site_id": "3LAGSCZ003-1AA01",
+        "site": "UNAI0298",
+        "address": "REGIDOR COR. A. LUNA STS. STA. CRUZ LAGUNA"
+    },
+    {
+        "site_id": "3LAGSPB003-1AA01",
+        "site": "UNAI0299",
+        "address": "EMRALINO BLDG. #249 BRGY. SAN RAFAEL, SAN PABLO CITY, LAGUNA"
+    },
+    {
+        "site_id": "3LAGSPB003-2AA01",
+        "site": "UNAI0300",
+        "address": "EMRALINO BLDG. #249 BRGY. SAN RAFAEL, SAN PABLO CITY, LAGUNA"
+    },
+    {
+        "site_id": "3LAGSPD001-1AA01",
+        "site": "UNAI0301",
+        "address": "BARRETTO BLDG. A. MABINI ST. BRGY. POBLACION SAN PEDRO LAGUNA"
+    },
+    {
+        "site_id": "3LAGSPD001-2AB01",
+        "site": "UNAI0302",
+        "address": "BARRETTO BLDG. A. MABINI ST. BRGY. POBLACION SAN PEDRO LAGUNA"
+    },
+    {
+        "site_id": "3QZPTYB100-1AA01",
+        "site": "UNAI0303",
+        "address": "BRGY. CALUMPANG, TAYABAS, QUEZON"
+    },
+    {
+        "site_id": "3QZPLCN003-1AA01",
+        "site": "UNAI0304",
+        "address": "P. NIEVA STREET, IBABANG IYAM LUCENA CITY, QUEZON"
+    },
+    {
+        "site_id": "3ALBDRG001-1AA01",
+        "site": "UNAI0305",
+        "address": "LAKANDULA BRGY. BA\u00d1AG DARAGA ALBAY"
+    },
+    {
+        "site_id": "3ALBLGP001-1AB01",
+        "site": "UNAI0306",
+        "address": "JRE BLDG. PE\u00d1ARANDA ST. LEGAZPI CITY ALBAY"
+    },
+    {
+        "site_id": "3ALBLGP002-1AA01",
+        "site": "UNAI0307",
+        "address": "SUN SQUARE BLDG. F. IMPERIAL ST. LEGAZPI CITY ALBAY"
+    },
+    {
+        "site_id": "3ALBLGP005-1AA01",
+        "site": "UNAI0308",
+        "address": "BITANO LEGAZPI CITY, ALBAY"
+    },
+    {
+        "site_id": "3ALBLGP005-2AA01",
+        "site": "UNAI0309",
+        "address": "BITANO LEGAZPI CITY, ALBAY"
+    },
+    {
+        "site_id": "3CMSNAG002-1AA01",
+        "site": "UNAI0310",
+        "address": "#48 GEN. LUNA ST. BRGY. DINAGA NAGA CITY"
+    },
+    {
+        "site_id": "3CMSNAG002-2AA01",
+        "site": "UNAI0311",
+        "address": "#48 GEN. LUNA ST. BRGY. DINAGA NAGA CITY"
+    },
+    {
+        "site_id": "2BATDNL003-1AA01",
+        "site": "UNAI0312",
+        "address": "#56 NATIONAL HIGHWAY BRGY. LAYAC DINALUPIHAN BATAAN"
+    },
+    {
+        "site_id": "2BATDNL003-2AA01",
+        "site": "UNAI0313",
+        "address": "#56 NATIONAL HIGHWAY BRGY. LAYAC DINALUPIHAN BATAAN"
+    },
+    {
+        "site_id": "2NVECBN001-1AA01",
+        "site": "UNAI0314",
+        "address": "MELANIO'S BLDG. MAHARLIKA HIGHWAY CORNER GABALDON STREET MA. THERESA CABANATUAN CITY NUEVA ECIJA"
+    },
+    {
+        "site_id": "2NVECBN001-2AA01",
+        "site": "UNAI0315",
+        "address": "MELANIO'S BLDG. MAHARLIKA HIGHWAY CORNER GABALDON STREET MA. THERESA CABANATUAN CITY NUEVA ECIJA"
+    },
+    {
+        "site_id": "2NVEGPN001-1AA01",
+        "site": "UNAI0316",
+        "address": "ALONG NAT'L ROAD BRGY. STO. NI\u00d1O GAPAN NUEVA ECIJA"
+    },
+    {
+        "site_id": "4CEBCEB005-1AA01",
+        "site": "UNAI0317",
+        "address": "DO\u00d1A LUISA BLDG. FUENTE OSME\u00d1A CIRCLE CEBU CITY"
+    },
+    {
+        "site_id": "4CEBCEB007-1AA01",
+        "site": "UNAI0318",
+        "address": "BEROVAN BLDG. COLON ST. & JUAN LUNA ST. CEBU CITY"
+    },
+    {
+        "site_id": "4CEBCEB008-1AA01",
+        "site": "UNAI0319",
+        "address": "GORORDO AVENUE CEBU CITY"
+    },
+    {
+        "site_id": "4CEBCEB016-1AA01",
+        "site": "UNAI0320",
+        "address": "#71 N. BACALSO AVE. SOUTH EXPRESSWAY PAHINA CENTRAL CEBU CITY"
+    },
+    {
+        "site_id": "4CEBCEB034-1AA01",
+        "site": "UNAI0321",
+        "address": "#21-T CAMPUTHAW, ESCARIO STREET, CEBU CITY"
+    },
+    {
+        "site_id": "4CEBCEB038-1AA01",
+        "site": "UNAI0322",
+        "address": "ALONG COR. P. DEL ROSARIO EXT., & N. BACALSO AVE., CEBU CITY"
+    },
+    {
+        "site_id": "4CEBCEB041-1AA01",
+        "site": "UNAI0323",
+        "address": "MANGO AVENUE/GENERAL MAXILOM AVENUE, CEBU CITY, CEBU (NEAR HORIZONS 101)"
+    },
+    {
+        "site_id": "4CEBCEB041-2AA01",
+        "site": "UNAI0324",
+        "address": "MANGO AVENUE/GENERAL MAXILOM AVENUE, CEBU CITY, CEBU (NEAR HORIZONS 101)"
+    },
+    {
+        "site_id": "4CEBCEB042-1AA01",
+        "site": "UNAI0325",
+        "address": "D. JAKOSALEM CORNER P. DEL ROSARIO ST., CEBU CITY"
+    },
+    {
+        "site_id": "4CEBCEB042-2AA01",
+        "site": "UNAI0326",
+        "address": "D. JAKOSALEM CORNER P. DEL ROSARIO ST., CEBU CITY"
+    },
+    {
+        "site_id": "4CEBCEB043-1AA01",
+        "site": "UNAI0327",
+        "address": "COLON STREET CORNER OSME\u00d1A BLVD. CEBU CITY (NEAR GAISANO CEBU) (LOWER FRAME)"
+    },
+    {
+        "site_id": "4CEBCEB045-1AA01",
+        "site": "UNAI0328",
+        "address": "PAGLAUM ROAD YBANEZ COMPOUND ROAD, SRP-MAMBALING ROAD, CEBU CITY (NEAR PHOENIX GAS STATION)"
+    },
+    {
+        "site_id": "4CEBCEB045-2AA01",
+        "site": "UNAI0329",
+        "address": "PAGLAUM ROAD YBANEZ COMPOUND ROAD, SRP-MAMBALING ROAD, CEBU CITY (NEAR PHOENIX GAS STATION)"
+    },
+    {
+        "site_id": "4CEBLAP002-1AA01",
+        "site": "UNAI0330",
+        "address": "R. IGOT BLDG. G.Y. DELA SERNA ST. BRGY. POBLACION LAPU-LAPU CITY CEBU"
+    },
+    {
+        "site_id": "4CEBMDE006-1AA01",
+        "site": "UNAI0331",
+        "address": "ALONG MC BRIONES HIGHWAY MANDAUE CITY, CEBU"
+    },
+    {
+        "site_id": "4CEBMDE006-2AA01",
+        "site": "UNAI0332",
+        "address": "ALONG MC BRIONES HIGHWAY MANDAUE CITY, CEBU"
+    },
+    {
+        "site_id": "4CEBMDE010-1AA01",
+        "site": "UNAI0333",
+        "address": "ASPAC BLDG. ALONG MC BRIONES HIGHWAY AND GEN. RICARTE STREETS, GUIZO, MANDAUE CITY, CEBU"
+    },
+    {
+        "site_id": "4CEBMDE010-2AA01",
+        "site": "UNAI0334",
+        "address": "ASPAC BLDG. ALONG MC BRIONES HIGHWAY AND GEN. RICARTE STREETS, GUIZO, MANDAUE CITY, CEBU"
+    },
+    {
+        "site_id": "4CEBMDE011-1AA01",
+        "site": "UNAI0335",
+        "address": "ALONG NATIONAL HIGHWAY LOPEZ JAENA STREET, MANDAUE, CEBU CITY (BESIDE PETRON GAS STATION)"
+    },
+    {
+        "site_id": "4CEBMDE011-2AA01",
+        "site": "UNAI0336",
+        "address": "ALONG NATIONAL HIGHWAY LOPEZ JAENA STREET, MANDAUE, CEBU CITY (BESIDE PETRON GAS STATION)"
+    },
+    {
+        "site_id": "4CEBTLD001-1AA01",
+        "site": "UNAI0337",
+        "address": "#401 KATIPUNAN ST. TOLEDO CITY CEBU"
+    },
+    {
+        "site_id": "4CEBTLS100-1AA01",
+        "site": "UNAI0338",
+        "address": "ALONG SAN ROQUE TALISAY CITY, CEBU (SRP)"
+    },
+    {
+        "site_id": "4CEBTLS100-2AA01",
+        "site": "UNAI0339",
+        "address": "ALONG SAN ROQUE TALISAY CITY, CEBU (SRP)"
+    },
+    {
+        "site_id": "4CEBTLS100-3AA01",
+        "site": "UNAI0340",
+        "address": "ALONG SAN ROQUE TALISAY CITY, CEBU (SRP)"
+    },
+    {
+        "site_id": "4NOCBCL002-1AA01",
+        "site": "UNAI0341",
+        "address": "J.S BLDG. LACSON CORNER GALO ST. BACOLOD CITY"
+    },
+    {
+        "site_id": "4NOCBCL002-2AA01",
+        "site": "UNAI0342",
+        "address": "J.S BLDG. LACSON CORNER GALO ST. BACOLOD CITY"
+    },
+    {
+        "site_id": "4NOCBCL003-1AB01",
+        "site": "UNAI0343",
+        "address": "PRUDENTIAL BLDG. #45 GONZAGA ST. COR. GATUSLAO ST. BACOLOD CITY"
+    },
+    {
+        "site_id": "4NOCBCL018-1AA01",
+        "site": "UNAI0344",
+        "address": "AGMAC BLDG., BRGY. MANDALAGAN, BACOLOD CITY"
+    },
+    {
+        "site_id": "4NOCBCL018-2AA01",
+        "site": "UNAI0345",
+        "address": "AGMAC BLDG., BRGY. MANDALAGAN, BACOLOD CITY"
+    },
+    {
+        "site_id": "4NOCBCL019-1AA01",
+        "site": "UNAI0346",
+        "address": "ALONG LACSON STREET, BRGY. MANDALAGAN, BACOLOD CITY"
+    },
+    {
+        "site_id": "4NOCBCL019-2AA01",
+        "site": "UNAI0347",
+        "address": "ALONG LACSON STREET, BRGY. MANDALAGAN, BACOLOD CITY"
+    },
+    {
+        "site_id": "4NOCBCL020-1AA01",
+        "site": "UNAI0348",
+        "address": "J. PITONG LEDESMA ST., BACOLOD (BACOLOD-SILAY AIRPORT) - STRUCTURE 1"
+    },
+    {
+        "site_id": "4NOCBCL020-2AA02",
+        "site": "UNAI0349",
+        "address": "J. PITONG LEDESMA ST., BACOLOD (BACOLOD-SILAY AIRPORT) - STRUCTURE 1"
+    },
+    {
+        "site_id": "4NOCBCL021-1AA01",
+        "site": "UNAI0350",
+        "address": "J. PITONG LEDESMA ST., BACOLOD (BACOLOD-SILAY AIRPORT) - STRUCTURE 2"
+    },
+    {
+        "site_id": "4NOCBCL021-2AA01",
+        "site": "UNAI0351",
+        "address": "J. PITONG LEDESMA ST., BACOLOD (BACOLOD-SILAY AIRPORT) - STRUCTURE 2"
+    },
+    {
+        "site_id": "4NOCBCL022-1AA01",
+        "site": "UNAI0352",
+        "address": "J. PITONG LEDESMA ST., BACOLOD (BACOLOD-SILAY AIRPORT) - STRUCTURE 3"
+    },
+    {
+        "site_id": "4NOCBCL022-2AA02",
+        "site": "UNAI0353",
+        "address": "J. PITONG LEDESMA ST., BACOLOD (BACOLOD-SILAY AIRPORT) - STRUCTURE 3"
+    },
+    {
+        "site_id": "4NOCBCL023-1AA01",
+        "site": "UNAI0354",
+        "address": "9TH LACSON STREET, BACOLOD CITY"
+    },
+    {
+        "site_id": "4NOCBCL023-2AA01",
+        "site": "UNAI0355",
+        "address": "9TH LACSON STREET, BACOLOD CITY"
+    },
+    {
+        "site_id": "4LYTTAC008-1AA01",
+        "site": "UNAI0356",
+        "address": "BARANGAY 77, MARASBARAS, TABUAN NATIONAL HIGWAY, TACLOBAN CITY, LEYTE (Across Robinson's Mall Tacloban City)"
+    },
+    {
+        "site_id": "4LYTTAC008-2AA01",
+        "site": "UNAI0357",
+        "address": "BARANGAY 77, MARASBARAS, TABUAN NATIONAL HIGWAY, TACLOBAN CITY, LEYTE (Across Robinson's Mall Tacloban City)"
+    },
+    {
+        "site_id": "4LYTORM004-1AA01",
+        "site": "UNAI0358",
+        "address": "CORNER REAL AND AVILES STREETS ORMOC CITY, LEYTE"
+    },
+    {
+        "site_id": "4NORBYW001-1AA01",
+        "site": "UNAI0359",
+        "address": "NATIONAL HIGHWAY BRGY. SUBA BAYAWAN CITY NEGROS ORIENTAL"
+    },
+    {
+        "site_id": "4BHLTBL002-1AA01",
+        "site": "UNAI0360",
+        "address": "GALLARES ST. TAGBILARAN CITY (MENDEZ)"
+    },
+    {
+        "site_id": "4ILOILO006-1AB01",
+        "site": "UNAI0361",
+        "address": "ALFREDO T. JAVELLANA BLDG. RIZAL ST. BRGY. NONOY LA PAZ ILOILO CITY"
+    },
+    {
+        "site_id": "4ILOILO120-1AA01",
+        "site": "UNAI0362",
+        "address": "CORNER RIZAL AND LUNA STREETS, ILOILO CITY (30x40))"
+    },
+    {
+        "site_id": "4ILOILO122-1AA01",
+        "site": "UNAI0363",
+        "address": "BRGY. DUYAN-DUYAN, CABATUAN, ILOILO CITY"
+    },
+    {
+        "site_id": "\n4ILOILO125",
+        "site": "UNAI0364",
+        "address": "J BUILDING ZONE 2, UNGKA II PAVIA, ILOILO CITY"
+    },
+    {
+        "site_id": "4AKLKLB003-1AA01",
+        "site": "UNAI0365",
+        "address": "MAAGMA ST. KALIBO AKLAN"
+    },
+    {
+        "site_id": "4CPZROX001-1AA01",
+        "site": "UNAI0366",
+        "address": "BROTARLO BLDG. #3 KM. 1 ROXAS AVENUE ROXAS CITY (CONTRACT#1)"
+    },
+    {
+        "site_id": "4CPZROX001-2AA01",
+        "site": "UNAI0367",
+        "address": "BROTARLO BLDG. #3 KM. 1 ROXAS AVENUE ROXAS CITY (CONTRACT#1)"
+    },
+    {
+        "site_id": "4NORDGT001-1AA01",
+        "site": "UNAI0368",
+        "address": "SOL Y MAR BLDG. RIZAL BLVD. CORNER SAN JUAN ST. DUMAGUETE CITY NEGROS ORIENTAL"
+    },
+    {
+        "site_id": "4NORDGT004-1AA01",
+        "site": "UNAI0369",
+        "address": "TSH BLDG. REAL ST. & CERVANTES ST. DUMAGUETE CITY NEGROS ORIENTAL"
+    },
+    {
+        "site_id": "4NORDGT004-2AA01",
+        "site": "UNAI0370",
+        "address": "TSH BLDG. REAL ST. & CERVANTES ST. DUMAGUETE CITY NEGROS ORIENTAL"
+    },
+    {
+        "site_id": "5SCTGNS002-1AA01",
+        "site": "UNAI0371",
+        "address": "MATUTUM HOTEL BLDG. P. ACHARON BLVD. GEN. SANTOS CITY"
+    },
+    {
+        "site_id": "5SCTGNS002-2AA01",
+        "site": "UNAI0372",
+        "address": "MATUTUM HOTEL BLDG. P. ACHARON BLVD. GEN. SANTOS CITY"
+    },
+    {
+        "site_id": "5SCTGNS003-1AA01",
+        "site": "UNAI0373",
+        "address": "MICHAELS INN BLDG. P. ACHARON BLVD. GENERAL SANTOS CITY"
+    },
+    {
+        "site_id": "5SCTGNS003-2AA01",
+        "site": "UNAI0374",
+        "address": "MICHAELS INN BLDG. P. ACHARON BLVD. GENERAL SANTOS CITY"
+    },
+    {
+        "site_id": "5SCTGNS010-1AA01",
+        "site": "UNAI0375",
+        "address": "SAFI BLDG. 1 ALONG SANTIAGO BLVD. CORNER MAGSAYSAY AVE. GENERAL SANTOS CITY"
+    },
+    {
+        "site_id": "5DDNTGM001-1AA01",
+        "site": "UNAI0376",
+        "address": "TAGUM COMMERCIAL CENTER BLDG. PIONEER AVE. TAGUM DAVAO DEL NORTE"
+    },
+    {
+        "site_id": "5DDNTGM001-2AA01",
+        "site": "UNAI0377",
+        "address": "TAGUM COMMERCIAL CENTER BLDG. PIONEER AVE. TAGUM DAVAO DEL NORTE"
+    },
+    {
+        "site_id": "5DDSDAV001-1AB01",
+        "site": "UNAI0378",
+        "address": "CANDELARIA ST., ECOLAND DAVAO CITY (FORMERLY NEAR SANDAWA AVENUE, BRGY. MATINA APLAYA, DAVAO CITY)"
+    },
+    {
+        "site_id": "5DDSDAV004-1AA01",
+        "site": "UNAI0379",
+        "address": "J.P.LAUREL AVE. CORNER A. LOYOLA ST. BAJADA DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV005X-1AG01",
+        "site": "UNAI0380",
+        "address": "CATITIPAN BUHANGIN DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV005X-1AG01",
+        "site": "UNAI0381",
+        "address": "CATITIPAN BUHANGIN DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV005X-2AB01",
+        "site": "UNAI0382",
+        "address": "CATITIPAN BUHANGIN DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV006-1AB01",
+        "site": "UNAI0383",
+        "address": "QUIMPO BLVD. ECOLAND HIGHWAY DAVAO CITY (SKYLINE)"
+    },
+    {
+        "site_id": "5DDSDAV006-2AB01",
+        "site": "UNAI0384",
+        "address": "QUIMPO BLVD. ECOLAND HIGHWAY DAVAO CITY (SKYLINE)"
+    },
+    {
+        "site_id": "5DDSDAV010-1AA01",
+        "site": "UNAI0385",
+        "address": "DAVAO STARLIGHT BLDG. #160 RAMON MAGSAYSAY AVE. & RECTO ST. DAVAO CITY (WALL SIGN)"
+    },
+    {
+        "site_id": "5DDSDAV017-1AB01",
+        "site": "UNAI0386",
+        "address": "AGTON ST. BRGY. TORIL DAVAO CITY (WALL SIGN)"
+    },
+    {
+        "site_id": "5DDSDAV023-1AA01",
+        "site": "UNAI0387",
+        "address": "YL BUILDING, JP LAUREL STREET, BAJADA, DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV03X-1AA01",
+        "site": "UNAI0389",
+        "address": "DAVAO STARLIGHT BLDG. #160 RAMON MAGSAYSAY AVE. & RECTO ST. DAVAO CITY (ROOF SIGN-INNER STRUCTURE"
+    },
+    {
+        "site_id": "5DDSDAV047-1AA01",
+        "site": "UNAI0388",
+        "address": "CORNER MITSUI ST., J.P LAUREL AVENUE, BAJADA, DAVAO, CITY"
+    },
+    {
+        "site_id": "5DDSDAV047-2AA01",
+        "site": "UNAI0390",
+        "address": "CORNER MITSUI ST., J.P LAUREL AVENUE, BAJADA, DAVAO, CITY"
+    },
+    {
+        "site_id": "5DDSDAV04X-1AA01",
+        "site": "UNAI0391",
+        "address": "DAVAO STARLIGHT BLDG. #160 RAMON MAGSAYSAY AVE. & RECTO ST. DAVAO CITY (ROOF SIGN-OUTER STRUCTURE)"
+    },
+    {
+        "site_id": "5DDSDAV050-1AA01",
+        "site": "UNAI0392",
+        "address": "QUIRINO AVENUE CORNER PELAYO STREET, DAVAO CITY (NEAR PEOPLE'S PARK)"
+    },
+    {
+        "site_id": "5DDSDAV050-2AA01",
+        "site": "UNAI0393",
+        "address": "QUIRINO AVENUE CORNER PELAYO STREET, DAVAO CITY (NEAR PEOPLE'S PARK)"
+    },
+    {
+        "site_id": "5DDSDAV051-1AA01",
+        "site": "UNAI0394",
+        "address": "ALONG MANDUG ROAD CORNER C.P. GARCIA, BUHANGIN, DAVAO CITY (NEAR BUHANGIN ELEM. SCHOOL)"
+    },
+    {
+        "site_id": "5DDSDAV051-2AA01",
+        "site": "UNAI0395",
+        "address": "ALONG MANDUG ROAD CORNER C.P. GARCIA, BUHANGIN, DAVAO CITY (NEAR BUHANGIN ELEM. SCHOOL)"
+    },
+    {
+        "site_id": "5DDSDAV052-1AA01",
+        "site": "UNAI0396",
+        "address": "JP LAUREL, BAJADA, DAVAO CITY (IN FRONT OF DAVAO CHONG HUA HIGH SCHOOL)"
+    },
+    {
+        "site_id": "5DDSDAV053-1AA01",
+        "site": "UNAI0397",
+        "address": "QUIMPO BLVD., ECOLAND, DAVAO CITY (IN FRONT OF PETRON)"
+    },
+    {
+        "site_id": "5DDSDAV053-2AA01",
+        "site": "UNAI0398",
+        "address": "QUIMPO BLVD., ECOLAND, DAVAO CITY (IN FRONT OF PETRON)"
+    },
+    {
+        "site_id": "5DDSDAV054-1AA01",
+        "site": "UNAI0399",
+        "address": "QUIMPO BLVD. ECOLAND DAVAO CITY (NEAR BUS TERMINAL)"
+    },
+    {
+        "site_id": "5DDSDAV054-2AA01",
+        "site": "UNAI0400",
+        "address": "QUIMPO BLVD. ECOLAND DAVAO CITY (NEAR BUS TERMINAL)"
+    },
+    {
+        "site_id": "5DDSDAV055-1AA01",
+        "site": "UNAI0401",
+        "address": "J.P. LAUREL AVE BAJADA DAVAO CITY (BESIDE RED PLANET HOTEL)"
+    },
+    {
+        "site_id": "5DDSDAV055-2AA01",
+        "site": "UNAI0402",
+        "address": "J.P. LAUREL AVE BAJADA DAVAO CITY (BESIDE RED PLANET HOTEL)"
+    },
+    {
+        "site_id": "5DDSDAV056-1AA02",
+        "site": "UNAI0403",
+        "address": "J.P. LAUREL AVENUE BAJADA DAVAO CITY (NEAR DURIAN HOTEL)"
+    },
+    {
+        "site_id": "5DDSDAV056-2AA01",
+        "site": "UNAI0404",
+        "address": "J.P. LAUREL AVENUE BAJADA DAVAO CITY (NEAR DURIAN HOTEL)"
+    },
+    {
+        "site_id": "5DDSDAV058-1AA01",
+        "site": "UNAI0405",
+        "address": "J.P. LAUREL AVE., LANANG, DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV058-1AA02",
+        "site": "UNAI0406",
+        "address": "J.P. LAUREL AVE., LANANG, DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV058-2AA01",
+        "site": "UNAI0407",
+        "address": "J.P. LAUREL AVE., LANANG, DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV058-2AA02",
+        "site": "UNAI0408",
+        "address": "J.P. LAUREL AVE., LANANG, DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV059-1AA01",
+        "site": "UNAI0409",
+        "address": "BANGKEROHAN CORNER SIR, MATINA, DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV060-1AA01",
+        "site": "UNAI0410",
+        "address": "CROSSING MATINA, DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDAV060-2AA02",
+        "site": "UNAI0411",
+        "address": "CROSSING MATINA, DAVAO CITY"
+    },
+    {
+        "site_id": "5DDSDIG001-1AA01",
+        "site": "UNAI0412",
+        "address": "#2002 RIZAL AVE. DIGOS CITY DAVAO DEL SUR"
+    },
+    {
+        "site_id": "5MGDCOT001-1AA01",
+        "site": "UNAI0413",
+        "address": "#90 QUEZON AVE. COTABATO CITY"
+    },
+    {
+        "site_id": "5MGDCOT001-2AA01",
+        "site": "UNAI0414",
+        "address": "#90 QUEZON AVE. COTABATO CITY"
+    },
+    {
+        "site_id": "5MORCDO002-1AA01",
+        "site": "UNAI0415",
+        "address": "UN BLDG. C.M RECTO AVE.BRGY. LAPASAN CAGAYAN DE ORO CITY"
+    },
+    {
+        "site_id": "5MORCDO002-2AA01",
+        "site": "UNAI0416",
+        "address": "UN BLDG. C.M RECTO AVE.BRGY. LAPASAN CAGAYAN DE ORO CITY"
+    },
+    {
+        "site_id": "5MORCDO004-1AA01",
+        "site": "UNAI0417",
+        "address": "LAPASAN HIGHWAY CAGAYAN DE ORO CITY (SKYLINE)"
+    },
+    {
+        "site_id": "5MORCDO004-2AA01",
+        "site": "UNAI0418",
+        "address": "LAPASAN HIGHWAY CAGAYAN DE ORO CITY (SKYLINE)"
+    },
+    {
+        "site_id": "5MORCDO029-1AA01",
+        "site": "UNAI0419",
+        "address": "013 KOLAMBOG STREET LAPASAN HIGHWAY, CAGAYAN DE ORO CITY"
+    },
+    {
+        "site_id": "5MORCDO029-2AA01",
+        "site": "UNAI0420",
+        "address": "013 KOLAMBOG STREET LAPASAN HIGHWAY, CAGAYAN DE ORO CITY"
+    },
+    {
+        "site_id": "5LDNIGN001-1AA01",
+        "site": "UNAI0421",
+        "address": "MEJIA BLDG. ROXAS AVE. CORNER AGUINALDO ST. ILIGAN CTIY"
+    },
+    {
+        "site_id": "5LDNIGN001-2AA01",
+        "site": "UNAI0422",
+        "address": "MEJIA BLDG. ROXAS AVE. CORNER AGUINALDO ST. ILIGAN CTIY"
+    },
+    {
+        "site_id": "5MOCOZA001-1AA01",
+        "site": "UNAI0423",
+        "address": "RIZAL AVE. PORT AREA OZAMIS CITY MISAMIS OCCIDENTAL"
+    },
+    {
+        "site_id": "5MOCOZA001-2AA01",
+        "site": "UNAI0424",
+        "address": "RIZAL AVE. PORT AREA OZAMIS CITY MISAMIS OCCIDENTAL"
+    },
+    {
+        "site_id": "5MOCOZA002-1AA01",
+        "site": "UNAI0425",
+        "address": "BERNARD AVE. CORNER ANIMAS ST. OZAMIS CITY MISAMIS OCCIDENTAL"
+    },
+    {
+        "site_id": "5ZDSZBG003-1AA01",
+        "site": "UNAI0426",
+        "address": "LEDESMA CORNER CLIMACO STS. ZAMBOANGA CITY"
+    },
+    {
+        "site_id": "5ZDSZBG004-1AA01",
+        "site": "UNAI0427",
+        "address": "RMC BLDG. GOV. CAMINS AVE. ZAMBOANGA CITY"
+    },
+    {
+        "site_id": "3D-A1CC5TAG001",
+        "site": "UNAI0428",
+        "address": "ONE BONIFACIO HIGH STREET, 5th AVENUE CORNER 28th STREET BGC, TAGUIG CITY"
+    },
+    {
+        "site_id": "3D-A1CC5TAG002",
+        "site": "UNAI0429",
+        "address": "CENTRAL SQUARE BLDG., ALONG 5TH AVE. CORNER 30TH STREET, BGC,TAGUIG"
+    },
+    {
+        "site_id": "1EDSSJN004",
+        "site": "UNAI0430",
+        "address": "EDSA SANTOLAN MRT CORNER ANNAPOLIS ST. SAN JUAN, METRO MANILA"
+    },
+    {
+        "site_id": "1PSGORT100",
+        "site": "UNAI0431",
+        "address": "OCAI PEDESTRIAN FOOTBRIDGE, INTERSECTION OF DOÑA JULIA VARGAS AVENUE, BANK DRIVE, AND ST. FRANCIS STREETS, ORTIGAS CENTER, MANDALUYONG CITY (LEFT)"
+    },
+    {
+        "site_id": "2TPXSSN100",
+        "site": "UNAI0432",
+        "address": "ALONG TPLEX, ESPERANZA, SISON, PANGASINAN"
+    }
+]
