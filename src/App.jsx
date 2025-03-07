@@ -13,11 +13,14 @@ import { alertTemplate } from "./misc/templates";
 import { RoleProvider } from "~contexts/RoleContext";
 import { UserProvider } from "~contexts/UserContext";
 import { ServiceProvider, useServices } from "~contexts/ServiceContext";
+import { StationProvider } from "./contexts/LRTContext";
 import Sites from "~pages/Sites";
 import { SiteProvider } from "./contexts/SiteContext";
 import Loading from "~components/Loading";
 import SiteAvailability from "~pages/Availability";
 import Modules from "~pages/Modules";
+import Contract from "~pages/Utasi/Contract";
+import LandingPage from "~pages/Utasi/LandingPage";
 
 //Main App Component
 function App() {
@@ -32,10 +35,7 @@ function App() {
       isAuthorized = role.admin;
     }
   }
-  const loginPage =
-    window.location.hostname === "localhost"
-      ? "localhost:5173/login"
-      : "https://ooh.scmiph.com/";
+  const loginPage = window.location.hostname === "localhost" ? "localhost:5173/login" : "https://ooh.scmiph.com/";
 
   //return to login page if user is neither authenticated nor authorized
   if (!isAuthenticated || !isAuthorized) {
@@ -49,15 +49,17 @@ function App() {
         <UserProvider>
           <SiteProvider>
             <ServiceProvider>
-              <Router>
-                <LoadingContainer />
-                <AlertContainer />
-                <Navbar />
-                <main className="flex flex-row gap-4 p-4">
-                  <Sidebar />
-                  <AppRoutes />
-                </main>
-              </Router>
+              <StationProvider>
+                <Router>
+                  <LoadingContainer />
+                  <AlertContainer />
+                  <Navbar />
+                  <main className="flex flex-row gap-4 p-4">
+                    <Sidebar />
+                    <AppRoutes />
+                  </main>
+                </Router>
+              </StationProvider>
             </ServiceProvider>
           </SiteProvider>
         </UserProvider>
@@ -80,25 +82,25 @@ function AppRoutes() {
       <Route exact path="/" element={<>Dashboard</>} />
 
       {/* mapping of pages for dynamic routing based on the user's permissions */}
-      {["sites", "analytics", "availability", "roles", "users", "modules"].map(
-        (route) => {
-          const Component = {
-            sites: Sites,
-            analytics: Sites,
-            availability: SiteAvailability,
-            users: Users,
-            roles: Roles,
-            modules: Modules,
-          }[route];
+      {["sites", "analytics", "contracts", "assets", "availability", "roles", "users", "modules"].map((route) => {
+        const Component = {
+          sites: Sites,
+          analytics: Sites,
+          contracts: Contract,
+          assets: LandingPage,
+          availability: SiteAvailability,
+          users: Users,
+          roles: Roles,
+          modules: Modules,
+        }[route];
 
-          const element = <Component />;
+        const element = <Component />;
 
-          return CheckPermission({
-            path: route,
-            children: <Route path={`/${route}/*`} element={element} />,
-          });
-        }
-      )}
+        return CheckPermission({
+          path: route,
+          children: <Route path={`/${route}/*`} element={element} />,
+        });
+      })}
     </Routes>
   );
 }
@@ -118,12 +120,7 @@ function AlertContainer() {
 
   return (
     alert.isOn && (
-      <Alert
-        icon={RiInformationFill}
-        color={alert.type}
-        onDismiss={() => setAlert(alertTemplate)}
-        className="fixed top-[10%] left-[50%] translate-x-[-50%] animate-fade-fr-t z-10"
-      >
+      <Alert icon={RiInformationFill} color={alert.type} onDismiss={() => setAlert(alertTemplate)} className="fixed top-[10%] left-[50%] translate-x-[-50%] animate-fade-fr-t z-10">
         <span>
           <p className="w-[300px] text-center">{alert.message}</p>
         </span>

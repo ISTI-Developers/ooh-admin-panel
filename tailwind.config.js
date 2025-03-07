@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      rotate: {
+        65: "65deg",
+      },
       animation: {
         "fade-fr-t": "fade-fr-t 750ms ease-in-out",
         fade: "fade 300ms ease-in-out",
@@ -49,6 +52,7 @@ export default {
         "secondary-300": "#9bd3f0",
         "secondary-100": "#cde9f7",
         "secondary-hover": "#0474ae",
+        "custom-gray": "#b5b5b5",
       },
     },
   },
