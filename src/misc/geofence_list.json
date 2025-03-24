@@ -1560,5 +1560,26 @@
         "sb_lat": "14.548942",
         "sb_long": "121.047091",
         "km": "9770.056078"
+    },
+    {
+        "Number": "143",
+        "ID": "B01",
+        "major_thoroughfare": "SEN GIL PUYAT",
+        "entry_exit": "TAFT",
+        "nb_lat": "14.554016",
+        "nb_long": "120.997311",
+        "sb_lat": "14.554214",
+        "sb_long": "120.997352",
+        "km": "35.06773248"
+    },{
+        "Number": "144",
+        "ID": "B02",
+        "major_thoroughfare": "SEN GIL PUYAT",
+        "entry_exit": "OSMENA",
+        "nb_lat": "14.557755",
+        "nb_long": "121.007246",
+        "sb_lat": "14.557658",
+        "sb_long": "121.007314",
+        "km": "35.06773248"
     }
 ]

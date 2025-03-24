@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Alert } from "flowbite-react";
 import { RiInformationFill } from "react-icons/ri";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
@@ -10,7 +10,7 @@ import Users from "~pages/Users";
 import Navbar from "~components/Navbar";
 import Sidebar from "~components/Sidebar";
 import { alertTemplate } from "./misc/templates";
-import { RoleProvider } from "~contexts/RoleContext";
+import { RoleProvider, useRoles } from "~contexts/RoleContext";
 import { UserProvider } from "~contexts/UserContext";
 import { ServiceProvider, useServices } from "~contexts/ServiceContext";
 import { StationProvider } from "./contexts/LRTContext";
@@ -24,24 +24,27 @@ import LandingPage from "~pages/Utasi/LandingPage";
 
 //Main App Component
 function App() {
-  //check if the system has user and role stored in cookies
-  const isAuthenticated = Cookies.get("user");
-  const roleCookie = Cookies.get("role");
-  let isAuthorized = false;
-  //check if the user has admin permissions
-  if (roleCookie) {
-    if (roleCookie !== "undefined") {
-      const role = JSON.parse(roleCookie);
-      isAuthorized = role.admin;
-    }
-  }
-  const loginPage = window.location.hostname === "localhost" ? "localhost:5173/login" : "https://ooh.scmiph.com/";
+  // //check if the system has user and role stored in cookies
+  // const isAuthenticated = Cookies.get("user");
+  // const roleCookie = Cookies.get("role");
+  // let isAuthorized = false;
+  // //check if the user has admin permissions
+  // if (roleCookie) {
+  //   if (roleCookie !== "undefined") {
+  //     const role = JSON.parse(roleCookie);
+  //     isAuthorized = role.admin;
+  //   }
+  // }
+  // const loginPage =
+  //   window.location.hostname === "localhost"
+  //     ? "localhost:5173/login"
+  //     : "https://ooh.scmiph.com/";
 
-  //return to login page if user is neither authenticated nor authorized
-  if (!isAuthenticated || !isAuthorized) {
-    window.location.href = loginPage;
-    return null;
-  }
+  // //return to login page if user is neither authenticated nor authorized
+  // if (!isAuthenticated || !isAuthorized) {
+  //   window.location.href = loginPage;
+  //   return null;
+  // }
 
   return (
     <div className="relative min-h-screen">
@@ -76,25 +79,39 @@ function LoadingContainer() {
 //component for rendering the routes of the system
 function AppRoutes() {
   //service function initialization
+  const { modules } = useRoles();
   const { CheckPermission } = useServices();
+
+  const componentMap = {
+    sites: Sites,
+    analytics: Sites,
+    availability: SiteAvailability,
+    users: Users,
+    roles: Roles,
+    modules: Modules,
+  };
+
+  const moduleList = useMemo(() => {
+    if (!modules) return [];
+    return modules
+      .filter((module) => module.view === "admin" && module.is_parent)
+      .filter((module) => {
+        return CheckPermission({
+          path: module.name.toLowerCase(),
+        });
+      });
+  }, [CheckPermission, modules]);
+
   return (
     <Routes>
-      <Route exact path="/" element={<>Dashboard</>} />
+      <Route exact path="/" element={<>{console.log(moduleList)}</>} />
 
       {/* mapping of pages for dynamic routing based on the user's permissions */}
-      {["sites", "analytics", "contracts", "assets", "availability", "roles", "users", "modules"].map((route) => {
-        const Component = {
-          sites: Sites,
-          analytics: Sites,
-          contracts: Contract,
-          assets: LandingPage,
-          availability: SiteAvailability,
-          users: Users,
-          roles: Roles,
-          modules: Modules,
-        }[route];
+      {moduleList.map((module) => {
+        const route = module.name.toLowerCase();
+        const Component = componentMap[route];
 
-        const element = <Component />;
+        const element = Component ? <Component /> : <>Loading...</>;
 
         return CheckPermission({
           path: route,

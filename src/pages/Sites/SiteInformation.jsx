@@ -173,7 +173,7 @@ function SiteInformation() {
         <Link to={`/sites`} className="underline">
           &#60; Back to sites
         </Link>
-        {!isEditable && <Title>{site.name}</Title>}
+        {!isEditable && <Title>{site.id}</Title>}
         <form
           className="flex flex-col gap-4"
           encType="multipart/form-data"
