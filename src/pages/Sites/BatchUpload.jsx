@@ -29,7 +29,7 @@ function BatchUpload() {
   const [id, setId] = useState(null);
   const [upload, toggleUpload] = useState(false);
   const { setAlert, getInitials, setLoading } = useServices();
-  const { doReload, getLastSiteCode, insertMultipleSites } = useSites();
+  const { doReload, insertMultipleSites, getLastSiteCode } = useSites();
   const navigate = useNavigate();
 
   const onRowDeletion = () => {
@@ -42,19 +42,6 @@ function BatchUpload() {
     setId(null);
   };
 
-  // function approximateSizeInBytes(arr) {
-  //   // Convert the array to a JSON string
-  //   const jsonString = JSON.stringify(arr);
-
-  //   // Calculate the length of the string in bytes
-  //   const bytes = new TextEncoder().encode(jsonString).length;
-
-  //   // Convert bytes to kilobytes (KB) or megabytes (MB)
-  //   const kilobytes = bytes / 1024;
-  //   // const megabytes = kilobytes / 1024;
-
-  //   return kilobytes;
-  // }
   const onUpload = async () => {
     let lastIndex = 0;
     const uploadData = data.map((item) => {
@@ -88,6 +75,7 @@ function BatchUpload() {
           "https://img.freepik.com/free-psd/blank-billboard-mockup_53876-12218.jpg",
       };
     });
+
     toggleUpload(false);
     setLoading(true);
 
@@ -383,9 +371,6 @@ function DataTable({ data, setData, setId }) {
                   className={classNames(
                     "w-full",
                     field.name === "region" ? "min-w-[250px]" : "min-w-[175px]"
-                    // field.name === "region" &&
-                    //   !field.options.includes(item[field.name]) &&
-                    //   "ring-2 ring-red-400 rounded-lg"
                   )}
                 >
                   <option
@@ -497,13 +482,6 @@ function FileUpload({ setData }) {
               component.types.includes("administrative_area_level_1")
           );
 
-          // const city =
-          //   address.city ||
-          //   address.town ||
-          //   address.state ||
-          //   address.state_district ||
-          //   address.village ||
-          //   address.county;
           if (batchUploadHeaders[0].options) {
             if (!batchUploadHeaders[0].options.includes(city.long_name)) {
               batchUploadHeaders[0].options.push(city.long_name);

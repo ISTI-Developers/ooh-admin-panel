@@ -148,14 +148,11 @@ export function ServiceProvider({ children }) {
       return "";
     }
 
-    // Split the string into words
-    const words = str.split(" ");
-
-    // Get the first letter of each word and convert to uppercase
-    const initials = words.map((word) => word.charAt(0).toUpperCase());
+    // Use regex to match the first letter of each word
+    const initials = str.match(/\b[A-Za-z]/g);
 
     // Join the initials together
-    return initials.join("");
+    return initials ? initials.join("").toUpperCase() : "";
   }
 
   useEffect(() => {
@@ -167,11 +164,10 @@ export function ServiceProvider({ children }) {
 
       const response = await retrieveRole(user.role_id);
       setCurrentUserRole(response);
-      console.log("Role Fetched")
+      console.log("Role Fetched");
     };
 
     setup();
-
   }, [reload]);
 
   // Values to be provided by the context
@@ -192,6 +188,7 @@ export function ServiceProvider({ children }) {
     getInitials,
     progress,
     setProgress,
+    currentUserRole,
   };
 
   // Provide the values to the children components

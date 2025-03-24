@@ -12,33 +12,18 @@ function useSearch(data) {
     // Convert query to lowercase for case-insensitive search
     const lowerCaseQuery = term.toLowerCase();
 
-    console.log(lowerCaseQuery);
-
-    // // Filter the data based on the search term
-    const matches = data.filter(
-      ({ site_id, site_code, ideal_view, ...obj }) => {
-        // Iterate over all keys in the object
-        for (let key in obj) {
-          // Convert the value to a string
+    const matches = data.filter(({ ideal_view, ...obj }) => {
+      for (let key in obj) {
+        if (obj[key]) {
           const valueAsString = obj[key].toString();
 
-          // Check if the value is a number
-          if (!isNaN(parseFloat(valueAsString))) {
-            // If it's a number, check if it matches the query
-            if (valueAsString.includes(lowerCaseQuery)) {
-              return true; // If there's a match, return true
-            }
-          } else {
-            // If it's not a number, convert to lowercase and check if it matches the query
-            if (valueAsString.toLowerCase().includes(lowerCaseQuery)) {
-              return true; // If there's a match, return true
-            }
+          if (valueAsString.toLowerCase().includes(lowerCaseQuery)) {
+            return true; // Match found
           }
         }
-
-        return false; // If no match found, return false
       }
-    );
+      return false; // No matches found in any key
+    });
 
     // console.log(matches);
     setResults(matches); // Update the results state with the filtered matches

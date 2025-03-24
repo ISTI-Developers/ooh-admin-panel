@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useSearch from "~/hooks/useSearchWithNumerals";
 import { endpoints, headers } from "./endpoints";
 import axios from "axios";
-import addresses from "../misc/output.json";
+import { format } from "date-fns";
 
 const SiteContext = React.createContext();
 
@@ -44,6 +44,18 @@ export function SiteProvider({ children }) {
       console.log(e);
     }
   };
+
+  const retrieveAreas = async () => {
+    try {
+      const response = await axios.get(endpoints.sites + "/areas", {
+        ...headers,
+      });
+
+      return response.data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const insertSite = async (data) => {
     try {
       const response = await axios.post(endpoints.sites, data, {
@@ -55,23 +67,42 @@ export function SiteProvider({ children }) {
     }
   };
   const insertMultipleSites = async (data) => {
+    let mappedAdditionalData = [];
     const mappedData = data
       .map((item) => {
-        const { size_height, size_unit, size_width, ...rest } = item;
+        const {
+          size_height,
+          size_unit,
+          size_width,
+          structure,
+          address,
+          ...rest
+        } = item;
 
         return rest;
       })
       .map((item) => Object.values(item));
 
-    // console.log(mappedData);
+    if (data[0].structure) {
+      mappedAdditionalData = data.map((item) => [
+        item.structure,
+        item.site_code,
+        item.city,
+        item.address,
+      ]);
+    }
     // const response = {
     //   data: { success: true },
     // };
     // return response.data
     try {
-      const response = await axios.post(endpoints.batch, mappedData, {
-        ...headers,
-      });
+      const response = await axios.post(
+        endpoints.batch,
+        [mappedData, mappedAdditionalData],
+        {
+          ...headers,
+        }
+      );
       return response.data;
       // return response.data;
     } catch (e) {
@@ -108,17 +139,19 @@ export function SiteProvider({ children }) {
     if (!pre) return;
     //sample: pre = UN, site.id = UN10293
     const tempSites = [...sites.sort((a, b) => a.site_id - b.site_id)];
-    // console.log(tempSites);
-    const matchSites = tempSites.filter((site) =>
-      site.site_code.startsWith(pre)
-    );
+    const matchSites = tempSites.filter((site) => {
+      return site.site.startsWith(pre);
+    });
+
+    // console.log(matchSites.length);
 
     if (matchSites.length > 0) {
-      return matchSites[matchSites.length - 1].site_code.match(/\d+/);
+      return matchSites[matchSites.length - 1].site.match(/\d+/);
     } else {
       return 0;
     }
   };
+
   const getAddressInformation = async (lat, lng) => {
     try {
       // const geocodeAPI = `https://nominatim.openstreetmap.org/reverse.php`;
@@ -158,20 +191,87 @@ export function SiteProvider({ children }) {
       console.log(e);
     }
   };
+
+  const insertAvailableSites = async (data) => {
+    try {
+      const response = await axios.post(endpoints.sites + "/available", data, {
+        ...headers,
+      });
+      return response.data;
+      // return response.data;
+    } catch (e) {
+      console.log(e);
+      return e.response.statusText;
+    }
+  };
+
+  const getSiteBooking = async (id = null) => {
+    try {
+      const api = id ? `/booking?id=${id}` : `/booking`;
+      const response = await axios.get(endpoints.sites + api, {
+        ...headers,
+      });
+      if (response.data) {
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const insertSiteBooking = async (site, data) => {
+    const insertData = { ...data, site: site };
+    const values = Object.values(insertData);
+
+    insertData.srp = Intl.NumberFormat("en-PH", {
+      style: "currency",
+      currency: "PHP",
+    }).format(insertData.srp);
+    insertData.monthly_rate = Intl.NumberFormat("en-PH", {
+      style: "currency",
+      currency: "PHP",
+    }).format(insertData.monthly_rate);
+    insertData.site_rental = Intl.NumberFormat("en-PH", {
+      style: "currency",
+      currency: "PHP",
+    }).format(insertData.site_rental);
+    insertData.start = format(new Date(insertData.start), "MMM dd, yyyy");
+    insertData.end = format(new Date(insertData.end), "MMM dd, yyyy");
+    const webhookData = {
+      payload: {
+        app_id: "cli_a7d1c046a9385003",
+        app_secret: "OUKjhSpo4hHvJXd2Sf6k4eLRqEltfv4b",
+      },
+      type: "url_verification",
+      token: "tlBCMBcSK2OoJ2klJV2yefuk0rxHlD0N",
+      bookingData: JSON.stringify(insertData),
+    };
+    try {
+      const response = await axios.post(
+        endpoints.sites + "/notify",
+        webhookData,
+        { ...headers }
+      );
+      if (response.data.status) {
+        const insertResponse = await axios.post(
+          endpoints.sites + "/booking",
+          values,
+          {
+            ...headers,
+          }
+        );
+        return insertResponse.data;
+      }
+    } catch (e) {
+      console.log(e);
+      return e.response;
+    }
+  };
+
   useEffect(() => {
     const setup = async () => {
       const response = await retrieveSites();
-      const data = response.map((item) => {
-        const site = addresses.find((site) => site.site === item.site);
-        return {
-          ...item,
-          address: site ? site.address : null,
-          unis_code: site?.site_id ?? item.site,
-        };
-      });
-      setSites(data);
-      // console.log(data);
-      setCities([...new Set(data.map((site) => site.city))]);
+      setSites(response);
+      setCities([...new Set(response.map((site) => site.city))]);
     };
     setup();
   }, [reload]);
@@ -192,10 +292,14 @@ export function SiteProvider({ children }) {
     updateSite,
     deleteSite,
     retrieveSite,
+    retrieveAreas,
     retrieveSites,
     getLastSiteCode,
+    getSiteBooking,
+    insertSiteBooking,
     getAvailableSites,
     insertMultipleSites,
+    insertAvailableSites,
     getAddressInformation,
   };
 

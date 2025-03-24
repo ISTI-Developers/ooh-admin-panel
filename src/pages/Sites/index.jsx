@@ -8,7 +8,6 @@ import Loader from "~components/Loader";
 import Title from "~components/Title";
 import SiteInformation from "./SiteInformation";
 import { useEffect, useState } from "react";
-import { mainButtonTheme } from "~/misc/themes";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import BatchUpload from "./BatchUpload";
 import SiteOptions from "./SiteOptions";
@@ -52,7 +51,7 @@ function Main() {
     if (sites) {
       let items = [...sites];
       setCount(items.length);
-      items.sort((a, b) => a.site_id - b.site_id);
+      items = items.sort((a, b) => a.site_id - b.site_id);
       setSortedItems(items.reverse().slice(startIndex, endIndex));
     }
   }, [endIndex, setSite, sites, startIndex]);
@@ -67,7 +66,9 @@ function Main() {
               {capitalize(header, "_")}
             </Table.HeadCell>
           ))}
-          <Table.HeadCell className="text-main-300" align="center">Actions</Table.HeadCell>
+          <Table.HeadCell className="text-main-300" align="center">
+            Actions
+          </Table.HeadCell>
         </Table.Head>
         <Table.Body>
           {sortedItems && sortedItems?.length !== 0 ? (
@@ -86,7 +87,7 @@ function Main() {
                     )}
                   </Table.Cell>
                   <Table.Cell className="max-w-[250px] font-semibold">
-                    <Link to={`./${site.site_code}`}>{site.unis_code}</Link>
+                    <Link to={`./${site.site_code}`}>{site.site_code}</Link>
                   </Table.Cell>
                   <Table.Cell className="text-xs">
                     <p>

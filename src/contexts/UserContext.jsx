@@ -96,6 +96,17 @@ export function UserProvider({ children }) {
     }
   };
 
+  const retrieveAccountExecutives = async () => {
+    try {
+      const response = await axios.get(endpoints.users + "/ae", {
+        ...headers,
+      });
+      return response.data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // Define the values to be passed to the UserContext.Provider
   const values = {
     user,
@@ -112,6 +123,7 @@ export function UserProvider({ children }) {
     retrieveUser,
     retrieveUsers,
     updateUserStatus,
+    retrieveAccountExecutives,
   };
 
   // Fetch the users data on component mount and whenever the reload state changes
