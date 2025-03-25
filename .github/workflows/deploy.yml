@@ -24,6 +24,13 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Generate .htaccess
+        run: |
+          echo "RewriteEngine On" > dist/.htaccess
+          echo "RewriteCond %{REQUEST_FILENAME} !-f" >> dist/.htaccess
+          echo "RewriteCond %{REQUEST_FILENAME} !-d" >> dist/.htaccess
+          echo "RewriteRule . /index.html [L]" >> dist/.htaccess
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -32,12 +39,13 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
           server-dir: / # Adjust to your A2 Hosting directory
+          # state-name: /.ftp-deploy-sync-state.json
           dangerous-clean-slate: true  # ✅ Replaces "delete"
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.htaccess**
-            **/logs/*
-            **/backups/*
-            **/.ftp-deploy-sync-state.json**
+          # exclude: |
+          #   **/.git*
+          #   **/.git*/**
+          #   **/node_modules/**
+          #   **/.htaccess**
+          #   **/logs/*
+          #   **/backups/*
+          #   **/.ftp-deploy-sync-state.json**
