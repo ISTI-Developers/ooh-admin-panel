@@ -2,6 +2,7 @@
 import {
   Badge,
   Button,
+  Datepicker,
   Label,
   Modal,
   Select,
@@ -13,7 +14,7 @@ import classNames from "classnames";
 import { differenceInDays, format } from "date-fns";
 import { AiFillEdit } from "react-icons/ai";
 import { useEffect, useMemo, useState } from "react";
-import { mainButtonTheme } from "~/misc/themes";
+import { datePickerTheme, mainButtonTheme } from "~/misc/themes";
 import { useServices } from "~/contexts/ServiceContext";
 import { useUsers } from "~/contexts/UserContext";
 import { useSites } from "~/contexts/SiteContext";
@@ -36,6 +37,7 @@ const SiteItem = ({ site, setSite }) => {
 
       currentSite.adjusted_end_date = new Date(date).toISOString();
       currentSite.adjustment_reason = adjustmentReason;
+      currentSite.modified = 1;
 
       return contracts;
     });
@@ -49,7 +51,7 @@ const SiteItem = ({ site, setSite }) => {
 
       delete currentSite.adjusted_end_date;
       delete currentSite.adjustment_reason;
-
+      currentSite.modified = 1;
       return contracts;
     });
     setDate(site.end_date);
@@ -446,7 +448,15 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                     id="start"
                     min={format(new Date(), "yyyy-MM-dd")}
                     value={format(new Date(information.start), "yyyy-MM-dd")}
-                    onChange={onInformationChange}
+                    onChange={(e) => {
+                      const date = new Date(e.target.value);
+                      if (!isNaN(date)) {
+                        setInformation((prev) => ({
+                          ...prev,
+                          start: date,
+                        }));
+                      }
+                    }}
                     className="rounded-md border-gray-100 shadow w-full"
                   />
                   <span>to</span>
@@ -455,7 +465,15 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                     id="end"
                     min={format(new Date(information.start), "yyyy-MM-dd")}
                     value={format(new Date(information.end), "yyyy-MM-dd")}
-                    onChange={onInformationChange}
+                    onChange={(e) => {
+                      const date = new Date(e.target.value);
+                      if (!isNaN(date)) {
+                        setInformation((prev) => ({
+                          ...prev,
+                          end: date,
+                        }));
+                      }
+                    }}
                     className="rounded-md border-gray-100 shadow w-full"
                   />
                 </div>
@@ -473,6 +491,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                 />
               </BookingFormItem>
             </div>
+            <hr />
             <BookingFormItem id="remarks">
               <Textarea
                 id="remarks"
