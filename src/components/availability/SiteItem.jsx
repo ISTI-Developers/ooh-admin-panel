@@ -64,11 +64,10 @@ const SiteItem = ({ site, setSite }) => {
     setProceed(false);
     information.start = new Date(information.start).toISOString();
     information.end = new Date(information.end).toISOString();
-    
+
     information.site_rental = parseInt(siteRentals);
     information.old_client = site.product;
     const response = await insertSiteBooking(site.site, information);
-    console.log(response);
     if (response.success) {
       setOnBook(false);
       setOnEdit(false);
@@ -80,6 +79,7 @@ const SiteItem = ({ site, setSite }) => {
       });
       doReload((prev) => (prev += 1));
     } else {
+      setProceed(true);
       setAlert({
         isOn: true,
         type: "failure",
@@ -141,7 +141,7 @@ const SiteItem = ({ site, setSite }) => {
   return (
     <>
       {!proceed && (
-        <div className="fixed top-0 left-0 w-dvw h-dvh bg-[#00000020] z-50 pointer-events-auto flex flex-col gap-2 items-center justify-center">
+        <div className="fixed top-0 left-0 w-dvw h-dvh bg-[#00000020] z-[1000] pointer-events-auto flex flex-col gap-2 items-center justify-center">
           <Spinner size="xl" />
           <p className="font-semibold text-cyan-600">Creating booking...</p>
         </div>
@@ -580,32 +580,34 @@ const BookingSummary = ({ information, site }) => {
         </tr>
         {Object.keys(information).map((key) => {
           return (
-            <tr key={key}>
-              <td className="pr-2 py-1">
-                <p
-                  className={classNames(
-                    "font-semibold",
-                    key === "srp" ? "uppercase" : ""
-                  )}
-                >
-                  {capitalize(key, "_")}:
-                </p>
-              </td>
-              <td className="pl-4">
-                <p>
-                  {information[key]
-                    ? ["start", "end"].includes(key)
-                      ? format(new Date(information[key]), "MMMM dd, yyyy")
-                      : ["srp", "monthly_rate"].includes(key)
-                      ? Intl.NumberFormat("en-PH", {
-                          style: "currency",
-                          currency: "PHP",
-                        }).format(information[key])
-                      : information[key]
-                    : "---"}
-                </p>
-              </td>
-            </tr>
+            !["site_rental", "old_client"].includes(key) && (
+              <tr key={key}>
+                <td className="pr-2 py-1">
+                  <p
+                    className={classNames(
+                      "font-semibold",
+                      key === "srp" ? "uppercase" : ""
+                    )}
+                  >
+                    {capitalize(key, "_")}:
+                  </p>
+                </td>
+                <td className="pl-4">
+                  <p>
+                    {information[key]
+                      ? ["start", "end"].includes(key)
+                        ? format(new Date(information[key]), "MMMM dd, yyyy")
+                        : ["srp", "monthly_rate"].includes(key)
+                        ? Intl.NumberFormat("en-PH", {
+                            style: "currency",
+                            currency: "PHP",
+                          }).format(information[key])
+                        : information[key]
+                      : "---"}
+                  </p>
+                </td>
+              </tr>
+            )
           );
         })}
       </tbody>
