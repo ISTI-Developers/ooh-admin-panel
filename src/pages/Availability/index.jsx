@@ -11,7 +11,7 @@ import { differenceInDays, format, getYear } from "date-fns";
 import { useServices } from "~/contexts/ServiceContext";
 
 function SiteAvailability() {
-  const { currentUserRole } = useServices();
+  const { currentUserRole, setAlert } = useServices();
   const { capitalize } = useFunction();
   const { getAvailableSites, insertAvailableSites, getSiteBooking } =
     useSites();
@@ -43,6 +43,20 @@ function SiteAvailability() {
 
     const response = await insertAvailableSites(updatedAvailableSites);
     console.log(response);
+    if (response.success) {
+      toggleModal(false);
+      setAlert({
+        isOn: true,
+        type: "success",
+        message: `Site availability updated.`,
+      });
+    } else {
+      setAlert({
+        isOn: true,
+        type: "failure",
+        message: response,
+      });
+    }
   };
 
   const handleUpdateQuery = (...params) => {

@@ -72,7 +72,7 @@ const SiteItem = ({ site, setSite }) => {
       setAlert({
         isOn: true,
         type: "success",
-        message: `Module status updated successfully`,
+        message: `Booking created!`,
       });
       doReload((prev) => (prev += 1));
     } else {
