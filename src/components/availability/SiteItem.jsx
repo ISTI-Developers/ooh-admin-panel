@@ -6,6 +6,7 @@ import {
   Label,
   Modal,
   Select,
+  Spinner,
   Table,
   Textarea,
   TextInput,
@@ -14,7 +15,7 @@ import classNames from "classnames";
 import { differenceInDays, format } from "date-fns";
 import { AiFillEdit } from "react-icons/ai";
 import { useEffect, useMemo, useState } from "react";
-import { datePickerTheme, mainButtonTheme } from "~/misc/themes";
+import { mainButtonTheme } from "~/misc/themes";
 import { useServices } from "~/contexts/ServiceContext";
 import { useUsers } from "~/contexts/UserContext";
 import { useSites } from "~/contexts/SiteContext";
@@ -25,6 +26,7 @@ const SiteItem = ({ site, setSite }) => {
   const [onEdit, setOnEdit] = useState(false);
   const [currentSite, setCurrentSite] = useState(null);
   const [onBook, setOnBook] = useState(false);
+  const [proceed, setProceed] = useState(true);
   const [adjustmentReason, setAdjustmentReason] = useState(
     site.adjustment_reason ?? ""
   );
@@ -59,9 +61,10 @@ const SiteItem = ({ site, setSite }) => {
   };
 
   const onBookSubmit = async (information) => {
+    setProceed(false);
     information.start = new Date(information.start).toISOString();
     information.end = new Date(information.end).toISOString();
-
+    
     information.site_rental = parseInt(siteRentals);
     information.old_client = site.product;
     const response = await insertSiteBooking(site.site, information);
@@ -69,6 +72,7 @@ const SiteItem = ({ site, setSite }) => {
     if (response.success) {
       setOnBook(false);
       setOnEdit(false);
+      setProceed(true);
       setAlert({
         isOn: true,
         type: "success",
@@ -136,6 +140,12 @@ const SiteItem = ({ site, setSite }) => {
 
   return (
     <>
+      {!proceed && (
+        <div className="fixed top-0 left-0 w-dvw h-dvh bg-[#00000020] z-50 pointer-events-auto flex flex-col gap-2 items-center justify-center">
+          <Spinner size="xl" />
+          <p className="font-semibold text-cyan-600">Creating booking...</p>
+        </div>
+      )}
       <Table.Row
         id={site.site}
         className={classNames(
@@ -287,13 +297,14 @@ const SiteItem = ({ site, setSite }) => {
         onBook={onBook}
         setOnBook={setOnBook}
         site={site}
+        proceed={proceed}
         onBookSubmit={onBookSubmit}
       />
     </>
   );
 };
 
-const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
+const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
   const { retrieveAccountExecutives } = useUsers();
   const [accounts, setAccounts] = useState([]);
   const [information, setInformation] = useState({
@@ -515,6 +526,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                   <Button
                     size="sm"
                     color="success"
+                    disabled={!proceed}
                     className="px-2"
                     onClick={() => onBookSubmit(information)}
                   >
@@ -598,15 +610,6 @@ const BookingSummary = ({ information, site }) => {
         })}
       </tbody>
     </table>
-    // <div>
-    //   {Object.keys(information).map((key) => {
-    //     return (
-    //       <div key={key}>
-    //         <p className="font-semibold">{capitalize(key, "_")}</p>
-    //       </div>
-    //     );
-    //   })}
-    // </div>
   );
 };
 
