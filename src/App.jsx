@@ -64,7 +64,7 @@ function App() {
           </UserProvider>
         </RoleProvider>
       </div>
-      <p className="fixed bottom-0 left-0 w-full text-xs text-slate-200">OOH Incites live version 2.1</p>
+      <p className="fixed bottom-0 left-0 w-full text-xs text-slate-200">OOH Incites live version 2.1.1</p>
     </>
   );
 }
