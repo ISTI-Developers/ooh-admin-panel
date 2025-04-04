@@ -393,6 +393,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
                   "RENEWAL",
                   "QUEUEING",
                   "RELOCATION",
+                  "SPECIAL EXECUTION",
                   "CHANGE OF CONTRACT PERIOD",
                 ].map((opt) => {
                   return (
