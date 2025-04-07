@@ -246,20 +246,25 @@ export function SiteProvider({ children }) {
       bookingData: JSON.stringify(insertData),
     };
     try {
-      const response = await axios.post(
-        endpoints.sites + "/notify",
-        webhookData,
-        { ...headers }
+      const insertResponse = await axios.post(
+        endpoints.sites + "/booking",
+        values,
+        {
+          ...headers,
+        }
       );
-      if (response.data.status) {
-        const insertResponse = await axios.post(
-          endpoints.sites + "/booking",
-          values,
-          {
-            ...headers,
-          }
+      const acknowledgement = insertResponse.data;
+
+      if (acknowledgement.success) {
+        const response = await axios.post(
+          endpoints.sites + "/notify",
+          webhookData,
+          { ...headers }
         );
-        return insertResponse.data;
+        if (response.data.status) {
+          console.log(response.data);
+          return acknowledgement;
+        }
       }
     } catch (e) {
       console.log(e);

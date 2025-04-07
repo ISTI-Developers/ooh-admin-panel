@@ -47,27 +47,30 @@ function App() {
   // }
 
   return (
-    <div className="relative min-h-screen">
-      <RoleProvider>
-        <UserProvider>
-          <SiteProvider>
-            <ServiceProvider>
-              <StationProvider>
-                <Router>
-                  <LoadingContainer />
-                  <AlertContainer />
-                  <Navbar />
-                  <main className="flex flex-row gap-4 p-4">
-                    <Sidebar />
-                    <AppRoutes />
-                  </main>
-                </Router>
-              </StationProvider>
-            </ServiceProvider>
-          </SiteProvider>
-        </UserProvider>
-      </RoleProvider>
-    </div>
+    <>
+      <div className="relative min-h-screen">
+        <RoleProvider>
+          <UserProvider>
+            <SiteProvider>
+              <ServiceProvider>
+                <StationProvider>
+                  <Router>
+                    <LoadingContainer />
+                    <AlertContainer />
+                    <Navbar />
+                    <main className="flex flex-row gap-4 p-4">
+                      <Sidebar />
+                      <AppRoutes />
+                    </main>
+                  </Router>
+                </StationProvider>
+              </ServiceProvider>
+            </SiteProvider>
+          </UserProvider>
+        </RoleProvider>
+      </div>
+      <p className="fixed bottom-0 left-0 w-full text-xs text-slate-200">OOH Incites live version 2.1.1</p>
+    </>
   );
 }
 
@@ -137,7 +140,12 @@ function AlertContainer() {
 
   return (
     alert.isOn && (
-      <Alert icon={RiInformationFill} color={alert.type} onDismiss={() => setAlert(alertTemplate)} className="fixed top-[10%] left-[50%] translate-x-[-50%] animate-fade-fr-t z-10">
+      <Alert
+        icon={RiInformationFill}
+        color={alert.type}
+        onDismiss={() => setAlert(alertTemplate)}
+        className="fixed top-[10%] left-[50%] translate-x-[-50%] animate-fade-fr-t z-10"
+      >
         <span>
           <p className="w-[300px] text-center">{alert.message}</p>
         </span>

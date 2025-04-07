@@ -1,0 +1,51 @@
+name: Deploy to A2 Hosting
+
+on:
+  push:
+    branches:
+      - main # Change if you use another branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Generate .htaccess
+        run: |
+          echo "RewriteEngine On" > dist/.htaccess
+          echo "RewriteCond %{REQUEST_FILENAME} !-f" >> dist/.htaccess
+          echo "RewriteCond %{REQUEST_FILENAME} !-d" >> dist/.htaccess
+          echo "RewriteRule . /index.html [L]" >> dist/.htaccess
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/
+          server-dir: / # Adjust to your A2 Hosting directory
+          # state-name: /.ftp-deploy-sync-state.json
+          dangerous-clean-slate: true  # ✅ Replaces "delete"
+          # exclude: |
+          #   **/.git*
+          #   **/.git*/**
+          #   **/node_modules/**
+          #   **/.htaccess**
+          #   **/logs/*
+          #   **/backups/*
+          #   **/.ftp-deploy-sync-state.json**

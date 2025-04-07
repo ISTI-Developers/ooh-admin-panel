@@ -11,7 +11,7 @@ import { differenceInDays, format, getYear } from "date-fns";
 import { useServices } from "~/contexts/ServiceContext";
 
 function SiteAvailability() {
-  const { currentUserRole } = useServices();
+  const { currentUserRole, setAlert } = useServices();
   const { capitalize } = useFunction();
   const { getAvailableSites, insertAvailableSites, getSiteBooking } =
     useSites();
@@ -26,28 +26,36 @@ function SiteAvailability() {
   });
   const [bookings, setBookings] = useState([]);
 
-  const handleSubmit = async () => {
-    const eligibleSites = availableSites.filter((site) => {
-      return (
-        site.contract_changed ||
-        site.adjusted_end_date ||
-        site.adjustment_reason ||
-        site.remarks !== ""
-      );
-    });
-    if (eligibleSites.length !== 0) {
-      const updatedAvailableSites = eligibleSites.map((contract) => [
-        contract.site,
-        contract.product,
-        contract.end_date,
-        contract.adjusted_end_date,
-        contract.adjustment_reason,
-        contract.remarks,
-        contract.contract_no,
-      ]);
+  const eligibleSites = useMemo(() => {
+    return availableSites.filter((site) => site.modified) ?? [];
+  }, [availableSites]);
 
-      const response = await insertAvailableSites(updatedAvailableSites);
-      console.log(response);
+  const handleSubmit = async () => {
+    const updatedAvailableSites = eligibleSites.map((contract) => [
+      contract.site,
+      contract.product,
+      contract.end_date,
+      contract.adjusted_end_date,
+      contract.adjustment_reason,
+      contract.remarks,
+      contract.contract_no,
+    ]);
+
+    const response = await insertAvailableSites(updatedAvailableSites);
+    console.log(response);
+    if (response.success) {
+      toggleModal(false);
+      setAlert({
+        isOn: true,
+        type: "success",
+        message: `Site availability updated.`,
+      });
+    } else {
+      setAlert({
+        isOn: true,
+        type: "failure",
+        message: response,
+      });
     }
   };
 
@@ -124,14 +132,11 @@ function SiteAvailability() {
           )
         : availableSites;
 
-    // console.log(bookings);
-
     rawSites = rawSites.map((site) => {
       const hasBooking = bookings.find(
         (booking) => booking.site_id === site.site
       );
       if (hasBooking) {
-        console.log(hasBooking);
         delete site.adjusted_end_date;
         return {
           ...site,
@@ -201,6 +206,7 @@ function SiteAvailability() {
                 className="text-white bg-secondary-500 hover:bg-secondary rounded-md transition-all"
                 theme={mainButtonTheme}
                 onClick={() => toggleModal(true)}
+                disabled={eligibleSites.length === 0}
               >
                 Save Changes
               </Button>

@@ -2,9 +2,11 @@
 import {
   Badge,
   Button,
+  Datepicker,
   Label,
   Modal,
   Select,
+  Spinner,
   Table,
   Textarea,
   TextInput,
@@ -24,6 +26,7 @@ const SiteItem = ({ site, setSite }) => {
   const [onEdit, setOnEdit] = useState(false);
   const [currentSite, setCurrentSite] = useState(null);
   const [onBook, setOnBook] = useState(false);
+  const [proceed, setProceed] = useState(true);
   const [adjustmentReason, setAdjustmentReason] = useState(
     site.adjustment_reason ?? ""
   );
@@ -36,6 +39,7 @@ const SiteItem = ({ site, setSite }) => {
 
       currentSite.adjusted_end_date = new Date(date).toISOString();
       currentSite.adjustment_reason = adjustmentReason;
+      currentSite.modified = 1;
 
       return contracts;
     });
@@ -49,7 +53,7 @@ const SiteItem = ({ site, setSite }) => {
 
       delete currentSite.adjusted_end_date;
       delete currentSite.adjustment_reason;
-
+      currentSite.modified = 1;
       return contracts;
     });
     setDate(site.end_date);
@@ -57,23 +61,25 @@ const SiteItem = ({ site, setSite }) => {
   };
 
   const onBookSubmit = async (information) => {
+    setProceed(false);
     information.start = new Date(information.start).toISOString();
     information.end = new Date(information.end).toISOString();
 
     information.site_rental = parseInt(siteRentals);
     information.old_client = site.product;
     const response = await insertSiteBooking(site.site, information);
-    console.log(response);
     if (response.success) {
       setOnBook(false);
       setOnEdit(false);
+      setProceed(true);
       setAlert({
         isOn: true,
         type: "success",
-        message: `Module status updated successfully`,
+        message: `Booking created!`,
       });
       doReload((prev) => (prev += 1));
     } else {
+      setProceed(true);
       setAlert({
         isOn: true,
         type: "failure",
@@ -134,6 +140,12 @@ const SiteItem = ({ site, setSite }) => {
 
   return (
     <>
+      {!proceed && (
+        <div className="fixed top-0 left-0 w-dvw h-dvh bg-[#00000020] z-[1000] pointer-events-auto flex flex-col gap-2 items-center justify-center">
+          <Spinner size="xl" />
+          <p className="font-semibold text-cyan-600">Creating booking...</p>
+        </div>
+      )}
       <Table.Row
         id={site.site}
         className={classNames(
@@ -285,13 +297,14 @@ const SiteItem = ({ site, setSite }) => {
         onBook={onBook}
         setOnBook={setOnBook}
         site={site}
+        proceed={proceed}
         onBookSubmit={onBookSubmit}
       />
     </>
   );
 };
 
-const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
+const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
   const { retrieveAccountExecutives } = useUsers();
   const [accounts, setAccounts] = useState([]);
   const [information, setInformation] = useState({
@@ -380,6 +393,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                   "RENEWAL",
                   "QUEUEING",
                   "RELOCATION",
+                  "SPECIAL EXECUTION",
                   "CHANGE OF CONTRACT PERIOD",
                 ].map((opt) => {
                   return (
@@ -446,7 +460,15 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                     id="start"
                     min={format(new Date(), "yyyy-MM-dd")}
                     value={format(new Date(information.start), "yyyy-MM-dd")}
-                    onChange={onInformationChange}
+                    onChange={(e) => {
+                      const date = new Date(e.target.value);
+                      if (!isNaN(date)) {
+                        setInformation((prev) => ({
+                          ...prev,
+                          start: date,
+                        }));
+                      }
+                    }}
                     className="rounded-md border-gray-100 shadow w-full"
                   />
                   <span>to</span>
@@ -455,7 +477,15 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                     id="end"
                     min={format(new Date(information.start), "yyyy-MM-dd")}
                     value={format(new Date(information.end), "yyyy-MM-dd")}
-                    onChange={onInformationChange}
+                    onChange={(e) => {
+                      const date = new Date(e.target.value);
+                      if (!isNaN(date)) {
+                        setInformation((prev) => ({
+                          ...prev,
+                          end: date,
+                        }));
+                      }
+                    }}
                     className="rounded-md border-gray-100 shadow w-full"
                   />
                 </div>
@@ -473,6 +503,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                 />
               </BookingFormItem>
             </div>
+            <hr />
             <BookingFormItem id="remarks">
               <Textarea
                 id="remarks"
@@ -496,6 +527,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit }) => {
                   <Button
                     size="sm"
                     color="success"
+                    disabled={!proceed}
                     className="px-2"
                     onClick={() => onBookSubmit(information)}
                   >
@@ -549,45 +581,38 @@ const BookingSummary = ({ information, site }) => {
         </tr>
         {Object.keys(information).map((key) => {
           return (
-            <tr key={key}>
-              <td className="pr-2 py-1">
-                <p
-                  className={classNames(
-                    "font-semibold",
-                    key === "srp" ? "uppercase" : ""
-                  )}
-                >
-                  {capitalize(key, "_")}:
-                </p>
-              </td>
-              <td className="pl-4">
-                <p>
-                  {information[key]
-                    ? ["start", "end"].includes(key)
-                      ? format(new Date(information[key]), "MMMM dd, yyyy")
-                      : ["srp", "monthly_rate"].includes(key)
-                      ? Intl.NumberFormat("en-PH", {
-                          style: "currency",
-                          currency: "PHP",
-                        }).format(information[key])
-                      : information[key]
-                    : "---"}
-                </p>
-              </td>
-            </tr>
+            !["site_rental", "old_client"].includes(key) && (
+              <tr key={key}>
+                <td className="pr-2 py-1">
+                  <p
+                    className={classNames(
+                      "font-semibold",
+                      key === "srp" ? "uppercase" : ""
+                    )}
+                  >
+                    {capitalize(key, "_")}:
+                  </p>
+                </td>
+                <td className="pl-4">
+                  <p>
+                    {information[key]
+                      ? ["start", "end"].includes(key)
+                        ? format(new Date(information[key]), "MMMM dd, yyyy")
+                        : ["srp", "monthly_rate"].includes(key)
+                        ? Intl.NumberFormat("en-PH", {
+                            style: "currency",
+                            currency: "PHP",
+                          }).format(information[key])
+                        : information[key]
+                      : "---"}
+                  </p>
+                </td>
+              </tr>
+            )
           );
         })}
       </tbody>
     </table>
-    // <div>
-    //   {Object.keys(information).map((key) => {
-    //     return (
-    //       <div key={key}>
-    //         <p className="font-semibold">{capitalize(key, "_")}</p>
-    //       </div>
-    //     );
-    //   })}
-    // </div>
   );
 };
 
