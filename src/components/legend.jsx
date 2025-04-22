@@ -8,10 +8,6 @@ const Legend = () => {
         <span className="text-blue-700">Available</span>
       </div>
       <div className="flex items-center space-x-1">
-        <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
-        <span className="text-yellow-700">Pending</span>
-      </div>
-      <div className="flex items-center space-x-1">
         <div className="w-4 h-4 rounded-full bg-gray-500"></div>
         <span className="text-gray-700">Taken</span>
       </div>

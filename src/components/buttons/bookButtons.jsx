@@ -31,7 +31,7 @@ export const ParapetBookButton = ({
           ${isSelected ? "bg-green-400 hover:bg-green-500" : ""} 
           ${isDisabled ? "bg-gray-500 hover:bg-gray-600 cursor-not-allowed" : ""} 
           ${isBlocked ? "bg-custom-gray cursor-not-allowed" : "bg-blue-700 hover:bg-blue-800"} 
-          ${isLargeParapet ? "h-[92px] w-[147px]" : "h-[46px] min-w-[70px] max-w-[100px]"} 
+          ${isLargeParapet ? "h-[92px] w-[110px]" : "h-[46px] min-w-[53px]"} 
           relative overflow-hidden text-white font-bold ${className}`}
         >
           {isBlocked && (
@@ -75,7 +75,7 @@ export const BacklitBookButton = ({ onClick, text, className, isDisabled, isSele
       // disabled={isDisabled}
       className={`${
         isSelected ? "bg-green-400 hover:bg-green-500" : "bg-blue-700 hover:bg-blue-800"
-      } h-[50px] w-[257px] text-white font-bold 
+      } h-[50px] w-[193px] text-white font-bold 
        ${isDisabled ? "bg-gray-500 hover:bg-gray-600 cursor-not-allowed" : ""} ${className}`}
     >
       {text}
@@ -91,7 +91,7 @@ BacklitBookButton.propTypes = {
 };
 export const EntryExitButton = ({ className, onClick }) => {
   return (
-    <button onClick={onClick} className={`bg-black h-[92px] w-[168px] text-white font-bold ${className}`}>
+    <button onClick={onClick} className={`bg-black h-[92px] w-[126px] text-white font-bold ${className}`}>
       ENTRY/EXIT
     </button>
   );

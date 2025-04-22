@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Badge, Button } from "flowbite-react";
 import { useLRTapi } from "~contexts/LRT.api";
 import ContractTable from "~components/contractTable";
+import Pillar from "~assets/Pillar.jpg"
 function PillarMapSiteOverview(props) {
   const { toUnderscored } = useFunction();
   // const { queryAssetContracts } = useStations();
@@ -21,7 +22,7 @@ function PillarMapSiteOverview(props) {
         assetDateStart: attachedContract.DateRef1,
         assetDateEnd: attachedContract.DateRef2,
         assetId: selectedPillar.asset_id,
-        viaductId: selectedPillar.id,
+        pillarId: selectedPillar.id,
       };
       const response2 = await attachContract(contractData);
       console.log("Booking 2 successful:", response2);
@@ -33,8 +34,8 @@ function PillarMapSiteOverview(props) {
     }
   };
   const contractedPillar = queryAssetContracts
-    .filter((cp) => cp.viaduct_id !== null && cp.viaduct_id !== undefined)
-    .map((cp) => cp.viaduct_id);
+    .filter((cp) => cp.pillar_id !== null && cp.pillar_id !== undefined)
+    .map((cp) => cp.pillar_id);
   const isBooked = contractedPillar.includes(selectedPillar?.id);
   return (
     <>
@@ -66,7 +67,7 @@ function PillarMapSiteOverview(props) {
                 src={
                   selectedPillar.imageURL
                     ? selectedPillar.imageURL
-                    : "https://test-cdn.movingwalls.com/thumbnail_not_found-min.png"
+                    : Pillar
                 }
                 alt=""
                 className="w-full"

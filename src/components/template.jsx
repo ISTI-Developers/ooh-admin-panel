@@ -8,7 +8,23 @@ import backlitPic from "../assets/backlit_pic.jpg";
 import { useStations } from "~/contexts/LRTContext";
 import ContractTable from "./contractTable";
 import { format } from "date-fns";
-const Template = ({ station_id, station_name, backLitsSB, backLitsNB, parapetSB, parapetNB, SBentryExitButton, NBentryExitButton, southBound, northBound, handleSouthClick, handleNorthClick }) => {
+import Backlits from "./Backlits";
+import Parapets from "./Parapets";
+
+const Template = ({
+  station_id,
+  station_name,
+  backLitsSB,
+  backLitsNB,
+  parapetSB,
+  parapetNB,
+  SBentryExitButton,
+  NBentryExitButton,
+  southBound,
+  northBound,
+  handleSouthClick,
+  handleNorthClick,
+}) => {
   const { updateAsset, queryContracts, attachContract, queryAssetContracts, attachedContract } = useStations();
   const [selectedImage, setSelectedImage] = useState(null);
   const imageRef = useRef(null);
@@ -40,7 +56,6 @@ const Template = ({ station_id, station_name, backLitsSB, backLitsNB, parapetSB,
   };
   const updateParapetButton = async () => {
     if (!selectedParapet) return;
-
     setLoading(true);
     try {
       const response = await updateAsset(selectedParapet.asset_id, {
@@ -97,76 +112,40 @@ const Template = ({ station_id, station_name, backLitsSB, backLitsNB, parapetSB,
     setSelectedContract(attachedContract);
   }, [attachedContract]);
   return (
-    <div className="container">
+    <div>
       <header className="flex justify-center items-center mb-5">
         <h1 className="text-2xl font-bold text-center">{station_name} Station</h1>
       </header>
       <hr className="h-[3px] bg-black border-none" />
-      <div>
-        <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
-        <div className="flex justify-evenly gap-1 mb-5">
-          {backLitsSB.map((sbBackLit) => {
-            return (
-              <BacklitBookButton
-                key={sbBackLit.asset_id}
-                text={sbBackLit.asset_sales_order_code === "" ? sbBackLit.asset_id : sbBackLit.asset_sales_order_code}
-                isDisabled={sbBackLit.asset_status === STATUS.TAKEN ? true : false}
-                onClick={() => handleBacklitClick(sbBackLit)}
-              />
-            );
-          })}
-        </div>
-        <div className="flex items-end justify-center gap-1">
-          {parapetSB.map((parapet, index) => (
-            <Fragment key={parapet.asset_id}>
-              <ParapetBookButton
-                text={parapet.asset_status === STATUS.BLOCKED ? "" : parapet.asset_status === STATUS.TAKEN ? parapet.owner : parapet.owner === "" ? parapet.asset_id : parapet.owner}
-                isBlocked={parapet.asset_status === STATUS.BLOCKED ? true : false}
-                isDisabled={parapet.asset_status === STATUS.TAKEN ? true : false}
-                isLargeParapet={parapet.asset_size === SIZE.LARGE}
-                isPending={parapet.asset_status === STATUS.PENDING ? true : false}
-                widthLabel={parapet.asset_dimension_width}
-                heightLabel={parapet.asset_dimension_height}
-                onClick={() => handleParapetClick(parapet)}
-              />
-              {SBentryExitButton.includes(index) && <EntryExitButton key={`entry-exit-button-${index}`} />}
-            </Fragment>
-          ))}
-        </div>
-        <div className="w-full flex justify-center my-4">
-          <RouteDisplay SouthBound={southBound} NorthBound={northBound} handleNorth={handleNorthClick} handleSouth={handleSouthClick} />
-        </div>
-        <div className="flex items-start justify-center gap-1">
-          {parapetNB.map((parapet, index) => (
-            <Fragment key={parapet.asset_id}>
-              <ParapetBookButton
-                text={parapet.asset_status === STATUS.BLOCKED ? "" : parapet.asset_status === STATUS.TAKEN ? parapet.owner : parapet.owner === "" ? parapet.asset_id : parapet.owner}
-                isBlocked={parapet.asset_status === STATUS.BLOCKED ? true : false}
-                isDisabled={parapet.asset_status === STATUS.TAKEN ? true : false}
-                isLargeParapet={parapet.asset_size === SIZE.LARGE}
-                isPending={parapet.asset_status === STATUS.PENDING ? true : false}
-                widthLabel={parapet.asset_dimension_width}
-                heightLabel={parapet.asset_dimension_height}
-                onClick={() => handleParapetClick(parapet)}
-              />
-              {NBentryExitButton.includes(index) && <EntryExitButton key={`entry-exit-button-${index}`} />}
-            </Fragment>
-          ))}
-        </div>
+      <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
 
-        <div className="flex justify-evenly gap-1 mt-5">
-          {backLitsNB.map((nbBackLit) => {
-            return (
-              <BacklitBookButton
-                key={nbBackLit.asset_id}
-                text={nbBackLit.asset_sales_order_code === "" ? nbBackLit.asset_id : nbBackLit.asset_sales_order_code}
-                isDisabled={nbBackLit.asset_status === STATUS.TAKEN ? true : false}
-                onClick={() => setSelectedImage(backlitPic)}
-              />
-            );
-          })}
-        </div>
+      <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
+
+      <Parapets
+        direction="SOUTH"
+        parapetData={parapetSB}
+        entryExitIndexes={SBentryExitButton}
+        onClick={handleParapetClick}
+      />
+
+      <div className="w-full flex justify-center my-4">
+        <RouteDisplay
+          SouthBound={southBound}
+          NorthBound={northBound}
+          handleNorth={handleNorthClick}
+          handleSouth={handleSouthClick}
+        />
       </div>
+
+      <Parapets
+        direction="NORTH"
+        parapetData={parapetNB}
+        entryExitIndexes={NBentryExitButton}
+        onClick={handleParapetClick}
+      />
+
+      <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
+
       <h1 className="text-2xl font-bold text-center">NORTH BOUND</h1>
       <hr className="h-[3px] bg-black border-none" />
       <Legend />
@@ -184,7 +163,11 @@ const Template = ({ station_id, station_name, backLitsSB, backLitsNB, parapetSB,
             <h2 className="text-lg font-bold mb-2">{selectedParapet.asset_distinction} Parapet Details</h2>
 
             <label className="block text-sm font-medium">Asset Status:</label>
-            <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)} className="w-full p-2 border rounded mb-3">
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="w-full p-2 border rounded mb-3"
+            >
               {Object.values(STATUS).map((status) => (
                 <option key={status} value={status}>
                   {status}
@@ -193,7 +176,11 @@ const Template = ({ station_id, station_name, backLitsSB, backLitsNB, parapetSB,
             </select>
 
             <label className="block text-sm font-medium">Asset Size:</label>
-            <select value={selectedSize} onChange={(e) => setSelectedSize(e.target.value)} className="w-full p-2 border rounded mb-3">
+            <select
+              value={selectedSize}
+              onChange={(e) => setSelectedSize(e.target.value)}
+              className="w-full p-2 border rounded mb-3"
+            >
               {Object.values(SIZE).map((size) => (
                 <option key={size} value={size}>
                   {size}
@@ -201,13 +188,27 @@ const Template = ({ station_id, station_name, backLitsSB, backLitsNB, parapetSB,
               ))}
             </select>
             <label className="block text-sm font-medium">Width:</label>
-            <input type="text" value={width} onChange={(e) => setWidth(e.target.value)} className="w-full p-2 border rounded mb-3" />
+            <input
+              type="text"
+              value={width}
+              onChange={(e) => setWidth(e.target.value)}
+              className="w-full p-2 border rounded mb-3"
+            />
 
             <label className="block text-sm font-medium">Height:</label>
-            <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full p-2 border rounded mb-3" />
+            <input
+              type="text"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              className="w-full p-2 border rounded mb-3"
+            />
 
             <div className="flex justify-between">
-              <button onClick={updateParapetButton} disabled={loading} className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400">
+              <button
+                onClick={updateParapetButton}
+                disabled={loading}
+                className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
+              >
                 {loading ? "Updating..." : "Update"}
               </button>
 
@@ -265,7 +266,11 @@ const Template = ({ station_id, station_name, backLitsSB, backLitsNB, parapetSB,
               )
             )}
             <div className="flex justify-between">
-              <button onClick={updateBacklitButton} disabled={loading} className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400">
+              <button
+                onClick={updateBacklitButton}
+                disabled={loading}
+                className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
+              >
                 {loading ? "Updating..." : "Update"}
               </button>
               <button onClick={closeModal1} className="px-4 py-2 bg-red-500 text-white rounded">

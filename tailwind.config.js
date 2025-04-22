@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       rotate: {
-        65: "65deg",
+        65: "60deg",
       },
       animation: {
         "fade-fr-t": "fade-fr-t 750ms ease-in-out",
@@ -56,8 +56,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require("flowbite/plugin"),
-    require("tailwind-scrollbar")({ nocompatible: true }),
-  ],
+  plugins: [require("flowbite/plugin"), require("tailwind-scrollbar")({ nocompatible: true })],
 };

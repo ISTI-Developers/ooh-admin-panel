@@ -21,6 +21,7 @@ import SiteAvailability from "~pages/Availability";
 import Modules from "~pages/Modules";
 import Contract from "~pages/Utasi/Contract";
 import LandingPage from "~pages/Utasi/LandingPage";
+import AssetAvailability from "~pages/Utasi/AssetAvailability";
 
 //Main App Component
 function App() {
@@ -89,6 +90,9 @@ function AppRoutes() {
     sites: Sites,
     analytics: Sites,
     availability: SiteAvailability,
+    contracts: Contract,
+    assets: LandingPage,
+    asset_availability: AssetAvailability,
     users: Users,
     roles: Roles,
     modules: Modules,

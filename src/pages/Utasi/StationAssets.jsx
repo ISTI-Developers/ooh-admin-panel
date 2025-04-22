@@ -1,4 +1,4 @@
-import Template from "~components/template";
+import Template from "~components/Template";
 import { useState, useEffect } from "react";
 import AssetDetailCard from "~/components/details";
 import { useStations } from "~/contexts/LRTContext";
@@ -98,6 +98,7 @@ const StationAssets = ({ onBackStations }) => {
           Back
         </button>
       </div>
+
       <div className="flex justify-between mb-5">
         <div>
           <select
@@ -114,17 +115,25 @@ const StationAssets = ({ onBackStations }) => {
             ))}
           </select>
         </div>
-        <div className="space-x-2">
-          <button
-            className={`text-white font-bold py-2 px-2 rounded-lg transition-all duration-200 ease-in-out ${
-              isPending ? "bg-gray-400 cursor-not-allowed opacity-70" : "bg-blue-500 hover:bg-blue-600  shadow-md hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            }`}
-            onClick={() => setIsModalOpen(true)}
-            disabled={isPending}
-          >
-            {isPending ? <span className="animate-spin">⏳</span> : `Final Contract`}
-          </button>
-        </div>
+        {attachedContract ? (
+          <>
+            <div className="space-x-2">
+              <button
+                className={`text-white font-bold py-2 px-2 rounded-lg transition-all duration-200 ease-in-out ${
+                  isPending
+                    ? "bg-gray-400 cursor-not-allowed opacity-70"
+                    : "bg-blue-500 hover:bg-blue-600  shadow-md hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                }`}
+                onClick={() => setIsModalOpen(true)}
+                disabled={isPending}
+              >
+                {isPending ? <span className="animate-spin">⏳</span> : `Final Contract`}
+              </button>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       {/* {contractStation && (
         <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 border border-gray-200">
@@ -144,33 +153,35 @@ const StationAssets = ({ onBackStations }) => {
           </div>
         </div>
       )} */}
-      <div className="flex justify-between">
-        <div className="flex container">
-          <Template
-            key={currentStation.station_id}
-            station_id={currentStation.station_id}
-            station_name={currentStation?.station_name || "Sample Station"}
-            backLitsSB={currentStation.backlits?.filter((b) => b.asset_distinction.startsWith("SB")) || []}
-            backLitsNB={currentStation.backlits?.filter((b) => b.asset_distinction.startsWith("NB")) || []}
-            parapetSB={currentStation.parapets?.filter((p) => p.asset_distinction.startsWith("SB")) || []}
-            parapetNB={currentStation.parapets?.filter((p) => p.asset_distinction.startsWith("NB")) || []}
-            SBentryExitButton={currentStation.south_ee || []}
-            NBentryExitButton={currentStation.north_ee || []}
-            southBound={currentStation.next_south_station || ""}
-            northBound={currentStation.next_north_station || ""}
-            handleSouthClick={handlePreviousStation}
-            handleNorthClick={handleNextStation}
-          />
-        </div>
 
-        {currentStation.details?.length > 0 && (
-          <div className="flex flex-col">
-            {currentStation.details[0]?.details?.map((detail, index) => (
-              <AssetDetailCard key={index} station_id={currentStation.station_id} station_name={currentStation.station_name} detail={detail} />
-            ))}
-          </div>
-        )}
-      </div>
+      <Template
+        key={currentStation.station_id}
+        station_id={currentStation.station_id}
+        station_name={currentStation?.station_name || "Sample Station"}
+        backLitsSB={currentStation.backlits?.filter((b) => b.asset_distinction.startsWith("SB")) || []}
+        backLitsNB={currentStation.backlits?.filter((b) => b.asset_distinction.startsWith("NB")) || []}
+        parapetSB={currentStation.parapets?.filter((p) => p.asset_distinction.startsWith("SB")) || []}
+        parapetNB={currentStation.parapets?.filter((p) => p.asset_distinction.startsWith("NB")) || []}
+        SBentryExitButton={currentStation.south_ee || []}
+        NBentryExitButton={currentStation.north_ee || []}
+        southBound={currentStation.next_south_station || ""}
+        northBound={currentStation.next_north_station || ""}
+        handleSouthClick={handlePreviousStation}
+        handleNorthClick={handleNextStation}
+      />
+      {currentStation.details?.length > 0 && (
+        <div className="flex flex-col">
+          {currentStation.details[0]?.details?.map((detail, index) => (
+            <AssetDetailCard
+              key={index}
+              station_id={currentStation.station_id}
+              station_name={currentStation.station_name}
+              detail={detail}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed z-50 inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
@@ -201,7 +212,10 @@ const StationAssets = ({ onBackStations }) => {
             {/* Close Modal Button */}
             <div className={`mt-4 flex ${selectedContract ? "justify-between" : "justify-end"}`}>
               {selectedContract && (
-                <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onClick={handleSubmit}>
+                <button
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                  onClick={handleSubmit}
+                >
                   Booked!
                 </button>
               )}
@@ -232,7 +246,10 @@ const StationAssets = ({ onBackStations }) => {
             </div>
             {/* Close Modal Button */}
             <div className="mt-4 flex justify-between">
-              <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onClick={updateToPending}>
+              <button
+                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                onClick={updateToPending}
+              >
                 Book
               </button>
               <button

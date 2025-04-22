@@ -23,14 +23,8 @@
             "~/*": [
                 "src/*"
             ],
-            "~StationAssets/*": [
-                "src/pages/StationAssets/*"
-            ],
-            "~LRT/*": [
-                "src/pages/StationAssets/*"
-            ],
-            "~Utasi/*": [
-                "src/pages/Utasi/*"
+            "~pillarMap/*": [
+                "src/components/pillarMap/*"
             ]
         }
     }

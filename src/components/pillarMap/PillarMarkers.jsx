@@ -22,8 +22,8 @@ function PillarMarkers({ center, setCenter }) {
     const isSouthbound = assetDirection.includes("south bound");
 
     const contractedPillar = queryAssetContracts
-      .filter((cp) => cp.viaduct_id !== null && cp.viaduct_id !== undefined)
-      .map((cp) => cp.viaduct_id);
+      .filter((cp) => cp.pillar_id !== null && cp.pillar_id !== undefined)
+      .map((cp) => cp.pillar_id);
     const isBooked = contractedPillar.includes(item.id);
 
     return (

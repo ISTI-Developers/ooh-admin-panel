@@ -50,9 +50,12 @@ const updateParapetStatus = async (station_id, asset_distinction, asset_id, stat
     }
   }
 };
-const retrieveContracts = async () => {
+const retrieveContracts = async (page = 1, limit = 10) => {
   try {
-    const response = await axios.get(endpoints.contracts, headers);
+    const response = await axios.get(endpoints.contracts, {
+      params: { page, limit },
+      ...headers,
+    });
     return response.data;
   } catch (error) {
     console.error("Error retrieving contracts:", error.message);
@@ -98,9 +101,9 @@ const getTrainAssetsSpecs = async () => {
     throw error;
   }
 };
-const getExternalAssetSpecs = async () => {
+const getExternalAssetSpecs = async (asset_id) => {
   try {
-    const response = await axios.get(`${endpoints.trains}/external/specs`, headers);
+    const response = await axios.get(`${endpoints.trains}/external/specs/${asset_id}`, { headers });
     return response.data;
   } catch (error) {
     console.error(
@@ -135,7 +138,44 @@ const updateTrainAsset = async (id, avlbl, ood) => {
     throw error;
   }
 };
+const unTagContract = async (id) => {
+  try {
+    const response = await axios.delete(`${endpoints.contracts}/${id}`, headers);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error untagging contract:",
+      error.response ? `Status: ${error.response.status}, Data: ${JSON.stringify(error.response.data)}` : error.message
+    );
+    throw error;
+  }
+};
 
+const retrieveLandmarks = async () => {
+  try {
+    const response = await axios.get(endpoints.landmarks, headers);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const retrieveParapetsAvailability = async () => {
+  try {
+    const response = await axios.get(endpoints.availability + "/parapets", headers);
+    return response.data;
+  } catch (error) {
+    console.error("Error retrieving parapets availability:", error.message);
+  }
+};
+const retrieveBacklitsAvailability = async () => {
+  try {
+    const response = await axios.get(endpoints.availability + "/backlits", headers);
+    return response.data;
+  } catch (error) {
+    console.error("Error retrieving parapets availability:", error.message);
+  }
+};
 export const useLRTapi = () => {
   return {
     retrieveAllStationDetails,
@@ -150,5 +190,9 @@ export const useLRTapi = () => {
     getExternalAssetSpecs,
     trainAssetBook,
     updateTrainAsset,
+    retrieveLandmarks,
+    unTagContract,
+    retrieveParapetsAvailability,
+    retrieveBacklitsAvailability,
   };
 };

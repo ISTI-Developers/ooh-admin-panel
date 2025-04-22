@@ -1,10 +1,10 @@
-import { FaTrain, FaBus, FaBan } from "react-icons/fa";
-import { MdFlight } from "react-icons/md";
 import { useState } from "react";
-import LRTAssets from "./LRTAssets";
 import PropTypes from "prop-types";
-import { FaArrowLeft } from "react-icons/fa";
 import { useStations } from "~contexts/LRTContext";
+import LRTAssets from "./LRTAssets";
+import { FaArrowLeft, FaBan, FaBus, FaTrain } from "react-icons/fa";
+import { MdFlight } from "react-icons/md";
+
 const LandingPage = ({ backToContracts }) => {
   const [selectedTransport, setSelectedTransport] = useState(null);
   const { attachedContract } = useStations();
@@ -25,7 +25,7 @@ const LandingPage = ({ backToContracts }) => {
       {selectedTransport ? (
         <>{selectedTransport}</>
       ) : (
-        <>
+        <div className="container flex flex-col justify-center">
           {attachedContract && (
             <div className="mb-4">
               <button onClick={backToContracts} className="flex items-center px-4 py-2 rounded hover:bg-gray-400">
@@ -40,7 +40,9 @@ const LandingPage = ({ backToContracts }) => {
                 <div key={index} className="relative">
                   <div
                     className={`flex flex-col items-center justify-center p-6 rounded-lg shadow-md w-48 h-64 cursor-pointer ${
-                      item.status === "inactive" ? "bg-blue-100 opacity-50 filter blur-sm pointer-events-none" : "bg-blue-100 hover:bg-blue-200 transition"
+                      item.status === "inactive"
+                        ? "bg-blue-100 opacity-50 filter blur-sm pointer-events-none"
+                        : "bg-blue-100 hover:bg-blue-200 transition"
                     }`}
                     onClick={() => item.status === "active" && setSelectedTransport(item.component)}
                   >
@@ -57,7 +59,7 @@ const LandingPage = ({ backToContracts }) => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

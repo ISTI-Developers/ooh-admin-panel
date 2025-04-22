@@ -42,6 +42,11 @@ export const testLinks = {
       link: "/assets",
       icon: IoIosTrain,
     },
+    {
+      title: "asset_availability",
+      link: "/asset_availability",
+      icon: IoIosTrain,
+    },
   ],
   system: [
     {

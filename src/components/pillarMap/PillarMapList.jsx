@@ -6,16 +6,15 @@ import { IoMdMenu } from "react-icons/io";
 import { useFunction } from "~misc/functions";
 import { accordion } from "~misc/themes-copy";
 import { useStations } from "~contexts/LRTContext";
-import pillar from "~assets/pillar.png";
-
+                                                                                                                                                                                                                                                                                                                              
 function PillarMapList({ updateMapCenter }) {
   const { queryResults, setSelectedPillar, queryAssetContracts } = useStations();
   const { offsetCoordinate } = useFunction();
   const [showLocations, toggleLocations] = useState(false);
 
   const contractedPillar = queryAssetContracts
-    .filter((cp) => cp.viaduct_id !== null && cp.viaduct_id !== undefined)
-    .map((cp) => cp.viaduct_id);
+    .filter((cp) => cp.pillar_id !== null && cp.pillar_id !== undefined)
+    .map((cp) => cp.pillar_id);
   return (
     queryResults && (
       <>
