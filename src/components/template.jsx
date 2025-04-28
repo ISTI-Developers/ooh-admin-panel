@@ -1,10 +1,8 @@
-import { useState, useRef, Fragment, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { BacklitBookButton, ParapetBookButton, EntryExitButton } from "./buttons/bookButtons";
 import { SIZE, STATUS } from "~misc/generalAssets";
 import { RouteDisplay } from "~misc/RouteDisplay";
 import Legend from "./legend";
-import backlitPic from "../assets/backlit_pic.jpg";
 import { useStations } from "~/contexts/LRTContext";
 import ContractTable from "./contractTable";
 import { format } from "date-fns";
@@ -25,9 +23,7 @@ const Template = ({
   handleSouthClick,
   handleNorthClick,
 }) => {
-  const { updateAsset, queryContracts, attachContract, queryAssetContracts, attachedContract } = useStations();
-  const [selectedImage, setSelectedImage] = useState(null);
-  const imageRef = useRef(null);
+  const { updateAsset, attachContract, queryAssetContracts, attachedContract } = useStations();
   const [selectedParapet, setSelectedParapet] = useState(null);
   const [selectedBacklit, setSelectedBacklit] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -77,12 +73,12 @@ const Template = ({
     }
   };
 
-  const updateBacklitButton = async () => {
+  const bookBackLit = async () => {
     if (!selectedBacklit) return;
     setLoading(true);
     try {
       await updateAsset(selectedBacklit.asset_id, {
-        asset_status: selectedStatus,
+        asset_status: "TAKEN",
       });
       const contractData = {
         assetSalesOrderCode: selectedContract.SalesOrderCode,
@@ -90,12 +86,26 @@ const Template = ({
         assetDateEnd: selectedContract.DateRef2,
         stationId: station_id,
         assetId: 2,
-        assetFacing: "SB",
-        id: selectedBacklit.asset_id,
+        assetFacing: selectedBacklit.asset_distinction.includes("SB") ? "SB" : "NB",
+        backlitId: selectedBacklit.asset_id,
       };
       await attachContract(contractData);
       alert("Updated successfully!");
-      // window.location.reload();
+    } catch (error) {
+      console.error("Error updating asset:", error);
+      alert("Failed to update asset.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const editBacklit = async () => {
+    if (!selectedBacklit) return;
+    setLoading(true);
+    try {
+      await updateAsset(selectedBacklit.asset_id, {
+        asset_status: selectedStatus,
+      });
+      alert("Updated successfully!");
     } catch (error) {
       console.error("Error updating asset:", error);
       alert("Failed to update asset.");
@@ -106,8 +116,7 @@ const Template = ({
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
   };
-  const matchedContract = queryAssetContracts.find((contract) => contract.id === selectedBacklit?.asset_id);
-
+  const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === selectedBacklit?.asset_id);
   useEffect(() => {
     setSelectedContract(attachedContract);
   }, [attachedContract]);
@@ -149,13 +158,7 @@ const Template = ({
       <h1 className="text-2xl font-bold text-center">NORTH BOUND</h1>
       <hr className="h-[3px] bg-black border-none" />
       <Legend />
-      {selectedImage && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-          <div ref={imageRef} className="relative">
-            <img src={selectedImage} alt="Parapet" className="rounded-lg shadow-lg" />
-          </div>
-        </div>
-      )}
+
       {selectedParapet && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded shadow-lg relative w-80">
@@ -224,32 +227,32 @@ const Template = ({
           <div className="bg-white p-4 rounded shadow-lg relative w-2/5">
             <h2 className="text-lg font-bold mb-2">{station_name}</h2>
             <h2 className="text-lg font-bold mb-2">{selectedBacklit.asset_distinction} Backlit Details</h2>
-
-            <label className="block text-sm font-medium">Asset Status:</label>
-            <select value={selectedStatus} onChange={handleStatusChange} className="w-full p-2 border rounded mb-3">
-              {Object.values(STATUS).map((status) => (
-                <option key={status} value={status}>
-                  {status}
-                </option>
-              ))}
-            </select>
-
+            {!attachedContract && !matchedContract && (
+              <div className="mb-3">
+                <label className="block text-sm font-medium mb-1">Asset Status:</label>
+                <select value={selectedStatus} onChange={handleStatusChange} className="w-full p-2 border rounded">
+                  {Object.values(STATUS).map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             {matchedContract ? (
-              <>
-                <div className="space-y-2 text-sm mb-5 text-gray-700">
-                  <p>
-                    <span className="font-semibold">Sales Order Code: </span> {matchedContract.asset_sales_order_code}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Start Date: </span>
-                    {format(new Date(matchedContract.asset_date_start), "MMMM dd, yyyy")}
-                  </p>
-                  <p>
-                    <span className="font-semibold">End Date: </span>
-                    {format(new Date(matchedContract.asset_date_end), "MMMM dd, yyyy")}
-                  </p>
-                </div>
-              </>
+              <div className="space-y-2 text-sm mb-5 text-gray-700">
+                <p>
+                  <span className="font-semibold">Sales Order Code: </span> {matchedContract.asset_sales_order_code}
+                </p>
+                <p>
+                  <span className="font-semibold">Start Date: </span>
+                  {format(new Date(matchedContract.asset_date_start), "MMMM dd, yyyy")}
+                </p>
+                <p>
+                  <span className="font-semibold">End Date: </span>
+                  {format(new Date(matchedContract.asset_date_end), "MMMM dd, yyyy")}
+                </p>
+              </div>
             ) : (
               selectedContract && (
                 <>
@@ -265,15 +268,31 @@ const Template = ({
                 </>
               )
             )}
-            <div className="flex justify-between">
+            <div className="flex justify-between space-x-4 mt-5">
+              {!matchedContract && attachedContract && (
+                <button
+                  onClick={bookBackLit}
+                  disabled={loading}
+                  className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
+                >
+                  {loading ? "Tagging..." : "Tag"}
+                </button>
+              )}
+
+              {!matchedContract && !attachedContract && (
+                <button
+                  onClick={editBacklit}
+                  disabled={loading}
+                  className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+                >
+                  {loading ? "Editing..." : "Edit"}
+                </button>
+              )}
+
               <button
-                onClick={updateBacklitButton}
-                disabled={loading}
-                className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
+                onClick={closeModal1}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
               >
-                {loading ? "Updating..." : "Update"}
-              </button>
-              <button onClick={closeModal1} className="px-4 py-2 bg-red-500 text-white rounded">
                 Close
               </button>
             </div>

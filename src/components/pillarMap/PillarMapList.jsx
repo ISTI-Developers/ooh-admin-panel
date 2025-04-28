@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { Accordion } from "flowbite-react";
 import { IoMdMenu } from "react-icons/io";
 import { useFunction } from "~misc/functions";
-import { accordion } from "~misc/themes-copy";
+import { accordion } from "~misc/themes";
 import { useStations } from "~contexts/LRTContext";
                                                                                                                                                                                                                                                                                                                               
 function PillarMapList({ updateMapCenter }) {

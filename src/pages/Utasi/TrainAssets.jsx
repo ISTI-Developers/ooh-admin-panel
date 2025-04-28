@@ -40,12 +40,13 @@ const TrainAssets = ({ onBackTrain }) => {
   };
 
   const bookTrain = async (e) => {
+    e.preventDefault();
     if (qty <= 0 || qty > avlbl) {
       alert(`Invalid quantity! Must be between 1 and ${avlbl}.`);
       return;
     }
-    e.preventDefault();
-
+    const confirmed = window.confirm(`Confirm booking ${qty} asset(s)?`);
+    if (!confirmed) return;
     try {
       const contractData = {
         assetSalesOrderCode: attachedContract.SalesOrderCode,
@@ -58,7 +59,13 @@ const TrainAssets = ({ onBackTrain }) => {
       const response2 = await attachContract(contractData);
       console.log("Booking successful:", response);
       console.log("Booking 2 successful:", response2);
-      setTrainAssets((prev) => prev.map((asset) => (asset.asset_id === bookedAsset ? { ...asset, booked: asset.booked + qty, available: asset.available - qty } : asset)));
+      setTrainAssets((prev) =>
+        prev.map((asset) =>
+          asset.asset_id === bookedAsset
+            ? { ...asset, booked: asset.booked + qty, available: asset.available - qty }
+            : asset
+        )
+      );
     } catch (error) {
       console.error("Booking failed:", error);
       alert("Booking failed. Please try again.");
@@ -71,7 +78,13 @@ const TrainAssets = ({ onBackTrain }) => {
     try {
       const response = await updateTrainAsset(selectedAsset.asset_id, avlbl, ood);
       if (response && response.data) {
-        setTrainAssets((prev) => prev.map((asset) => (asset.asset_id === selectedAsset.asset_id ? { ...asset, available: response.data.available, out_of_order: response.data.out_of_order } : asset)));
+        setTrainAssets((prev) =>
+          prev.map((asset) =>
+            asset.asset_id === selectedAsset.asset_id
+              ? { ...asset, available: response.data.available, out_of_order: response.data.out_of_order }
+              : asset
+          )
+        );
         setAvlbl(response.data.available);
         setOod(response.data.out_of_order);
       }
@@ -141,7 +154,10 @@ const TrainAssets = ({ onBackTrain }) => {
                     <button
                       className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full"
                       onClick={() => {
-                        setBookModal(true), setAvlbl(item.available), setSelectedAsset(item), setBookedAsset(item.asset_id);
+                        setBookModal(true),
+                          setAvlbl(item.available),
+                          setSelectedAsset(item),
+                          setBookedAsset(item.asset_id);
                       }}
                     >
                       Book
@@ -152,7 +168,11 @@ const TrainAssets = ({ onBackTrain }) => {
                     <button
                       className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full"
                       onClick={() => {
-                        setEditModal(true), setAvlbl(item.available), setOod(item.out_of_order), setBkd(item.booked), setSelectedAsset(item);
+                        setEditModal(true),
+                          setAvlbl(item.available),
+                          setOod(item.out_of_order),
+                          setBkd(item.booked),
+                          setSelectedAsset(item);
                       }}
                     >
                       Edit
@@ -206,7 +226,12 @@ const TrainAssets = ({ onBackTrain }) => {
                   return Array.isArray(imageSrc) ? (
                     <div className="space-y-2">
                       {imageSrc.map((src, index) => (
-                        <img key={index} src={src} alt={`Asset ${index + 1}`} className="w-full h-auto rounded-lg shadow-md" />
+                        <img
+                          key={index}
+                          src={src}
+                          alt={`Asset ${index + 1}`}
+                          className="w-full h-auto rounded-lg shadow-md"
+                        />
                       ))}
                     </div>
                   ) : (
@@ -220,7 +245,10 @@ const TrainAssets = ({ onBackTrain }) => {
           )}
         </Modal.Body>
         <Modal.Footer className="flex justify-end">
-          <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => setDetailModal(false)}>
+          <button
+            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+            onClick={() => setDetailModal(false)}
+          >
             Close
           </button>
         </Modal.Footer>
@@ -238,7 +266,10 @@ const TrainAssets = ({ onBackTrain }) => {
                 -
               </button>
               <span className="px-4 border-t border-b">{qty}</span>
-              <button className="px-3 py-1 border rounded-r bg-gray-200" onClick={() => setQty(qty < avlbl ? qty + 1 : avlbl)}>
+              <button
+                className="px-3 py-1 border rounded-r bg-gray-200"
+                onClick={() => setQty(qty < avlbl ? qty + 1 : avlbl)}
+              >
                 +
               </button>
             </div>
@@ -255,7 +286,10 @@ const TrainAssets = ({ onBackTrain }) => {
                 />
               </>
             )}
-            <button onClick={bookTrain} className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full mt-4 w-full">
+            <button
+              onClick={bookTrain}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full mt-4 w-full"
+            >
               Book
             </button>
           </div>
@@ -269,12 +303,10 @@ const TrainAssets = ({ onBackTrain }) => {
               <button onClick={() => setEditModal(false)}>Exit</button>
             </div>
 
-            {/* Total Trains Calculation */}
             <label className="block mt-4 font-medium">
               Total Trains with {selectedAsset.asset_name}: {avlbl + ood + bkd}
             </label>
 
-            {/* Set Available Quantity */}
             <label className="block mt-4 font-medium">Set Available</label>
             <div className="flex items-center mt-1">
               <button
@@ -292,7 +324,6 @@ const TrainAssets = ({ onBackTrain }) => {
               </button>
             </div>
 
-            {/* Set Out of Order (Auto-Adjusts Available) */}
             <label className="block mt-4 font-medium">Set Out of Order</label>
             <div className="flex items-center mt-1">
               <button
@@ -320,8 +351,11 @@ const TrainAssets = ({ onBackTrain }) => {
               </button>
             </div>
 
-            <button onClick={updateTrain} className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full mt-4 w-full">
-              Book
+            <button
+              onClick={updateTrain}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full mt-4 w-full"
+            >
+              Update
             </button>
           </div>
         </div>

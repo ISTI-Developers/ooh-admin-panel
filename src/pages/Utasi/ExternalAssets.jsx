@@ -197,14 +197,12 @@ const ExternalAssets = ({ onBackExternal }) => {
 
               {rest.length > 0 && <p className="text-sm text-green-600">{rest.join(",")}</p>}
               {attachedContract ? (
-                <>
-                  <button
-                    className="bg-green-400 text-white font-bold py-2 px-4 rounded-md mt-4 w-full hover:bg-green-700"
-                    onClick={() => setIsModalOpen(true)}
-                  >
-                    BOOK VIADUCT
-                  </button>
-                </>
+                <button
+                  className="bg-green-400 text-white font-bold py-2 px-4 rounded-md mt-4 w-full hover:bg-green-700"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  BOOK VIADUCT
+                </button>
               ) : (
                 <></>
               )}

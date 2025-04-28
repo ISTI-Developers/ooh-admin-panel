@@ -1,21 +1,18 @@
-import { useMemo, useState } from "react";
-import PropTypes from "prop-types";
-import { useFunction } from "~misc/functions";
+import { useState } from "react";
 import { useStations } from "~contexts/LRTContext";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
-import { Badge, Button } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { useLRTapi } from "~contexts/LRT.api";
 import ContractTable from "~components/contractTable";
-import Pillar from "~assets/Pillar.jpg"
+import Pillar from "~assets/Pillar.jpg";
 function PillarMapSiteOverview(props) {
-  const { toUnderscored } = useFunction();
-  // const { queryAssetContracts } = useStations();
   const { attachContract } = useLRTapi();
 
   const { selectedPillar, attachedContract, queryAssetContracts } = useStations();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const bookPillar = async () => {
+    const confirmed = window.confirm("Are you sure you want to book this pillar?");
+    if (!confirmed) return;
     try {
       const contractData = {
         assetSalesOrderCode: attachedContract.SalesOrderCode,
@@ -24,15 +21,17 @@ function PillarMapSiteOverview(props) {
         assetId: selectedPillar.asset_id,
         pillarId: selectedPillar.id,
       };
-      const response2 = await attachContract(contractData);
-      console.log("Booking 2 successful:", response2);
+      const response = await attachContract(contractData);
+      console.log("Booking successful:", response);
+      window.alert("Pillar successfully booked.");
     } catch (error) {
       console.error("Booking failed:", error);
-      alert("Booking failed. Please try again.");
+      window.alert("Booking failed. Please try again.");
     } finally {
       setIsModalOpen(false);
     }
   };
+
   const contractedPillar = queryAssetContracts
     .filter((cp) => cp.pillar_id !== null && cp.pillar_id !== undefined)
     .map((cp) => cp.pillar_id);
@@ -63,15 +62,7 @@ function PillarMapSiteOverview(props) {
               <hr />
             </div>
             <div className="flex flex-col gap-2">
-              <img
-                src={
-                  selectedPillar.imageURL
-                    ? selectedPillar.imageURL
-                    : Pillar
-                }
-                alt=""
-                className="w-full"
-              />
+              <img src={selectedPillar.imageURL ? selectedPillar.imageURL : Pillar} alt="" className="w-full" />
 
               <p className="font-bold">{selectedPillar.viaduct_name}</p>
               <p className="text-xs">{selectedPillar.asset_direction}</p>

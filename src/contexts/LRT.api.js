@@ -138,9 +138,12 @@ const updateTrainAsset = async (id, avlbl, ood) => {
     throw error;
   }
 };
-const unTagContract = async (id) => {
+const unTagContract = async (id, backlitId, trainAssetId, qty) => {
   try {
-    const response = await axios.delete(`${endpoints.contracts}/${id}`, headers);
+    const response = await axios.delete(`${endpoints.contracts}/${id}`, {
+      data: { backlitId, trainAssetId, qty },
+      headers,
+    });
     return response.data;
   } catch (error) {
     console.error(

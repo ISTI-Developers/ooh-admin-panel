@@ -5,7 +5,7 @@ import PillarMarkers from "./PillarMarkers";
 import { Label, TextInput } from "flowbite-react";
 
 import Loader from "~misc/Loader";
-import { defaultTextTheme } from "~misc/themes-copy";
+import { defaultTextTheme } from "~misc/themes";
 import PillarLandMarkers from "./PillarLandMarkers";
 import { useStations } from "~contexts/LRTContext";
 import PillarMapList from "./PillarMapList";

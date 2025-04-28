@@ -135,6 +135,7 @@ export function StationProvider({ children }) {
     contracts,
     fetchContracts,
     pagination,
+    setPagination,
     queryAssetContracts,
     externalAssetSpecs,
     setExternalAssetSpecs,
