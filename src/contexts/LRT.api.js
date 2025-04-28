@@ -138,6 +138,18 @@ const updateTrainAsset = async (id, avlbl, ood) => {
     throw error;
   }
 };
+const updateAssetSpecs = async (id, payload) => {
+  try {
+    const response = await axios.put(`${endpoints.specs}/edit/${id}`, payload, { headers });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error booking updating asset:",
+      error.response ? `Status: ${error.response.status}, Data: ${JSON.stringify(error.response.data)}` : error.message
+    );
+    throw error;
+  }
+};
 const unTagContract = async (id, backlitId, trainAssetId, qty) => {
   try {
     const response = await axios.delete(`${endpoints.contracts}/${id}`, {
@@ -197,5 +209,6 @@ export const useLRTapi = () => {
     unTagContract,
     retrieveParapetsAvailability,
     retrieveBacklitsAvailability,
+    updateAssetSpecs,
   };
 };

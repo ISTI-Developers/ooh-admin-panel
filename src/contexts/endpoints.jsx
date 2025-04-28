@@ -23,4 +23,5 @@ export const endpoints = {
   trains: server + "/utasi/train",
   parapets: server + "/utasi/parapets",
   availability: server + "/utasi/availability",
+  specs: server + "/utasi/specs",
 };

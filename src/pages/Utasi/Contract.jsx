@@ -110,6 +110,7 @@ const Contract = () => {
                   setPagination((prev) => ({ ...prev, page }));
                   fetchContracts(page, pagination.limit);
                 }}
+                totalCount={pagination.totalCount}
               />
               <Table className="w-full table-auto border-collapse bg-white rounded-lg shadow-md">
                 <Table.Head className="text-gray-700">

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Button, Select } from "flowbite-react";
 
-const Pagination = ({ currentPage, totalPages, onPageChange, itemsPerPage, setItemsPerPage }) => {
+const Pagination = ({ currentPage, totalPages, onPageChange, itemsPerPage, setItemsPerPage, totalCount }) => {
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
       <div className="flex justify-center items-center space-x-2">
@@ -12,6 +12,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange, itemsPerPage, setIt
         <span className="text-sm font-medium">
           Page {currentPage} of {totalPages}
         </span>
+
+        {/* Add total count display here */}
+        {totalCount && <span className="text-sm font-medium">| Total {totalCount} items</span>}
 
         <Button
           color="gray"
@@ -47,6 +50,7 @@ Pagination.propTypes = {
   onPageChange: PropTypes.func.isRequired,
   itemsPerPage: PropTypes.number.isRequired,
   setItemsPerPage: PropTypes.func.isRequired,
+  totalCount: PropTypes.number.isRequired, // Added totalCount prop type
 };
 
 export default Pagination;

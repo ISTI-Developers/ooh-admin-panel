@@ -14,7 +14,7 @@ import twoseaterwrap from "../../assets/twoseaterwrap.jpg";
 import { useLRTapi } from "~contexts/LRT.api";
 const TrainAssets = ({ onBackTrain }) => {
   const { getTrainAssets, getTrainAssetsSpecs, attachedContract } = useStations();
-  const { trainAssetBook, attachContract, updateTrainAsset } = useLRTapi();
+  const { trainAssetBook, attachContract, updateTrainAsset, updateAssetSpecs } = useLRTapi();
   const [trainAssets, setTrainAssets] = useState([]);
   const [assetSpecs, setAssetSpecs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +32,69 @@ const TrainAssets = ({ onBackTrain }) => {
   const [bookedAsset, setBookedAsset] = useState(null);
 
   const headers = ["Assets", "Available", "Out of Order", "Booked", attachedContract ? "Contracts" : "Actions"];
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    mediaRental: selectedAsset?.media_rental ?? "",
+    rateCard: selectedAsset?.ratecard ?? "",
+    prodCost: selectedAsset?.prod_cost ?? "",
+    minDuration: selectedAsset?.min_duration_months ?? "",
+    vatExclusive: selectedAsset?.vat_exclusive ?? false,
+    stations: selectedAsset?.stations ?? "",
+    size: selectedAsset?.size ?? "",
+    notes: selectedAsset?.notes ?? "",
+  });
+  console.log(formData);
+  useEffect(() => {
+    if (selectedAsset) {
+      setFormData({
+        mediaRental: selectedAsset.media_rental || "",
+        rateCard: selectedAsset.ratecard || "",
+        prodCost: selectedAsset.prod_cost || "",
+        minDuration: selectedAsset.min_duration_months || "",
+        vatExclusive: selectedAsset.vat_exclusive || false,
+        size: selectedAsset.size || "",
+        notes: selectedAsset.notes || "",
+      });
+    }
+  }, [selectedAsset]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = async () => {
+    const confirmSave = window.confirm("Are you sure you want to save the changes?");
+    if (!confirmSave) {
+      return;
+    }
+
+    // Transform vatExclusive to boolean
+    const updatedFormData = {
+      ...formData,
+      vat_exclusive: formData.vatExclusive === "true" ? true : false, // Convert string to boolean
+      media_rental: parseFloat(formData.mediaRental), // Convert string to number
+      ratecard: parseFloat(formData.rateCard), // Convert string to number
+      prod_cost: parseFloat(formData.prodCost), // Convert string to number
+      min_duration_months: parseInt(formData.minDuration), // Convert string to integer
+    };
+
+    try {
+      await updateAssetSpecs(selectedAsset.asset_id, updatedFormData);
+      console.log("Update successful!");
+      alert("Asset details updated successfully!"); // optional success alert
+    } catch (error) {
+      console.error("Update failed:", error);
+      alert("Failed to update asset details. Please try again."); // optional error alert
+    } finally {
+      setIsEditing(false);
+    }
+  };
 
   const handleDetailModal = (asset) => {
     const matchedSpec = assetSpecs.find((spec) => spec.asset_id === asset.asset_id);
@@ -192,25 +255,105 @@ const TrainAssets = ({ onBackTrain }) => {
             <div className="space-y-4">
               <div className="space-y-2">
                 <p>
-                  <strong>Media Rental:</strong> ₱{Number(selectedAsset.media_rental).toLocaleString()}
+                  <strong>Media Rental:</strong>
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      name="mediaRental"
+                      value={formData.mediaRental}
+                      onChange={handleInputChange}
+                      className="border rounded-md p-1"
+                    />
+                  ) : (
+                    `₱${Number(formData.mediaRental).toLocaleString()}`
+                  )}
                 </p>
                 <p>
-                  <strong>Rate Card:</strong> ₱{Number(selectedAsset.ratecard).toLocaleString()}
+                  <strong>Rate Card:</strong>
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      name="rateCard"
+                      value={formData.rateCard}
+                      onChange={handleInputChange}
+                      className="border rounded-md p-1"
+                    />
+                  ) : (
+                    `₱${Number(formData.rateCard).toLocaleString()}`
+                  )}
                 </p>
                 <p>
-                  <strong>Production Cost:</strong> ₱{Number(selectedAsset.prod_cost).toLocaleString()}
+                  <strong>Production Cost:</strong>
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      name="prodCost"
+                      value={formData.prodCost}
+                      onChange={handleInputChange}
+                      className="border rounded-md p-1"
+                    />
+                  ) : (
+                    `₱${Number(formData.prodCost).toLocaleString()}`
+                  )}
                 </p>
                 <p>
-                  <strong>Min Duration:</strong> {selectedAsset.min_duration_months} months
+                  <strong>Min Duration:</strong>
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      name="minDuration"
+                      value={formData.minDuration}
+                      onChange={handleInputChange}
+                      className="border rounded-md p-1"
+                    />
+                  ) : (
+                    `${formData.minDuration} months`
+                  )}
                 </p>
                 <p>
-                  <strong>VAT Exclusive:</strong> {selectedAsset.vat_exclusive ? "Yes" : "No"}
+                  <strong>VAT Exclusive:</strong>
+                  {isEditing ? (
+                    <select
+                      name="vatExclusive"
+                      value={formData.vatExclusive}
+                      onChange={handleInputChange}
+                      className="border rounded-md p-1"
+                    >
+                      <option value={true}>Yes</option>
+                      <option value={false}>No</option>
+                    </select>
+                  ) : formData.vatExclusive ? (
+                    "Yes"
+                  ) : (
+                    "No"
+                  )}
                 </p>
                 <p>
-                  <strong>Size:</strong> {selectedAsset.size || "N/A"}
+                  <strong>Size:</strong>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      name="size"
+                      value={formData.size}
+                      onChange={handleInputChange}
+                      className="border rounded-md p-1"
+                    />
+                  ) : (
+                    formData.size || "N/A"
+                  )}
                 </p>
                 <p>
-                  <strong>Notes:</strong> {selectedAsset.notes || "N/A"}
+                  <strong>Notes:</strong>
+                  {isEditing ? (
+                    <textarea
+                      name="notes"
+                      value={formData.notes}
+                      onChange={handleInputChange}
+                      className="border rounded-md p-1"
+                    />
+                  ) : (
+                    formData.notes || "N/A"
+                  )}
                 </p>
               </div>
               <div className="flex justify-center">
@@ -247,10 +390,26 @@ const TrainAssets = ({ onBackTrain }) => {
         <Modal.Footer className="flex justify-end">
           <button
             className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-            onClick={() => setDetailModal(false)}
+            onClick={() => {
+              setDetailModal(false), setIsEditing(false);
+            }}
           >
             Close
           </button>
+          {!attachedContract && (
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={() => setIsEditing((prev) => !prev)}
+            >
+              {isEditing ? "Cancel" : "Edit"}
+            </button>
+          )}
+
+          {isEditing && (
+            <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600" onClick={handleSave}>
+              Save
+            </button>
+          )}
         </Modal.Footer>
       </Modal>
       {bookModal && (
