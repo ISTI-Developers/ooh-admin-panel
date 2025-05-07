@@ -7,50 +7,10 @@ import { FaArrowLeft } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 const StationAssets = ({ onBackStations }) => {
-  const {
-    queryAllStationsData,
-    querySpecs,
-    updateParapetStatus,
-    attachContract,
-    attachedContract,
-    // queryAssetContracts
-  } = useStations();
+  const { queryAllStationsData, querySpecs, attachedContract, queryAssetContracts } = useStations();
   const [currentStationId, setCurrentStationId] = useState(null);
-  const [isPending, setIsPending] = useState(false);
   const [selectedContract, setSelectedContract] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [bound, setBound] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const confirm = window.confirm("Are you sure you want to attach this contract?");
-    if (!confirm) return;
-
-    setIsPending(true);
-
-    try {
-      const contractData = {
-        assetSalesOrderCode: selectedContract?.SalesOrderCode ?? "",
-        assetDateStart: selectedContract?.DateRef1 ?? "",
-        assetDateEnd: selectedContract?.DateRef2 ?? "",
-        stationId: currentStation?.station_id ?? "",
-        assetId: 1,
-        assetFacing: bound,
-      };
-      const response = await attachContract(contractData);
-      const response2 = await updateParapetStatus(currentStation?.station_id, bound, 1, "TAKEN");
-      console.log("Contract attached successfully:", response, response2);
-      // Optional: Show user feedback
-      alert("Contract attached successfully.");
-    } catch (error) {
-      console.error("Failed to attach contract:", error);
-      alert("Failed to attach contract. Please try again.");
-    } finally {
-      setIsModalOpen(false);
-      setIsPending(false);
-    }
-  };
 
   useEffect(() => {
     if (queryAllStationsData.length > 0 && !currentStationId) {
@@ -82,6 +42,23 @@ const StationAssets = ({ onBackStations }) => {
 
   const currentStation = mergedStations.find((station) => station.station_id === currentStationId);
   if (!currentStation) return <div>Loading...</div>;
+
+  const needsTag = (facing) => {
+    const hasParapet = currentStation.parapets?.some((p) => p.asset_distinction.startsWith(facing));
+    const isTagged = queryAssetContracts.some(
+      (contract) =>
+        contract.asset_facing === facing &&
+        contract.station_id === currentStationId &&
+        contract.asset_name === "parapet"
+    );
+    return hasParapet && !isTagged;
+  };
+
+  const sbNeedsTag = needsTag("SB");
+  const nbNeedsTag = needsTag("NB");
+
+  const shouldShowTagButton = (sbNeedsTag || nbNeedsTag) && attachedContract;
+
   return (
     <div className="container">
       <div className="mb-4">
@@ -107,18 +84,14 @@ const StationAssets = ({ onBackStations }) => {
             ))}
           </select>
         </div>
-        {attachedContract && (
+        {shouldShowTagButton && (
           <div className="space-x-2">
             <button
-              className={`text-white font-bold py-2 px-2 rounded-lg transition-all duration-200 ease-in-out ${
-                isPending
-                  ? "bg-gray-400 cursor-not-allowed opacity-70"
-                  : "bg-blue-500 hover:bg-blue-600  shadow-md hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-              }`}
+              className={`text-white font-bold py-2 px-2 rounded-lg transition-all duration-200 ease-in-out 
+                bg-blue-500 hover:bg-blue-600 shadow-md hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
               onClick={() => setIsModalOpen(true)}
-              disabled={isPending}
             >
-              {isPending ? <span className="animate-spin">⏳</span> : `Final Contract`}
+              Tag a contract
             </button>
           </div>
         )}
@@ -158,7 +131,7 @@ const StationAssets = ({ onBackStations }) => {
         handleNorthClick={handleNextStation}
       />
       {currentStation.details?.length > 0 && (
-        <div className="flex flex-col">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {currentStation.details[0]?.details?.map((detail, index) => (
             <AssetDetailCard
               key={index}
@@ -174,49 +147,17 @@ const StationAssets = ({ onBackStations }) => {
       {isModalOpen && (
         <div className="fixed z-50 inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
-            <h2 className="text-lg font-bold mb-4">Choose a bound?</h2>
-            <div>
-              <input type="radio" id="sb" name="bound" value="SB" onChange={() => setBound("SB")} />
-              <label htmlFor="sb"> {currentStation?.station_name} South Bound</label>
-            </div>
-            <div>
-              <input type="radio" id="nb" name="bound" value="NB" onChange={() => setBound("NB")} />
-              <label htmlFor="nb"> {currentStation?.station_name} North Bound</label>
-            </div>
-            <br />
-            <h1 className="font-bold">Selected Contract</h1>
             {/* Contract Details Table */}
             {selectedContract && (
               <ContractTable
-                code={selectedContract.SalesOrderCode || "N/A"}
-                reference={selectedContract.ReferenceNo || "N/A"}
-                orderDate={selectedContract.SalesOrderDate || "N/A"}
-                projDesc={selectedContract.ProjectDesc || "N/A"}
-                dateStart={selectedContract.DateRef1 || "N/A"}
-                dateEnd={selectedContract.DateRef2 || "N/A"}
+                selectedContract={selectedContract}
+                station={currentStation}
+                setIsModalOpen={setIsModalOpen}
+                asset_id={1}
+                sbNeedsTag={sbNeedsTag}
+                nbNeedsTag={nbNeedsTag}
               />
             )}
-
-            {/* Close Modal Button */}
-            <div className={`mt-4 flex ${selectedContract ? "justify-between" : "justify-end"}`}>
-              {selectedContract && (
-                <button
-                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-                  onClick={handleSubmit}
-                >
-                  Book
-                </button>
-              )}
-
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                onClick={() => {
-                  setIsModalOpen(false);
-                }}
-              >
-                Close
-              </button>
-            </div>
           </div>
         </div>
       )}

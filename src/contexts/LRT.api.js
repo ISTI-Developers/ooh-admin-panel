@@ -50,10 +50,10 @@ const updateParapetStatus = async (station_id, asset_distinction, asset_id, stat
     }
   }
 };
-const retrieveContracts = async (page = 1, limit = 10) => {
+const retrieveContracts = async (page = 1, limit = 10, search = "") => {
   try {
     const response = await axios.get(endpoints.contracts, {
-      params: { page, limit },
+      params: { page, limit, search },
       ...headers,
     });
     return response.data;

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { format } from "date-fns";
+import { useEffect, useState, useMemo } from "react";
+import { parseISO, format } from "date-fns";
 import { AiFillEdit, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
-import { Button, Table } from "flowbite-react";
+import { Button, Table, TextInput } from "flowbite-react";
 import ContractDetailsModal from "~components/ContractDetailsModal";
 import Pagination from "~components/Pagination";
 import { useLRTapi } from "~contexts/LRT.api";
@@ -28,6 +28,14 @@ const Contract = () => {
   const [contractFromAsset, setContractFromAsset] = useState([]);
   const [selectAsset, setSelectAsset] = useState(null);
   const [deletingContractId, setDeletingContractId] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+    // Optionally reset page to 1 when searching
+    setPagination((prev) => ({ ...prev, page: 1 }));
+  };
 
   const deleteContract = async (matchedContract, trainAssetId) => {
     const isConfirmed = window.confirm("Are you sure you want to untag this contract?");
@@ -63,16 +71,17 @@ const Contract = () => {
     setContractFromAsset(contracts.data);
   };
   useEffect(() => {
-    fetchContracts(pagination.page, pagination.limit);
-    const fetch = async () => {
-      try {
-        refreshContract();
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetch();
-  }, [pagination.page]);
+    fetchContracts(pagination.page, pagination.limit, search);
+    refreshContract();
+  }, [pagination.page, search]);
+
+  const filteredContracts = useMemo(() => {
+    if (!search.trim()) return contracts;
+
+    return contracts.filter((contract) =>
+      Object.values(contract).some((val) => String(val).toLowerCase().includes(search.toLowerCase()))
+    );
+  }, [contracts, search]);
 
   const handleDateChange = (index, field, value) => {
     setEditedDates((prev) => ({
@@ -97,7 +106,7 @@ const Contract = () => {
         <>
           <div className="p-4 bg-white rounded-lg container">
             <h2 className="text-xl font-bold mb-4">Contracts</h2>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto flex flex-col mx-auto gap-3">
               <Pagination
                 currentPage={pagination.page}
                 totalPages={pagination.totalPages}
@@ -112,6 +121,21 @@ const Contract = () => {
                 }}
                 totalCount={pagination.totalCount}
               />
+              <div className="flex items-center gap-2 opacity-60">
+                <label htmlFor="search" className="text-sm font-medium">
+                  Search:
+                </label>
+                <TextInput
+                  id="search"
+                  type="text"
+                  placeholder="Type to search..."
+                  sizing="sm"
+                  className="w-64"
+                  value={search}
+                  onChange={handleSearch}
+                />
+              </div>
+
               <Table className="w-full table-auto border-collapse bg-white rounded-lg shadow-md">
                 <Table.Head className="text-gray-700">
                   <Table.HeadCell className="p-3 text-left font-bold">Code</Table.HeadCell>
@@ -121,7 +145,7 @@ const Contract = () => {
                   <Table.HeadCell className="p-3 text-left font-bold">Add/Tag Assets</Table.HeadCell>
                 </Table.Head>
                 <Table.Body>
-                  {contracts.map((contract, index) => {
+                  {filteredContracts.map((contract, index) => {
                     const matchCount =
                       contractFromAsset?.filter((c) => c.asset_sales_order_code === contract.SalesOrderCode).length ||
                       0;
@@ -164,9 +188,9 @@ const Contract = () => {
                           ) : (
                             <>
                               {contract.DateRef1 ? format(new Date(contract.DateRef1), "MMMM dd, yyyy") : "N/A"}
-                              <button type="button" onClick={() => setEditField({ index, field: "DateRef1" })}>
+                              {/* <button type="button" onClick={() => setEditField({ index, field: "DateRef1" })}>
                                 <AiFillEdit />
-                              </button>
+                              </button> */}
                             </>
                           )}
                         </Table.Cell>
@@ -190,9 +214,9 @@ const Contract = () => {
                           ) : (
                             <>
                               {contract.DateRef2 ? format(new Date(contract.DateRef2), "MMMM dd, yyyy") : "N/A"}
-                              <button type="button" onClick={() => setEditField({ index, field: "DateRef2" })}>
+                              {/* <button type="button" onClick={() => setEditField({ index, field: "DateRef2" })}>
                                 <AiFillEdit />
-                              </button>
+                              </button> */}
                             </>
                           )}
                         </Table.Cell>
@@ -224,6 +248,7 @@ const Contract = () => {
                   setPagination((prev) => ({ ...prev, page }));
                   fetchContracts(page, pagination.limit);
                 }}
+                totalCount={pagination.totalCount}
               />
             </div>
             <ContractDetailsModal
@@ -268,7 +293,6 @@ const Contract = () => {
                               : ""}
                           </p>
                         )}
-
                         {/* Generic Display Lines */}
                         {[asset?.viaduct_name, pillar?.viaduct_name, pillar?.asset_direction]
                           .filter(Boolean)
@@ -277,15 +301,29 @@ const Contract = () => {
                               {line}
                             </p>
                           ))}
-
                         {/* Backlit Station Info */}
                         {(stationWithBacklit?.station_name || backlit?.asset_distinction) && (
                           <p className="capitalize">
                             {stationWithBacklit?.station_name || ""} {backlit?.asset_distinction || ""}
                           </p>
                         )}
+                        {selectedContract?.DateRef1 &&
+                          format(new Date(selectedContract.DateRef1), "yyyy-MM-dd") !==
+                            format(new Date(matchedContract.asset_date_start), "yyyy-MM-dd") && (
+                            <p className="capitalize text-gray-700 mb-2">
+                              <strong>Adjusted Start Date:</strong>{" "}
+                              {format(parseISO(matchedContract.asset_date_start), "MMMM dd, yyyy")}
+                            </p>
+                          )}
+                        {selectedContract?.DateRef2 &&
+                          format(new Date(selectedContract.DateRef2), "yyyy-MM-dd") !==
+                            format(new Date(matchedContract.asset_date_end), "yyyy-MM-dd") && (
+                            <p className="capitalize text-gray-700">
+                              <strong>Adjusted End Date:</strong>{" "}
+                              {format(parseISO(matchedContract.asset_date_end), "MMMM dd, yyyy")}
+                            </p>
+                          )}
                       </div>
-
                       <Button
                         color="red"
                         onClick={() => {
@@ -293,16 +331,7 @@ const Contract = () => {
                             matchedContract.asset_id >= 3 && matchedContract.asset_id <= 7
                               ? matchedContract.asset_id
                               : null;
-
-                          console.log(trainAssetId, matchedContract);
-
-                          deleteContract(
-                            // matchedContract.contract_id,
-                            // matchedContract.backlit_id,
-                            matchedContract,
-                            trainAssetId
-                            // matchedContract.quantity
-                          );
+                          deleteContract(matchedContract, trainAssetId);
                         }}
                         disabled={deletingContractId === matchedContract.contract_id}
                         className="text-sm font-medium text-white bg-red-600 rounded-lg transition"

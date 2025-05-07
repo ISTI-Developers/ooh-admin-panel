@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { Modal, Button } from "flowbite-react";
+import PropTypes from "prop-types";
 
 const ContractDetailsModal = ({ open, onClose, contract, children }) => {
   if (!contract) return null;
@@ -45,6 +46,12 @@ const ContractDetailsModal = ({ open, onClose, contract, children }) => {
       </Modal.Footer>
     </Modal>
   );
+};
+ContractDetailsModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  contract: PropTypes.object,
+  children: PropTypes.node,
 };
 
 export default ContractDetailsModal;

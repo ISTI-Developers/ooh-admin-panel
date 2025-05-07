@@ -12,13 +12,12 @@ import { ViaductCard } from "~components/ViaductCard";
 const ExternalAssets = ({ onBackExternal }) => {
   // 1. Hooks & Dependencies
   const { attachedContract } = useStations();
-  const { attachContract, getExternalAssetSpecs, getContractFromAsset } = useLRTapi();
+  const { getExternalAssetSpecs, getContractFromAsset } = useLRTapi();
 
   // 2. State Initialization
   const [selectedViaduct, setSelectedViaduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViaduct, setIsViaduct] = useState(true);
-  const [isBooking, setIsBooking] = useState(false);
   const [externalAssetSpecs, setExternalAssetSpecs] = useState([]);
   const [assetContracts, setAssetContracts] = useState([]);
 
@@ -37,39 +36,6 @@ const ExternalAssets = ({ onBackExternal }) => {
   // 4. Functions
   const handleDetailsClick = (viaduct) => {
     setSelectedViaduct(viaduct);
-  };
-
-  const bookViaduct = async () => {
-    const isConfirmed = window.confirm("Are you sure you want to book this viaduct?");
-    if (!isConfirmed) return;
-
-    setIsBooking(true);
-    try {
-      const contractData = {
-        assetSalesOrderCode: attachedContract.SalesOrderCode,
-        assetDateStart: attachedContract.DateRef1,
-        assetDateEnd: attachedContract.DateRef2,
-        assetId: selectedViaduct.asset_id,
-        viaductId: selectedViaduct.id,
-      };
-
-      const response = await attachContract(contractData);
-      alert(response.message || "Booking successful!");
-    } catch (error) {
-      console.error("Booking failed:", error);
-      alert("Booking failed. Please try again.");
-    } finally {
-      setIsBooking(false);
-      setIsModalOpen(false);
-      setSelectedViaduct(null);
-
-      // Refresh external assets and contract data
-      const data = await getExternalAssetSpecs(8);
-      setExternalAssetSpecs(data.data);
-
-      const assetContract = await getContractFromAsset();
-      setAssetContracts(assetContract.data);
-    }
   };
 
   // 5. Effects
@@ -208,36 +174,23 @@ const ExternalAssets = ({ onBackExternal }) => {
               )}
             </div>
           )}
-
           {isModalOpen && (
             <div className="fixed inset-0 z-[50] flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
                 <h2 className="text-lg font-bold">Book Viaduct</h2>
                 <p className="mt-2">Are you sure you want to proceed with the booking?</p>
 
-                <h2 className="text-lg font-bold">Selected Contract</h2>
                 {attachedContract && (
                   <ContractTable
-                    code={attachedContract.SalesOrderCode || "N/A"}
-                    reference={attachedContract.ReferenceNo || "N/A"}
-                    orderDate={attachedContract.SalesOrderDate || "N/A"}
-                    projDesc={attachedContract.ProjectDesc || "N/A"}
-                    dateStart={attachedContract.DateRef1 || "N/A"}
-                    dateEnd={attachedContract.DateRef2 || "N/A"}
+                    selectedContract={attachedContract}
+                    asset_id={selectedViaduct.asset_id}
+                    viaduct_id={selectedViaduct.id}
+                    setIsModalOpen={setIsModalOpen}
+                    setSelectedViaduct={setSelectedViaduct}
+                    setExternalAssetSpecs={setExternalAssetSpecs}
+                    setAssetContracts={setAssetContracts}
                   />
                 )}
-
-                <div className="mt-4 flex justify-end space-x-2">
-                  <button className="bg-gray-300 px-4 py-2 rounded-md" onClick={() => setIsModalOpen(false)}>
-                    Cancel
-                  </button>
-                  <button
-                    className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700"
-                    onClick={bookViaduct}
-                  >
-                    {isBooking ? "Booking..." : "Confirm"}
-                  </button>
-                </div>
               </div>
             </div>
           )}

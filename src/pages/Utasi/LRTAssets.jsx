@@ -48,9 +48,12 @@ const LRTAssets = ({ onBack }) => {
             <div className="flex space-x-6">
               {assetsData.map((asset, index) => (
                 <div
+                  onClick={() => asset.status === "active" && setSelectedAsset(asset.component)}
                   key={index}
                   className={`flex flex-col justify-between p-6 rounded-lg shadow-md w-64 text-center cursor-pointer ${
-                    asset.status === "inactive" ? "bg-blue-100 opacity-50 filter blur-sm pointer-events-none" : "bg-blue-100 hover:bg-blue-200 transition"
+                    asset.status === "inactive"
+                      ? "bg-blue-100 opacity-50 filter blur-sm pointer-events-none"
+                      : "bg-blue-100 hover:bg-blue-200 transition"
                   }`}
                 >
                   <div>
@@ -62,9 +65,7 @@ const LRTAssets = ({ onBack }) => {
                     </ul>
                   </div>
                   <div>
-                    <div className="text-blue-500 font-medium mt-4 inline-block" onClick={() => asset.status === "active" && setSelectedAsset(asset.component)}>
-                      Select
-                    </div>
+                    <div className="text-blue-500 font-medium mt-4 inline-block">Select</div>
                   </div>
                 </div>
               ))}

@@ -88,8 +88,8 @@ export function StationProvider({ children }) {
     return assetContracts.data;
   }, [assetContracts]);
 
-  const fetchContracts = async (page = 1, limit = 10) => {
-    const result = await retrieveContracts(page, limit);
+  const fetchContracts = async (page = 1, limit = 10, search = "") => {
+    const result = await retrieveContracts(page, limit, search);
     setContracts(result.data);
     setPagination(result.pagination);
   };

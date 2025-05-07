@@ -14,7 +14,7 @@ import twoseaterwrap from "../../assets/twoseaterwrap.jpg";
 import { useLRTapi } from "~contexts/LRT.api";
 const TrainAssets = ({ onBackTrain }) => {
   const { getTrainAssets, getTrainAssetsSpecs, attachedContract } = useStations();
-  const { trainAssetBook, attachContract, updateTrainAsset, updateAssetSpecs } = useLRTapi();
+  const { updateTrainAsset, updateAssetSpecs } = useLRTapi();
   const [trainAssets, setTrainAssets] = useState([]);
   const [assetSpecs, setAssetSpecs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,8 +29,6 @@ const TrainAssets = ({ onBackTrain }) => {
   const [ood, setOod] = useState(0);
   const [bkd, setBkd] = useState(0);
 
-  const [bookedAsset, setBookedAsset] = useState(null);
-
   const headers = ["Assets", "Available", "Out of Order", "Booked", attachedContract ? "Contracts" : "Actions"];
 
   const [isEditing, setIsEditing] = useState(false);
@@ -44,7 +42,6 @@ const TrainAssets = ({ onBackTrain }) => {
     size: selectedAsset?.size ?? "",
     notes: selectedAsset?.notes ?? "",
   });
-  console.log(formData);
   useEffect(() => {
     if (selectedAsset) {
       setFormData({
@@ -73,8 +70,6 @@ const TrainAssets = ({ onBackTrain }) => {
     if (!confirmSave) {
       return;
     }
-
-    // Transform vatExclusive to boolean
     const updatedFormData = {
       ...formData,
       vat_exclusive: formData.vatExclusive === "true" ? true : false, // Convert string to boolean
@@ -102,41 +97,41 @@ const TrainAssets = ({ onBackTrain }) => {
     setDetailModal(true);
   };
 
-  const bookTrain = async (e) => {
-    e.preventDefault();
-    if (qty <= 0 || qty > avlbl) {
-      alert(`Invalid quantity! Must be between 1 and ${avlbl}.`);
-      return;
-    }
-    const confirmed = window.confirm(`Confirm booking ${qty} asset(s)?`);
-    if (!confirmed) return;
-    try {
-      const contractData = {
-        assetSalesOrderCode: attachedContract.SalesOrderCode,
-        assetDateStart: attachedContract.DateRef1,
-        assetDateEnd: attachedContract.DateRef2,
-        assetId: bookedAsset,
-        quantity: qty,
-      };
-      const response = await trainAssetBook(bookedAsset, qty);
-      const response2 = await attachContract(contractData);
-      console.log("Booking successful:", response);
-      console.log("Booking 2 successful:", response2);
-      setTrainAssets((prev) =>
-        prev.map((asset) =>
-          asset.asset_id === bookedAsset
-            ? { ...asset, booked: asset.booked + qty, available: asset.available - qty }
-            : asset
-        )
-      );
-    } catch (error) {
-      console.error("Booking failed:", error);
-      alert("Booking failed. Please try again.");
-    } finally {
-      setBookModal(false);
-      setQty(0);
-    }
-  };
+  // const bookTrain = async (e) => {
+  //   e.preventDefault();
+  //   if (qty <= 0 || qty > avlbl) {
+  //     alert(`Invalid quantity! Must be between 1 and ${avlbl}.`);
+  //     return;
+  //   }
+  //   const confirmed = window.confirm(`Confirm booking ${qty} asset(s)?`);
+  //   if (!confirmed) return;
+  //   try {
+  //     const contractData = {
+  //       assetSalesOrderCode: attachedContract.SalesOrderCode,
+  //       assetDateStart: attachedContract.DateRef1,
+  //       assetDateEnd: attachedContract.DateRef2,
+  //       assetId: bookedAsset,
+  //       quantity: qty,
+  //     };
+  //     const response = await trainAssetBook(bookedAsset, qty);
+  //     const response2 = await attachContract(contractData);
+  //     console.log("Booking successful:", response);
+  //     console.log("Booking 2 successful:", response2);
+  //     setTrainAssets((prev) =>
+  //       prev.map((asset) =>
+  //         asset.asset_id === bookedAsset
+  //           ? { ...asset, booked: asset.booked + qty, available: asset.available - qty }
+  //           : asset
+  //       )
+  //     );
+  //   } catch (error) {
+  //     console.error("Booking failed:", error);
+  //     alert("Booking failed. Please try again.");
+  //   } finally {
+  //     setBookModal(false);
+  //     setQty(0);
+  //   }
+  // };
   const updateTrain = async () => {
     try {
       const response = await updateTrainAsset(selectedAsset.asset_id, avlbl, ood);
@@ -217,10 +212,7 @@ const TrainAssets = ({ onBackTrain }) => {
                     <button
                       className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full"
                       onClick={() => {
-                        setBookModal(true),
-                          setAvlbl(item.available),
-                          setSelectedAsset(item),
-                          setBookedAsset(item.asset_id);
+                        setBookModal(true), setAvlbl(item.available), setSelectedAsset(item);
                       }}
                     >
                       Book
@@ -417,7 +409,6 @@ const TrainAssets = ({ onBackTrain }) => {
           <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
             <div className="flex justify-between items-center">
               <h2 className="text-blue-600 font-bold text-lg capitalize">{selectedAsset.asset_name}</h2>
-              <button onClick={() => setBookModal(false)}>Exit</button>
             </div>
             <label className="block mt-4 font-medium">Set</label>
             <div className="flex items-center mt-1">
@@ -434,23 +425,17 @@ const TrainAssets = ({ onBackTrain }) => {
             </div>
             {attachedContract && (
               <>
-                <h1 className="font-bold">Selected Contract</h1>
                 <ContractTable
-                  code={attachedContract.SalesOrderCode || "N/A"}
-                  reference={attachedContract.ReferenceNo || "N/A"}
-                  orderDate={attachedContract.SalesOrderDate || "N/A"}
-                  projDesc={attachedContract.ProjectDesc || "N/A"}
-                  dateStart={attachedContract.DateRef1 || "N/A"}
-                  dateEnd={attachedContract.DateRef2 || "N/A"}
+                  selectedContract={attachedContract}
+                  setIsModalOpen={setBookModal}
+                  asset_id={selectedAsset.asset_id}
+                  qty={qty}
+                  avlbl={avlbl}
+                  setTrainAssets={setTrainAssets}
+                  setQty={setQty}
                 />
               </>
             )}
-            <button
-              onClick={bookTrain}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full mt-4 w-full"
-            >
-              Book
-            </button>
           </div>
         </div>
       )}

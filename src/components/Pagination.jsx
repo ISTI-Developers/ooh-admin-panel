@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange, itemsPerPage, setIt
         </span>
 
         {/* Add total count display here */}
-        {totalCount && <span className="text-sm font-medium">| Total {totalCount} items</span>}
+        {totalCount !== 0 && <span className="text-sm font-medium">| Total {totalCount} items</span>}
 
         <Button
           color="gray"
