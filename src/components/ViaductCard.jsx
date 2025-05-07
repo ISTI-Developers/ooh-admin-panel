@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 export const ViaductCard = ({ viaduct, onDetailsClick }) => {
   return (
     <div
-      className={`relative bg-white rounded-lg shadow-md p-4 transition-opacity ${
+      className={`relative cursor-pointer bg-white rounded-lg shadow-md p-4 transition-opacity ${
         viaduct.isBooked ? "opacity-50 pointer-events-none" : "hover:shadow-lg"
       }`}
+      onClick={() => onDetailsClick(viaduct)}
     >
       {/* "BOOKED" Stamp */}
       {viaduct.isBooked && (
@@ -23,7 +24,6 @@ export const ViaductCard = ({ viaduct, onDetailsClick }) => {
 
       {/* Details Button (Disabled if booked) */}
       <button
-        onClick={() => onDetailsClick(viaduct)}
         className={`text-blue-500 mt-2 inline-block ${
           viaduct.isBooked ? "opacity-50 cursor-not-allowed" : "hover:underline"
         }`}
