@@ -24,12 +24,18 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Generate .htaccess
+      - name: Generate .htaccess if it doesn't exist
         run: |
-          echo "RewriteEngine On" > dist/.htaccess
-          echo "RewriteCond %{REQUEST_FILENAME} !-f" >> dist/.htaccess
-          echo "RewriteCond %{REQUEST_FILENAME} !-d" >> dist/.htaccess
-          echo "RewriteRule . /index.html [L]" >> dist/.htaccess
+          if [ ! -f dist/.htaccess ]; then
+            echo "Creating .htaccess..."
+            echo "RewriteEngine On" > dist/.htaccess
+            echo "RewriteCond %{REQUEST_FILENAME} !-f" >> dist/.htaccess
+            echo "RewriteCond %{REQUEST_FILENAME} !-d" >> dist/.htaccess
+            echo "RewriteRule . /index.html [L]" >> dist/.htaccess
+          else
+            echo ".htaccess already exists. Skipping creation."
+          fi
+      
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -38,14 +44,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
-          server-dir: / # Adjust to your A2 Hosting directory
-          # state-name: /.ftp-deploy-sync-state.json
-          dangerous-clean-slate: true  # ✅ Replaces "delete"
-          # exclude: |
-          #   **/.git*
-          #   **/.git*/**
-          #   **/node_modules/**
-          #   **/.htaccess**
-          #   **/logs/*
-          #   **/backups/*
-          #   **/.ftp-deploy-sync-state.json**
+          server-dir: /ooh-ad.scmiph.com/ # Adjust to your A2 Hosting directory
+         
