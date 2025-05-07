@@ -16,4 +16,12 @@ export const endpoints = {
   users: server + "/user",
   sites: server + "/dashboard/sites",
   batch: server + "/dashboard/batch",
+  landmarks: server + "/dashboard/landmarks",
+  assets: server + "/utasi/asset",
+  contracts: server + "/utasi/contracts",
+  stations: server + "/utasi/stations",
+  trains: server + "/utasi/train",
+  parapets: server + "/utasi/parapets",
+  availability: server + "/utasi/availability",
+  specs: server + "/utasi/specs",
 };

@@ -4,13 +4,14 @@ import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 import { useFunction } from "~/misc/functions";
 import { useServices } from "~/contexts/ServiceContext";
-
+import { useStations } from "~contexts/LRTContext";
+import React from "react";
 //sidebar main component
 function Sidebar() {
   const { toSpaced } = useFunction();
   const { CheckPermission, isViewable } = useServices();
+  const { setAttachedContract } = useStations();
   const location = useLocation();
-
 
   return (
     <section className="p-2 pt-1 min-w-[250px] h-fit rounded-md bg-default-100">
@@ -18,34 +19,34 @@ function Sidebar() {
         {/* map links object */}
         {Object.keys(testLinks).map((head) => {
           return (
-            <>
+            <React.Fragment key={head}>
               {/* check if the link is viewable for user role */}
               {isViewable(testLinks[head].map((link) => link.title)) && (
-                <p className="uppercase text-sm font-bold text-main-300">
-                  {toSpaced(head)}
-                </p>
+                <p className="uppercase text-sm font-bold text-main-300">{toSpaced(head)}</p>
               )}
               {testLinks[head].map((item) => {
-                //dashboard will always show
+                // If the title is "assets", reset attachedContract
+                const handleClick = () => {
+                  if (item.title === "assets") {
+                    setAttachedContract(null);
+                  }
+                };
+
                 return item.title === "dashboard" ? (
                   <SidebarItem
                     key={item.title}
                     {...item}
                     isActive={item.link === "" && location.pathname === "/"}
                     isStart
+                    onClick={handleClick}
                   />
                 ) : (
-                  // check permission of user if the link should be shown or not
-                  <CheckPermission path={item.title}>
-                    <SidebarItem
-                      key={item.title}
-                      {...item}
-                      isActive={location.pathname.includes(item.link)}
-                    />
+                  <CheckPermission path={item.title} key={item.title}>
+                    <SidebarItem {...item} isActive={location.pathname.includes(item.link)} onClick={handleClick} />
                   </CheckPermission>
                 );
               })}
-            </>
+            </React.Fragment>
           );
         })}
       </div>
@@ -54,7 +55,7 @@ function Sidebar() {
 }
 
 //component for sidebar items
-function SidebarItem({ title, icon: Icon, link, isActive, isStart }) {
+function SidebarItem({ title, icon: Icon, link, isActive, isStart, onClick }) {
   return (
     <Link
       to={link}
@@ -65,6 +66,7 @@ function SidebarItem({ title, icon: Icon, link, isActive, isStart }) {
           ? "text-secondary bg-slate-50 border-l-4 border-secondary-500 pointer-events-none"
           : "text-main-500 hover:bg-default-300"
       )}
+      onClick={onClick} // Ensure the function runs on click
     >
       <Icon />
       <span className="capitalize font-semibold">{title}</span>
@@ -78,6 +80,7 @@ SidebarItem.propTypes = {
   link: PropTypes.string,
   isActive: PropTypes.bool,
   isStart: PropTypes.bool,
+  onClick: PropTypes.func, // Add prop validation
 };
 
 export default Sidebar;
