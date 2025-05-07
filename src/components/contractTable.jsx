@@ -234,16 +234,16 @@ const ContractTable = ({
             <Table.Cell className="border px-4 py-2">
               {editField?.field === "DateRef1" ? (
                 <div className="relative group space-x-2 flex">
-                  {/* <input
+                  <input
                     type="date"
                     value={editedDates[`0-DateRef1`] || format(new Date(selectedContract.DateRef1), "yyyy-MM-dd")}
                     onChange={(e) => handleDateChange(0, "DateRef1", e.target.value)}
-                  /> */}
-                  <Datepicker
+                  />
+                  {/* <Datepicker
                     value={editedDates[`0-DateRef1`] || format(new Date(selectedContract.DateRef1), "yyyy-MM-dd")}
                     onSelectedDateChanged={(date) => handleDateChange(0, "DateRef1", format(date, "yyyy-MM-dd"))}
                     defaultDate={new Date(selectedContract.DateRef1)}
-                  />
+                  /> */}
                   <button type="button" onClick={() => saveDate(0, "DateRef1")}>
                     <AiOutlineCheck className="text-lg" />
                   </button>
