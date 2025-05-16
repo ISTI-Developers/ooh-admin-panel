@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import { useEffect, useMemo } from "react";
 import { Alert } from "flowbite-react";
 import { RiInformationFill } from "react-icons/ri";
@@ -19,38 +18,15 @@ import Loading from "~components/Loading";
 import SiteAvailability from "~pages/Availability";
 import Modules from "~pages/Modules";
 
-//Main App Component
 function App() {
-  // //check if the system has user and role stored in cookies
-  // const isAuthenticated = Cookies.get("user");
-  // const roleCookie = Cookies.get("role");
-  // let isAuthorized = false;
-  // //check if the user has admin permissions
-  // if (roleCookie) {
-  //   if (roleCookie !== "undefined") {
-  //     const role = JSON.parse(roleCookie);
-  //     isAuthorized = role.admin;
-  //   }
-  // }
-  // const loginPage =
-  //   window.location.hostname === "localhost"
-  //     ? "localhost:5173/login"
-  //     : "https://ooh.scmiph.com/";
-
-  // //return to login page if user is neither authenticated nor authorized
-  // if (!isAuthenticated || !isAuthorized) {
-  //   window.location.href = loginPage;
-  //   return null;
-  // }
-
   return (
     <>
       <div className="relative min-h-screen">
         <RoleProvider>
           <UserProvider>
             <SiteProvider>
-              <ServiceProvider>
-                <Router>
+              <Router>
+                <ServiceProvider>
                   <LoadingContainer />
                   <AlertContainer />
                   <Navbar />
@@ -58,13 +34,15 @@ function App() {
                     <Sidebar />
                     <AppRoutes />
                   </main>
-                </Router>
-              </ServiceProvider>
+                </ServiceProvider>
+              </Router>
             </SiteProvider>
           </UserProvider>
         </RoleProvider>
       </div>
-      <p className="fixed bottom-0 left-0 w-full text-xs text-slate-200">OOH Incites live version 2.1.1</p>
+      <p className="fixed bottom-0 left-0 w-full text-xs text-slate-200">
+        OOH Incites live version 2.1.1
+      </p>
     </>
   );
 }
