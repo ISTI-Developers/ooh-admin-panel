@@ -12,11 +12,15 @@ import { alertTemplate } from "./misc/templates";
 import { RoleProvider, useRoles } from "~contexts/RoleContext";
 import { UserProvider } from "~contexts/UserContext";
 import { ServiceProvider, useServices } from "~contexts/ServiceContext";
+import { StationProvider } from "./contexts/LRTContext";
 import Sites from "~pages/Sites";
 import { SiteProvider } from "./contexts/SiteContext";
 import Loading from "~components/Loading";
 import SiteAvailability from "~pages/Availability";
 import Modules from "~pages/Modules";
+import Contract from "~pages/Utasi/Contract";
+import LandingPage from "~pages/Utasi/LandingPage";
+import AssetAvailability from "~pages/Utasi/AssetAvailability";
 
 function App() {
   return (
@@ -27,15 +31,17 @@ function App() {
             <SiteProvider>
               <Router>
                 <ServiceProvider>
-                  <LoadingContainer />
-                  <AlertContainer />
-                  <Navbar />
-                  <main className="flex flex-row gap-4 p-4">
-                    <Sidebar />
-                    <AppRoutes />
-                  </main>
+                <StationProvider>
+                      <LoadingContainer />
+                    <AlertContainer />
+                    <Navbar />
+                    <main className="flex flex-row gap-4 p-4">
+                      <Sidebar />
+                      <AppRoutes />
+                    </main>
                 </ServiceProvider>
-              </Router>
+                </Router>
+                </StationProvider>
             </SiteProvider>
           </UserProvider>
         </RoleProvider>
@@ -62,6 +68,9 @@ function AppRoutes() {
     sites: Sites,
     analytics: Sites,
     availability: SiteAvailability,
+    contracts: Contract,
+    assets: LandingPage,
+    asset_availability: AssetAvailability,
     users: Users,
     roles: Roles,
     modules: Modules,

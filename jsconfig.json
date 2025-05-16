@@ -8,14 +8,8 @@
             "~components/*": [
                 "src/components/*"
             ],
-            "~pages/*": [
-                "src/pages/*"
-            ],
-            "~/*": [
-                "src/*"
-            ],
-            "~Roles/*": [
-                "src/pages/Roles/*"
+            "~contexts/*": [
+                "src/contexts/*"
             ],
             "~hooks/*": [
                 "src/hooks/*"
@@ -23,29 +17,14 @@
             "~misc/*": [
                 "src/misc/*"
             ],
-            "~contexts/*": [
-                "src/contexts/*"
+            "~pages/*": [
+                "src/pages/*"
             ],
-            "~__tests__/*": [
-                "src/components/__tests__/*"
+            "~/*": [
+                "src/*"
             ],
-            "~utils/*": [
-                "src/misc/*"
-            ],
-            "~Users/*": [
-                "src/pages/Users/*"
-            ],
-            "~Sites/*": [
-                "src/pages/Sites/*"
-            ],
-            "~Availability/*": [
-                "src/pages/Availability/*"
-            ],
-            "~availability/*": [
-                "src/components/availability/*"
-            ],
-            "~Modules/*": [
-                "src/pages/Modules/*"
+            "~pillarMap/*": [
+                "src/components/pillarMap/*"
             ]
         }
     }

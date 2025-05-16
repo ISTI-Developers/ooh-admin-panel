@@ -3,7 +3,9 @@ import { FaUserGear } from "react-icons/fa6";
 import { DiGoogleAnalytics } from "react-icons/di";
 import { CgWebsite } from "react-icons/cg";
 import { TbChecks } from "react-icons/tb";
-import { IoMdSwitch } from "react-icons/io";
+import { IoMdSwitch, IoIosTrain } from "react-icons/io";
+import { FaFileContract } from "react-icons/fa";
+
 export const testLinks = {
   "": [
     {
@@ -27,6 +29,23 @@ export const testLinks = {
       title: "analytics",
       link: "/analytics",
       icon: DiGoogleAnalytics,
+    },
+  ],
+  utasi: [
+    {
+      title: "contracts",
+      link: "/contracts",
+      icon: FaFileContract,
+    },
+    {
+      title: "assets",
+      link: "/assets",
+      icon: IoIosTrain,
+    },
+    {
+      title: "asset_availability",
+      link: "/asset_availability",
+      icon: IoIosTrain,
     },
   ],
   system: [
