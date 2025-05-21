@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { EntryExitButton, ParapetBookButton } from "./buttons/bookButtons";
 import { STATUS, SIZE } from "~misc/generalAssets";
+import PropTypes from "prop-types";
 
 const Parapets = ({ direction = "SOUTH", parapetData = [], entryExitIndexes = [], onClick }) => {
   const isSouthBound = direction === "SOUTH";
@@ -20,19 +21,10 @@ const Parapets = ({ direction = "SOUTH", parapetData = [], entryExitIndexes = []
         {parapetData.map((parapet, index) => (
           <Fragment key={parapet.asset_id}>
             <ParapetBookButton
-              text={
-                parapet.asset_status === STATUS.BLOCKED
-                  ? ""
-                  : parapet.asset_status === STATUS.TAKEN
-                  ? parapet.owner
-                  : parapet.owner === ""
-                  ? parapet.asset_id
-                  : parapet.owner
-              }
+              text={parapet.asset_size === SIZE.LARGE ? "WALL" : null}
               isBlocked={parapet.asset_status === STATUS.BLOCKED}
               isDisabled={parapet.asset_status === STATUS.TAKEN}
               isLargeParapet={parapet.asset_size === SIZE.LARGE}
-              isPending={parapet.asset_status === STATUS.PENDING}
               widthLabel={parapet.asset_dimension_width}
               heightLabel={parapet.asset_dimension_height}
               onClick={() => onClick(parapet)}
@@ -51,6 +43,12 @@ const Parapets = ({ direction = "SOUTH", parapetData = [], entryExitIndexes = []
       )}
     </>
   );
+};
+Parapets.propTypes = {
+  direction: PropTypes.string,
+  parapetData: PropTypes.array,
+  entryExitIndexes: PropTypes.array,
+  onClick: PropTypes.func,
 };
 
 export default Parapets;

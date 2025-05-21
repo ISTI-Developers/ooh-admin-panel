@@ -1,0 +1,104 @@
+import { useState, useEffect } from "react";
+import { Table } from "flowbite-react";
+import { FaTrash } from "react-icons/fa6";
+import { useLRTapi } from "~contexts/LRT.api";
+const ExpiredContracts = () => {
+  const { unTagContract, updateParapetStatus, getContractFromAsset } = useLRTapi();
+  const [deletingContractId, setDeletingContractId] = useState(null);
+  const [contractFromAsset, setContractFromAsset] = useState([]);
+  useEffect(() => {
+    refreshContract();
+  }, []);
+  const refreshContract = async () => {
+    const contracts = await getContractFromAsset();
+    setContractFromAsset(contracts.data);
+  };
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set to start of today
+
+  const expiredContracts = contractFromAsset.filter((item) => {
+    const endDate = new Date(item.asset_date_end);
+    return endDate < today;
+  });
+  const deleteContract = async (matchedContract, trainAssetId) => {
+    const isConfirmed = window.confirm("Are you sure you want to untag this contract?");
+    if (!isConfirmed) return;
+    setDeletingContractId(matchedContract.contract_id);
+    try {
+      const result = await unTagContract(
+        matchedContract.contract_id,
+        matchedContract.backlit_id,
+        trainAssetId,
+        matchedContract.quantity
+      );
+      if (matchedContract.asset_id === 1) {
+        await updateParapetStatus(matchedContract.station_id, matchedContract.asset_facing, 1, "AVAILABLE");
+      }
+      alert("Contract successfully untagged.");
+      refreshContract();
+      return result;
+    } catch (error) {
+      console.error("Error deleting contract:", error);
+      alert("An error occurred while untagging the contract.");
+    } finally {
+      setDeletingContractId(null);
+    }
+  };
+  return (
+    <div className="p-4 bg-white rounded-lg container">
+      <h2 className="text-xl font-bold mb-4">Expired Contracts</h2>
+      <div className="overflow-x-auto flex flex-col mx-auto gap-3">
+        {/* <div className="flex items-center gap-2 opacity-60">
+          <label htmlFor="search" className="text-sm font-medium">
+            Search:
+          </label>
+          <TextInput id="search" type="text" placeholder="Type to search..." sizing="sm" className="w-64" />
+        </div> */}
+        <Table className="w-full table-auto border-collapse bg-white rounded-lg shadow-md">
+          <Table.Head className="text-gray-700">
+            <Table.HeadCell className="p-3 text-left font-bold">Sales Order Code</Table.HeadCell>
+            <Table.HeadCell className="p-3 text-left font-bold">Start Date</Table.HeadCell>
+            <Table.HeadCell className="p-3 text-left font-bold">End Date</Table.HeadCell>
+            <Table.HeadCell className="p-3 text-left font-bold">Actions</Table.HeadCell>
+          </Table.Head>
+
+          <Table.Body className="divide-y divide-gray-200">
+            {expiredContracts.length > 0 ? (
+              expiredContracts.map((item) => (
+                <Table.Row key={item.asset_id} className="hover:bg-gray-50 even:bg-gray-50 transition">
+                  <Table.Cell className="px-4 py-3">{item.asset_sales_order_code}</Table.Cell>
+                  <Table.Cell className="px-4 py-3">
+                    {item.asset_date_start ? new Date(item.asset_date_start).toLocaleDateString() : "-"}
+                  </Table.Cell>
+                  <Table.Cell className="px-4 py-3">
+                    {item.asset_date_end ? new Date(item.asset_date_end).toLocaleDateString() : "-"}
+                  </Table.Cell>
+                  <Table.Cell className="px-4 py-3">
+                    <button
+                      className="text-red-500"
+                      onClick={() => {
+                        const trainAssetId = item.asset_id >= 3 && item.asset_id <= 7 ? item.asset_id : null;
+                        deleteContract(item, trainAssetId);
+                      }}
+                    >
+                      {deletingContractId === item.contract_id ? "Untagging..." : <FaTrash />}
+                    </button>
+                  </Table.Cell>
+                </Table.Row>
+              ))
+            ) : (
+              <Table.Row>
+                <Table.Cell colSpan={4} className="text-center py-4 text-gray-500">
+                  No expired contracts with tagged asset found.
+                </Table.Cell>
+              </Table.Row>
+            )}
+          </Table.Body>
+        </Table>
+      </div>
+    </div>
+  );
+};
+
+export default ExpiredContracts;
