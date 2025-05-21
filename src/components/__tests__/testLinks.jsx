@@ -47,6 +47,11 @@ export const testLinks = {
       link: "/asset_availability",
       icon: IoIosTrain,
     },
+    {
+      title: "expired_contracts",
+      link: "/expired_contracts",
+      icon: FaFileContract,
+    },
   ],
   system: [
     {

@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       rotate: {
-        65: "60deg",
+        65: "50deg",
       },
       animation: {
         "fade-fr-t": "fade-fr-t 750ms ease-in-out",
