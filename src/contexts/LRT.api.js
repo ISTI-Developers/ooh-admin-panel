@@ -191,6 +191,26 @@ const retrieveBacklitsAvailability = async () => {
     console.error("Error retrieving parapets availability:", error.message);
   }
 };
+
+const addViaduct = async (data) => {
+  try {
+    const response = await axios.post(`${endpoints.trains}/external/addViaduct`, data, headers);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding viaduct:", error.message);
+    throw error;
+  }
+};
+const deleteViaduct = async (id, spec_id) => {
+  try {
+    const response = await axios.delete(`${endpoints.trains}/external/deleteViaduct/${id}/${spec_id}`, headers);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting viaduct:", error.message);
+    throw error;
+  }
+};
+
 export const useLRTapi = () => {
   return {
     retrieveAllStationDetails,
@@ -210,5 +230,7 @@ export const useLRTapi = () => {
     retrieveParapetsAvailability,
     retrieveBacklitsAvailability,
     updateAssetSpecs,
+    addViaduct,
+    deleteViaduct,
   };
 };

@@ -94,6 +94,7 @@ const Contract = () => {
     console.log(`Saving ${field}:`, editedDates[`${index}-${field}`]);
     setEditField(null);
   };
+  console.log(filteredContracts);
   return (
     <>
       {selectAsset ? (

@@ -21,6 +21,7 @@ import Modules from "~pages/Modules";
 import Contract from "~pages/Utasi/Contract";
 import LandingPage from "~pages/Utasi/LandingPage";
 import AssetAvailability from "~pages/Utasi/AssetAvailability";
+import ExpiredContracts from "~pages/Utasi/ExpiredContracts";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function AppRoutes() {
     contracts: Contract,
     assets: LandingPage,
     asset_availability: AssetAvailability,
+    expired_contracts: ExpiredContracts,
     users: Users,
     roles: Roles,
     modules: Modules,

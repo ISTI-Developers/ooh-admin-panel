@@ -1,17 +1,27 @@
 import Template from "~components/Template";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AssetDetailCard from "~/components/details";
 import { useStations } from "~/contexts/LRTContext";
 import ContractTable from "~components/contractTable";
 import { FaArrowLeft } from "react-icons/fa";
 import PropTypes from "prop-types";
+import html2canvas from "html2canvas";
 
 const StationAssets = ({ onBackStations }) => {
   const { queryAllStationsData, querySpecs, attachedContract, queryAssetContracts } = useStations();
   const [currentStationId, setCurrentStationId] = useState(null);
   const [selectedContract, setSelectedContract] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const componentRef = useRef();
 
+  const takeScreenshot = () => {
+    html2canvas(componentRef.current).then((canvas) => {
+      const link = document.createElement("a");
+      link.download = currentStation?.station_name + ".png";
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  };
   useEffect(() => {
     if (queryAllStationsData.length > 0 && !currentStationId) {
       setCurrentStationId(queryAllStationsData[0]?.station_id);
@@ -84,6 +94,17 @@ const StationAssets = ({ onBackStations }) => {
             ))}
           </select>
         </div>
+        {!attachedContract && (
+          <div>
+            <button
+              onClick={takeScreenshot}
+              className="p-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              📸 Take Screenshot
+            </button>
+          </div>
+        )}
+
         {shouldShowTagButton && (
           <div className="space-x-2">
             <button
@@ -114,22 +135,24 @@ const StationAssets = ({ onBackStations }) => {
           </div>
         </div>
       )} */}
+      <div ref={componentRef}>
+        <Template
+          key={currentStation.station_id}
+          station_id={currentStation.station_id}
+          station_name={currentStation?.station_name || "Sample Station"}
+          backLitsSB={currentStation.backlits?.filter((b) => b.asset_distinction.startsWith("SB")) || []}
+          backLitsNB={currentStation.backlits?.filter((b) => b.asset_distinction.startsWith("NB")) || []}
+          parapetSB={currentStation.parapets?.filter((p) => p.asset_distinction.startsWith("SB")) || []}
+          parapetNB={currentStation.parapets?.filter((p) => p.asset_distinction.startsWith("NB")) || []}
+          SBentryExitButton={currentStation.south_ee || []}
+          NBentryExitButton={currentStation.north_ee || []}
+          southBound={currentStation.next_south_station || ""}
+          northBound={currentStation.next_north_station || ""}
+          handleSouthClick={handlePreviousStation}
+          handleNorthClick={handleNextStation}
+        />
+      </div>
 
-      <Template
-        key={currentStation.station_id}
-        station_id={currentStation.station_id}
-        station_name={currentStation?.station_name || "Sample Station"}
-        backLitsSB={currentStation.backlits?.filter((b) => b.asset_distinction.startsWith("SB")) || []}
-        backLitsNB={currentStation.backlits?.filter((b) => b.asset_distinction.startsWith("NB")) || []}
-        parapetSB={currentStation.parapets?.filter((p) => p.asset_distinction.startsWith("SB")) || []}
-        parapetNB={currentStation.parapets?.filter((p) => p.asset_distinction.startsWith("NB")) || []}
-        SBentryExitButton={currentStation.south_ee || []}
-        NBentryExitButton={currentStation.north_ee || []}
-        southBound={currentStation.next_south_station || ""}
-        northBound={currentStation.next_north_station || ""}
-        handleSouthClick={handlePreviousStation}
-        handleNorthClick={handleNextStation}
-      />
       {currentStation.details?.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {currentStation.details[0]?.details?.map((detail, index) => (
@@ -142,7 +165,6 @@ const StationAssets = ({ onBackStations }) => {
           ))}
         </div>
       )}
-
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed z-50 inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">

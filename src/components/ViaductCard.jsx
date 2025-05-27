@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
-
-export const ViaductCard = ({ viaduct, onDetailsClick }) => {
+import { FaTrash } from "react-icons/fa";
+import { useStations } from "~contexts/LRTContext";
+export const ViaductCard = ({ viaduct, onDetailsClick, deleteViaduct }) => {
+  const { attachedContract } = useStations();
   return (
     <div
       className={`relative cursor-pointer bg-white rounded-lg shadow-md p-4 transition-opacity ${
         viaduct.isBooked ? "opacity-50 pointer-events-none" : "hover:shadow-lg"
       }`}
-      onClick={() => onDetailsClick(viaduct)}
     >
       {/* "BOOKED" Stamp */}
       {viaduct.isBooked && (
@@ -16,21 +17,34 @@ export const ViaductCard = ({ viaduct, onDetailsClick }) => {
       )}
 
       {/* Image */}
-      <img className="w-full h-40 rounded-md mb-3 object-cover" src={viaduct.picture} alt="" />
+      <img
+        className="w-full h-40 rounded-md mb-3 object-cover"
+        src={viaduct.picture}
+        alt=""
+        onClick={() => onDetailsClick(viaduct)}
+      />
 
       {/* Viaduct Info */}
       <h3 className="text-lg font-bold">{viaduct.viaduct_name}</h3>
       <p className="text-gray-600">{viaduct.asset_direction}</p>
 
       {/* Details Button (Disabled if booked) */}
-      <button
-        className={`text-blue-500 mt-2 inline-block ${
-          viaduct.isBooked ? "opacity-50 cursor-not-allowed" : "hover:underline"
-        }`}
-        disabled={viaduct.isBooked}
-      >
-        Details →
-      </button>
+      <div className="flex justify-between items-center">
+        <button
+          onClick={() => onDetailsClick(viaduct)}
+          className={`text-blue-500 mt-2 inline-block ${
+            viaduct.isBooked ? "opacity-50 cursor-not-allowed" : "hover:underline"
+          }`}
+          disabled={viaduct.isBooked}
+        >
+          Details →
+        </button>
+        {!attachedContract && (
+          <button className="text-red-500" onClick={deleteViaduct}>
+            <FaTrash />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
@@ -43,4 +57,5 @@ ViaductCard.propTypes = {
     isBooked: PropTypes.bool,
   }).isRequired,
   onDetailsClick: PropTypes.func,
+  deleteViaduct: PropTypes.func,
 };

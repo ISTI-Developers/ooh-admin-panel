@@ -5,14 +5,14 @@ import { useStations } from "~contexts/LRTContext";
 import { imageMap, imageMap2 } from "./utasi.const";
 import ContractTable from "~components/contractTable";
 import { useLRTapi } from "~contexts/LRT.api";
-import { Button } from "flowbite-react";
 import PillarMapLocation from "~components/pillarMap/PillarMapLocation";
 import { ViaductCard } from "~components/ViaductCard";
-
+import { Modal, Button } from "flowbite-react";
+import viad from "~assets/viad.jpg";
 const ExternalAssets = ({ onBackExternal }) => {
   // 1. Hooks & Dependencies
   const { attachedContract } = useStations();
-  const { getExternalAssetSpecs, getContractFromAsset } = useLRTapi();
+  const { getExternalAssetSpecs, getContractFromAsset, addViaduct, deleteViaduct } = useLRTapi();
 
   // 2. State Initialization
   const [selectedViaduct, setSelectedViaduct] = useState(null);
@@ -20,6 +20,20 @@ const ExternalAssets = ({ onBackExternal }) => {
   const [isViaduct, setIsViaduct] = useState(true);
   const [externalAssetSpecs, setExternalAssetSpecs] = useState([]);
   const [assetContracts, setAssetContracts] = useState([]);
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const [form, setForm] = useState({
+    viaductName: "",
+    direction: "",
+    assetDirection: "",
+    mediaRental: "",
+    prodCost: "",
+    size: "",
+    vatExclusive: false,
+  });
+  const handleChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
 
   // 3. Derived Data
   const contractedViaduct = assetContracts.filter((cv) => cv.viaduct_id != null).map((cv) => cv.viaduct_id);
@@ -38,19 +52,51 @@ const ExternalAssets = ({ onBackExternal }) => {
     setSelectedViaduct(viaduct);
   };
 
+  const effects = async () => {
+    const data = await getExternalAssetSpecs(8);
+    setExternalAssetSpecs(data.data);
+
+    const assetContract = await getContractFromAsset();
+    setAssetContracts(assetContract.data);
+  };
+
   // 5. Effects
   useEffect(() => {
-    const fetchExternalAssets = async () => {
-      const data = await getExternalAssetSpecs(8);
-      setExternalAssetSpecs(data.data);
-
-      const assetContract = await getContractFromAsset();
-      setAssetContracts(assetContract.data);
+    effects();
+  }, []);
+  const handleSave = async () => {
+    const confirm = window.confirm("Are you sure you want to attach this contract?");
+    if (!confirm) return;
+    const payload = {
+      asset_name: form.direction ? form.viaductName + " - " + form.direction : form.viaductName,
+      asset_id: 8,
+      asset_direction: form.assetDirection,
+      media_rental: parseFloat(form.mediaRental),
+      prod_cost: parseFloat(form.prodCost),
+      vat_exclusive: form.vatExclusive,
+      size: form.size,
     };
 
-    fetchExternalAssets();
-  }, []);
-
+    try {
+      await addViaduct(payload);
+      setShowAddForm(false);
+    } catch (error) {
+      console.error("Add failed:", error);
+    } finally {
+      effects();
+    }
+  };
+  const handleDeleteViaduct = async (id, spec_id) => {
+    const confirm = window.confirm("Are you sure you want to delete this viaduct?");
+    if (!confirm) return;
+    try {
+      await deleteViaduct(id, spec_id);
+    } catch (error) {
+      console.error("Delete failed:", error);
+    } finally {
+      effects();
+    }
+  };
   return (
     <div className="container p-6">
       <div className="flex justify-between mb-4">
@@ -86,19 +132,131 @@ const ExternalAssets = ({ onBackExternal }) => {
       </div>
       {isViaduct ? (
         <>
-          <div className="grid grid-cols-4 gap-6  bg-gray-100">
+          <div className="grid grid-cols-4 gap-6">
             {externalAssetsWithImages.map((viaduct) => (
               <ViaductCard
                 key={viaduct.id}
                 viaduct={{
                   ...viaduct,
-                  picture: imageMap[viaduct.id] || null,
+                  picture: imageMap[viaduct.id] || viad,
                   isBooked: contractedViaduct.includes(viaduct.id),
                 }}
                 onDetailsClick={handleDetailsClick}
+                deleteViaduct={() => handleDeleteViaduct(viaduct.id, viaduct.spec_id)}
               />
             ))}
+            {!attachedContract && (
+              <div
+                onClick={() => setShowAddForm(true)}
+                className="relative cursor-pointer bg-white rounded-lg shadow-md p-8 flex flex-col items-center justify-center border-2 border-dashed border-green-400 hover:shadow-lg transition hover:bg-green-50"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-16 w-16 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                <span className="mt-2 text-green-600 font-medium">Add New Viaduct</span>
+              </div>
+            )}
           </div>
+          <Modal show={showAddForm} onClose={() => setShowAddForm(false)}>
+            <Modal.Header>Add New Viaduct</Modal.Header>
+            <Modal.Body>
+              <div className="space-y-4">
+                <div className="flex space-x-4">
+                  <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-700">Viaduct Name</label>
+                    <input
+                      type="text"
+                      value={form.viaductName}
+                      onChange={(e) => handleChange("viaductName", e.target.value)}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+                    />
+                  </div>
+
+                  <div className="w-40">
+                    <label className="block text-sm font-medium text-gray-700">Direction</label>
+                    <select
+                      value={form.direction}
+                      onChange={(e) => handleChange("direction", e.target.value)}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+                    >
+                      <option value="" disabled>
+                        Select a Direction
+                      </option>
+                      <option value="SB">South Bound</option>
+                      <option value="NB">North Bound</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Asset Direction</label>
+                  <input
+                    type="text"
+                    value={form.assetDirection}
+                    onChange={(e) => handleChange("assetDirection", e.target.value)}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Media Rental (₱/unit/month)</label>
+                  <input
+                    type="number"
+                    value={form.mediaRental}
+                    onChange={(e) => handleChange("mediaRental", e.target.value)}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Production Cost (₱/unit)</label>
+                  <input
+                    type="number"
+                    value={form.prodCost}
+                    onChange={(e) => handleChange("prodCost", e.target.value)}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Size Approx.</label>
+                  <input
+                    type="text"
+                    value={form.size}
+                    onChange={(e) => handleChange("size", e.target.value)}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+                  />
+                </div>
+                <div className="flex items-center space-x-2 mt-4">
+                  <input
+                    id="isActive"
+                    type="checkbox"
+                    checked={form.vatExclusive}
+                    onChange={(e) => handleChange("vatExclusive", e.target.value)}
+                    className="rounded border-gray-300 text-green-600 shadow-sm focus:ring-green-500"
+                  />
+                  Vat Exclusive?
+                </div>
+              </div>
+            </Modal.Body>
+
+            <Modal.Footer>
+              <Button color="success" onClick={handleSave}>
+                Save Asset
+              </Button>
+
+              <Button color="gray" onClick={() => setShowAddForm(false)}>
+                Cancel
+              </Button>
+            </Modal.Footer>
+          </Modal>
 
           {selectedViaduct && (
             <div className="w-1/3 bg-white shadow-lg p-6 fixed right-0 top-0 h-full z-50 flex flex-col overflow-y-auto">
