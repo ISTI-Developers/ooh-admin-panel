@@ -9,6 +9,7 @@ function useSearch(data) {
 
   function searchTerm(term) {
     if (!data) return;
+    console.log(term, data);
     // Convert query to lowercase for case-insensitive search
     const lowerCaseQuery = term.toLowerCase();
 

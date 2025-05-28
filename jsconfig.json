@@ -23,8 +23,14 @@
             "~/*": [
                 "src/*"
             ],
+            "~buttons/*": [
+                "src/components/buttons/*"
+            ],
             "~pillarMap/*": [
                 "src/components/pillarMap/*"
+            ],
+            "~Utasi/*": [
+                "src/pages/Utasi/*"
             ]
         }
     }

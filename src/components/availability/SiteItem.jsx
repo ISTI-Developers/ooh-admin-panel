@@ -2,7 +2,6 @@
 import {
   Badge,
   Button,
-  Datepicker,
   Label,
   Modal,
   Select,
@@ -10,6 +9,7 @@ import {
   Table,
   Textarea,
   TextInput,
+  Tooltip,
 } from "flowbite-react";
 import classNames from "classnames";
 import { differenceInDays, format } from "date-fns";
@@ -20,12 +20,15 @@ import { useServices } from "~/contexts/ServiceContext";
 import { useUsers } from "~/contexts/UserContext";
 import { useSites } from "~/contexts/SiteContext";
 import { useFunction } from "~/misc/functions";
-const SiteItem = ({ site, setSite }) => {
+import { FaTag } from "react-icons/fa";
+import { FaFileInvoice } from "react-icons/fa6";
+const SiteItem = ({ site, setSite, bookings }) => {
   const { insertSiteBooking, doReload } = useSites();
-  const { currentUserRole, setAlert } = useServices();
+  const { setAlert, hasAccess } = useServices();
   const [onEdit, setOnEdit] = useState(false);
   const [currentSite, setCurrentSite] = useState(null);
   const [onBook, setOnBook] = useState(false);
+  const [onView, setView] = useState(null);
   const [proceed, setProceed] = useState(true);
   const [adjustmentReason, setAdjustmentReason] = useState(
     site.adjustment_reason ?? ""
@@ -67,7 +70,7 @@ const SiteItem = ({ site, setSite }) => {
 
     information.site_rental = parseInt(siteRentals);
     information.old_client = site.product;
-    const response = await insertSiteBooking(site.site, information);
+    const response = await insertSiteBooking(site, information);
     if (response.success) {
       setOnBook(false);
       setOnEdit(false);
@@ -88,24 +91,12 @@ const SiteItem = ({ site, setSite }) => {
     }
   };
 
-  const hasAccess = useMemo(() => {
-    if (!currentUserRole) return false;
-
-    const access = currentUserRole.access;
-    const availabilityAccess = access.find(
-      (module) => module.name === "Availability"
-    );
-    if (availabilityAccess) {
-      return availabilityAccess.permissions[2];
-    }
-
-    return false;
-  }, [currentUserRole]);
-
   const onRemarksChange = (e) => {
     setSite((prev) =>
       prev.map((item) =>
-        item === site ? { ...item, remarks: e.target.value } : item
+        item.site === site.site
+          ? { ...item, modified: 1, remarks: e.target.value }
+          : item
       )
     );
   };
@@ -138,6 +129,21 @@ const SiteItem = ({ site, setSite }) => {
     return rental;
   }, []);
 
+  const permissions = useMemo(() => {
+    const childPermissions = Array.isArray(hasAccess.children)
+      ? hasAccess.children.reduce((acc, item) => {
+          acc[item.name.toLowerCase()] = item.permissions;
+          return acc;
+        }, {})
+      : {};
+
+    const permissionArray = {
+      [hasAccess.name.toLowerCase()]: hasAccess.permissions,
+      ...childPermissions,
+    };
+    return permissionArray;
+  }, [hasAccess]);
+
   return (
     <>
       {!proceed && (
@@ -149,7 +155,7 @@ const SiteItem = ({ site, setSite }) => {
       <Table.Row
         id={site.site}
         className={classNames(
-          "text-xs",
+          "text-[0.6rem] 2xl:text-xs bg-white",
           site.adjusted_end_date
             ? "bg-blue-100 text-blue-700 hover:bg-blue-200"
             : "",
@@ -158,9 +164,28 @@ const SiteItem = ({ site, setSite }) => {
             : ""
         )}
       >
-        <Table.Cell className="font-bold">{site.structure}</Table.Cell>
-        <Table.Cell className="max-w-[300px]">{site.address}</Table.Cell>
-        <Table.Cell>{site.site}</Table.Cell>
+        <Table.Cell className="font-bold flex flex-col gap-1 items-start">
+          <p>{site.structure}</p>
+          {newRemainingDays <= 60 || !newRemainingDays ? (
+            <Badge
+              className="w-fit text-cyan-600 scale-90"
+              color="info"
+              size="xs"
+            >
+              Available
+            </Badge>
+          ) : (
+            <Badge
+              className="w-fit text-emerald-600 scale-90"
+              color="success"
+              size="xs"
+            >
+              Booked
+            </Badge>
+          )}
+        </Table.Cell>
+        <Table.Cell className="min-w-[300px]">{site.address}</Table.Cell>
+        <Table.Cell className="whitespace-nowrap">{site.site}</Table.Cell>
         <Table.Cell>
           {siteRentals === 0
             ? "---"
@@ -169,7 +194,9 @@ const SiteItem = ({ site, setSite }) => {
                 currency: "PHP",
               }).format(siteRentals)}
         </Table.Cell>
-        <Table.Cell className="max-w-[150px]">{site.product}</Table.Cell>
+        <Table.Cell className="max-w-[150px]">
+          {site.product ?? "---"}
+        </Table.Cell>
         <Table.Cell className={classNames("whitespace-nowrap")}>
           {site.adjusted_end_date || site.end_date ? (
             <div className="relative group">
@@ -177,7 +204,7 @@ const SiteItem = ({ site, setSite }) => {
                 new Date(site.adjusted_end_date ?? site.end_date),
                 "MMM. dd, yyyy"
               )}
-              {!site.days_vacant && hasAccess && (
+              {!site.days_vacant && permissions["availability"][2] && (
                 <button
                   type="button"
                   onClick={() => {
@@ -200,8 +227,8 @@ const SiteItem = ({ site, setSite }) => {
         <Table.Cell className="text-center max-w-[50px]">
           {site.days_vacant ?? "---"}
         </Table.Cell>
-        <Table.Cell className="">
-          {hasAccess ? (
+        <Table.Cell className="min-w-[200px]">
+          {permissions["availability"][2] ? (
             <Textarea
               className="min-h-[35px] bg-transparent shadow"
               onChange={onRemarksChange}
@@ -214,20 +241,50 @@ const SiteItem = ({ site, setSite }) => {
           )}
         </Table.Cell>
         <Table.Cell align="center">
-          {newRemainingDays <= 60 || !newRemainingDays ? (
-            <Button
-              className="text-white bg-secondary-500 hover:bg-secondary rounded-lg px-4 transition-all"
-              size="xs"
-              theme={mainButtonTheme}
-              onClick={() => setOnBook(true)}
+          <div className="flex justify-center items-center gap-4">
+            <Tooltip
+              content={
+                newRemainingDays && newRemainingDays > 60
+                  ? "Unavailable"
+                  : "Book"
+              }
             >
-              Book
-            </Button>
-          ) : (
-            <Badge className="w-fit p-2 px-4 rounded-lg" color="success">
-              Booked
-            </Badge>
-          )}
+              <Button
+                className="text-white bg-secondary-500 hover:bg-secondary disabled:bg-red-300 rounded-lg transition-all"
+                size="xs"
+                theme={mainButtonTheme}
+                disabled={newRemainingDays && newRemainingDays > 60}
+                onClick={() => setOnBook(true)}
+              >
+                <FaTag />
+              </Button>
+            </Tooltip>
+            <Tooltip
+              content={
+                bookings &&
+                bookings.find((booking) => booking.site_id === site.site)
+                  ? "View Booking"
+                  : "Booked from UNIS"
+              }
+            >
+              <Button
+                className="text-white bg-green-300 hover:bg-green-500 disabled:bg-gray-300 disabled:hover:bg-gray-300 rounded-lg transition-all"
+                size="xs"
+                theme={mainButtonTheme}
+                disabled={
+                  !bookings ||
+                  !bookings.find((booking) => booking.site_id === site.site)
+                }
+                onClick={() =>
+                  setView(
+                    bookings.find((booking) => booking.site_id === site.site)
+                  )
+                }
+              >
+                <FaFileInvoice />
+              </Button>
+            </Tooltip>
+          </div>
         </Table.Cell>
       </Table.Row>
       {currentSite && (
@@ -293,6 +350,7 @@ const SiteItem = ({ site, setSite }) => {
           </Modal.Footer>
         </Modal>
       )}
+      <ViewBooking booking={onView} setView={setView} />
       <BookingModal
         onBook={onBook}
         setOnBook={setOnBook}
@@ -301,6 +359,139 @@ const SiteItem = ({ site, setSite }) => {
         onBookSubmit={onBookSubmit}
       />
     </>
+  );
+};
+
+const ViewBooking = ({ booking, setView }) => {
+  const { deleteBooking, doReload } = useSites();
+  const { setAlert } = useServices();
+  const formatCurrency = (amount) =>
+    Intl.NumberFormat("en-PH", {
+      style: "currency",
+      currency: "PHP",
+    }).format(amount);
+
+  const onDelete = async () => {
+    const response = await deleteBooking(booking);
+    console.log(response);
+    if (response.success) {
+      setView(null);
+      setAlert({
+        isOn: true,
+        type: "success",
+        message: `Booking deleted!`,
+      });
+      doReload((prev) => (prev += 1));
+    } else {
+      setAlert({
+        isOn: true,
+        type: "failure",
+        message: response,
+      });
+    }
+  };
+
+  return (
+    <Modal show={booking !== null} onClose={() => setView(null)} dismissible>
+      {booking !== null && (
+        <>
+          <Modal.Header>
+            <p className="text-base font-bold">
+              {booking.site_id} Booking Details
+            </p>
+          </Modal.Header>
+          <Modal.Body className="space-y-2">
+            <section className="flex flex-col gap-2">
+              {[
+                { label: "Booking Status", value: booking.booking_status },
+                { label: "New Client", value: booking.client },
+                { label: "Previous Client", value: booking.old_client },
+                {
+                  label: "Account Executive",
+                  value: booking.account_executive,
+                },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="grid grid-cols-2 gap-2 items-center"
+                >
+                  <p className="font-semibold">{item.label}: </p>
+                  <p>{item.value}</p>
+                </div>
+              ))}
+            </section>
+
+            <hr />
+
+            <section className="flex flex-col gap-2">
+              <div className="grid grid-cols-2 gap-2 items-center">
+                <p className="font-semibold">Term Duration: </p>
+                <p>
+                  {`${format(
+                    new Date(booking.date_from),
+                    "MMM dd, yyyy"
+                  )} to ${format(new Date(booking.date_to), "MMM dd, yyyy")}`}
+                </p>
+              </div>
+
+              {[
+                { label: "Site Rental", value: booking.site_rental },
+                { label: "SRP", value: booking.srp },
+                { label: "Monthly Rate", value: booking.monthly_rate },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="grid grid-cols-2 gap-2 items-center"
+                >
+                  <p className="font-semibold">{item.label}: </p>
+                  <p>{formatCurrency(item.value)}</p>
+                </div>
+              ))}
+            </section>
+          </Modal.Body>
+          <Modal.Footer>
+            <DeleteBookingModal onDelete={onDelete} />
+          </Modal.Footer>
+        </>
+      )}
+    </Modal>
+  );
+};
+
+const DeleteBookingModal = ({ onDelete }) => {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="flex justify-end gap-4 w-full">
+      <Button
+        size="sm"
+        color="failure"
+        className="px-2"
+        onClick={() => setShow(true)}
+      >
+        Cancel Booking
+      </Button>
+      <Modal show={show} size="sm" onClose={() => setShow(false)} dismissible>
+        <Modal.Header>Confirm Cancellation</Modal.Header>
+        <Modal.Body>
+          <p>Are you sure you want to cancel this booking?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="flex justify-end gap-4 w-full">
+            <Button
+              size="sm"
+              color="failure"
+              className="px-2"
+              onClick={() => {
+                setShow(false);
+                onDelete();
+              }}
+            >
+              Proceed
+            </Button>
+          </div>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 };
 
@@ -321,11 +512,10 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
 
   const onInformationChange = (e) => {
     const { id, value } = e.target;
-    const isNumber = ["srp", "monthly_rate"].includes(id);
     setInformation((prev) => {
       return {
         ...prev,
-        [id]: isNumber ? e.target.valueAsNumber : value,
+        [id]: value,
       };
     });
   };
@@ -354,12 +544,12 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
       booking_status: "NEW",
       client: "",
       account_executive: null,
-      start: new Date(),
-      end: new Date(),
+      start: new Date(site.end_date),
+      end: new Date(site.end_date),
       monthly_rate: 0,
       remarks: "",
     });
-  }, [onBook]);
+  }, [site, onBook]);
   return (
     <>
       <Modal show={onBook} size="2xl" onClose={() => setOnBook(false)}>
@@ -547,6 +737,9 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
         </Modal.Body>
         <Modal.Footer>
           <div className="flex justify-end gap-4 w-full">
+            <Button size="sm" color="gray" onClick={() => setOnBook(false)}>
+              Cancel
+            </Button>
             <Button
               size="sm"
               color="success"
@@ -555,9 +748,6 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
               onClick={() => setConfirm(true)}
             >
               Submit
-            </Button>
-            <Button size="sm" color="gray" onClick={() => setOnBook(false)}>
-              Cancel
             </Button>
           </div>
         </Modal.Footer>

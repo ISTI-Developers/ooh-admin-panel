@@ -205,6 +205,60 @@ export function SiteProvider({ children }) {
     }
   };
 
+  const deleteBooking = async (booking) => {
+    const currentSite = sites.find((s) => s.site_code === booking.site_id);
+    if (!currentSite) return;
+
+    const bookingData = {
+      account_executive: booking.account_executive,
+      address: currentSite.address,
+      area: currentSite.city,
+      booking_status: "CANCELLED",
+      end: format(new Date(booking.date_to), "MMM dd, yyyy"),
+      facing: currentSite.board_facing,
+      monthly_rate: Intl.NumberFormat("en-PH", {
+        style: "currency",
+        currency: "PHP",
+      }).format(booking.monthly_rate),
+      old_client: booking.old_client,
+      owner: currentSite.site_owner,
+      remarks: booking.remarks,
+      site: booking.site_id,
+      site_rental: Intl.NumberFormat("en-PH", {
+        style: "currency",
+        currency: "PHP",
+      }).format(booking.site_rental ?? 0),
+      size: currentSite.size,
+      srp: Intl.NumberFormat("en-PH", {
+        style: "currency",
+        currency: "PHP",
+      }).format(booking.srp),
+      start: format(new Date(booking.date_from), "MMM dd, yyyy"),
+    };
+    const webhookData = {
+      payload: {
+        app_id: "cli_a7d1c046a9385003",
+        app_secret: "OUKjhSpo4hHvJXd2Sf6k4eLRqEltfv4b",
+      },
+      type: "url_verification",
+      token: "tlBCMBcSK2OoJ2klJV2yefuk0rxHlD0N",
+      booking_data: JSON.stringify(bookingData),
+    };
+
+    try {
+      const api = `/booking?id=${booking.site_booking_id}`;
+      const response = await axios.delete(endpoints.sites + api, {
+        params: webhookData,
+        ...headers,
+      });
+      if (response.data) {
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const getSiteBooking = async (id = null) => {
     try {
       const api = id ? `/booking?id=${id}` : `/booking`;
@@ -219,7 +273,13 @@ export function SiteProvider({ children }) {
     }
   };
   const insertSiteBooking = async (site, data) => {
-    const insertData = { ...data, site: site };
+    const currentSite = sites.find((s) => s.site_code === site.site);
+
+    if (!currentSite) return;
+    const insertData = {
+      ...data,
+      site: site.site,
+    };
     const values = Object.values(insertData);
 
     insertData.srp = Intl.NumberFormat("en-PH", {
@@ -233,7 +293,7 @@ export function SiteProvider({ children }) {
     insertData.site_rental = Intl.NumberFormat("en-PH", {
       style: "currency",
       currency: "PHP",
-    }).format(insertData.site_rental);
+    }).format(insertData.site_rental ?? 0);
     insertData.start = format(new Date(insertData.start), "MMM dd, yyyy");
     insertData.end = format(new Date(insertData.end), "MMM dd, yyyy");
     const webhookData = {
@@ -243,7 +303,14 @@ export function SiteProvider({ children }) {
       },
       type: "url_verification",
       token: "tlBCMBcSK2OoJ2klJV2yefuk0rxHlD0N",
-      bookingData: JSON.stringify(insertData),
+      bookingData: JSON.stringify({
+        ...insertData,
+        address: site.address,
+        area: currentSite.city,
+        facing: currentSite.board_facing,
+        owner: currentSite.site_owner,
+        size: currentSite.size,
+      }),
     };
     try {
       const insertResponse = await axios.post(
@@ -299,6 +366,7 @@ export function SiteProvider({ children }) {
     retrieveSite,
     retrieveAreas,
     retrieveSites,
+    deleteBooking,
     getLastSiteCode,
     getSiteBooking,
     insertSiteBooking,

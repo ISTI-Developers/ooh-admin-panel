@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
 import { useRoles } from "./RoleContext";
+import { useLocation } from "react-router-dom";
 
 // Create a context for services
 const ServiceContext = React.createContext();
@@ -13,6 +14,7 @@ export function useServices() {
 
 // Service provider component
 export function ServiceProvider({ children }) {
+  const location = useLocation();
   // State for alert
   const { retrieveRole, reload } = useRoles();
   const [alert, setAlert] = useState({
@@ -155,6 +157,36 @@ export function ServiceProvider({ children }) {
     return initials ? initials.join("").toUpperCase() : "";
   }
 
+  const hasAccess = useMemo(() => {
+    if (!currentUserRole) return false;
+    const { pathname } = location;
+    const { access } = currentUserRole;
+
+    const currentPage = access.find(
+      (module) =>
+        pathname.includes(module.name.toLowerCase()) && module.is_parent
+    );
+    if (!currentPage) return false;
+
+    const accessChildren = access.filter(
+      (module) => module.parent_id === currentPage.module_id
+    );
+
+    return {
+      module_id: currentPage.module_id,
+      name: currentPage.name,
+      view: currentPage.view,
+      permissions: currentPage.permissions,
+      children: accessChildren.map((child) => {
+        return {
+          module_id: child.module_id,
+          name: child.name,
+          permissions: child.permissions,
+        };
+      }),
+    };
+  }, [currentUserRole, location]);
+
   useEffect(() => {
     const setup = async () => {
       let user = Cookies.get("user");
@@ -189,6 +221,7 @@ export function ServiceProvider({ children }) {
     progress,
     setProgress,
     currentUserRole,
+    hasAccess,
   };
 
   // Provide the values to the children components

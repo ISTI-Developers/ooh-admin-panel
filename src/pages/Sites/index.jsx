@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import BatchUpload from "./BatchUpload";
 import SiteOptions from "./SiteOptions";
+import classNames from "classnames";
 
 function Sites() {
   return (
@@ -35,12 +36,12 @@ function Main() {
   const { results: sites, setSite, setModule } = useSites();
   const { capitalize } = useFunction();
   const { tooltipOptions } = useServices();
-  const headers = ["image", "name", "location", "price"];
+  const headers = ["name", "location", "price", "remarks"];
 
   const [sortedItems, setSortedItems] = useState(null);
   const [itemCount, setCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 15;
 
   // Calculate start and end index
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -62,7 +63,7 @@ function Main() {
       <Table hoverable>
         <Table.Head>
           {headers.map((header, index) => (
-            <Table.HeadCell key={index} className="text-main-300">
+            <Table.HeadCell key={index} className={classNames("text-main-300")}>
               {capitalize(header, "_")}
             </Table.HeadCell>
           ))}
@@ -75,39 +76,20 @@ function Main() {
             sortedItems.map((site, index) => {
               return (
                 <Table.Row key={index}>
-                  <Table.Cell className="w-[300px]">
-                    {site.imageURL ? (
-                      <img
-                        src={site.imageURL}
-                        alt={`${site.site_code} image not found`}
-                        className="w-full"
-                      />
-                    ) : (
-                      <>---</>
-                    )}
-                  </Table.Cell>
                   <Table.Cell className="max-w-[250px] font-semibold">
                     <Link to={`./${site.site_code}`}>{site.site_code}</Link>
                   </Table.Cell>
                   <Table.Cell className="text-xs">
-                    <p>
-                      <span>City: </span>
-                      <span>{site.city}</span>
-                    </p>
-                    <p>
-                      <span>Region: </span>
-                      <span>{site.region}</span>
-                    </p>
-                    <p>
-                      <span>{site.latitude}</span>,{" "}
-                      <span>{site.longitude}</span>
-                    </p>
+                    <p>{site.address}</p>
                   </Table.Cell>
                   <Table.Cell>
                     {Intl.NumberFormat("en-PH", {
                       style: "currency",
                       currency: "PHP",
                     }).format(site.price || 0)}
+                  </Table.Cell>
+                  <Table.Cell className="text-xs">
+                    <p>{site.remarks ?? '---'}</p>
                   </Table.Cell>
                   <Table.Cell>
                     <div className="flex items-center justify-evenly">

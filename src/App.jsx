@@ -21,7 +21,6 @@ import Modules from "~pages/Modules";
 import Contract from "~pages/Utasi/Contract";
 import LandingPage from "~pages/Utasi/LandingPage";
 import AssetAvailability from "~pages/Utasi/AssetAvailability";
-import ExpiredContracts from "~pages/Utasi/ExpiredContracts";
 
 function App() {
   return (
@@ -32,23 +31,23 @@ function App() {
             <SiteProvider>
               <Router>
                 <ServiceProvider>
-                <StationProvider>
-                      <LoadingContainer />
+                  <StationProvider>
+                    <LoadingContainer />
                     <AlertContainer />
                     <Navbar />
                     <main className="flex flex-row gap-4 p-4">
                       <Sidebar />
                       <AppRoutes />
                     </main>
+                  </StationProvider>
                 </ServiceProvider>
-                </Router>
-                </StationProvider>
+              </Router>
             </SiteProvider>
           </UserProvider>
         </RoleProvider>
       </div>
       <p className="fixed bottom-0 left-0 w-full text-xs text-slate-200">
-        OOH Incites live version 2.1.1
+        OOH Incites live version 2.2.1
       </p>
     </>
   );
@@ -72,7 +71,6 @@ function AppRoutes() {
     contracts: Contract,
     assets: LandingPage,
     asset_availability: AssetAvailability,
-    expired_contracts: ExpiredContracts,
     users: Users,
     roles: Roles,
     modules: Modules,
@@ -128,7 +126,7 @@ function AlertContainer() {
         icon={RiInformationFill}
         color={alert.type}
         onDismiss={() => setAlert(alertTemplate)}
-        className="fixed top-[10%] left-[50%] translate-x-[-50%] animate-fade-fr-t z-10"
+        className="fixed top-[10%] left-[50%] translate-x-[-50%] animate-fade-fr-t z-[20]"
       >
         <span>
           <p className="w-[300px] text-center">{alert.message}</p>

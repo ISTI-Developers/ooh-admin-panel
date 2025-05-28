@@ -13,7 +13,7 @@ import { useServices } from "~/contexts/ServiceContext";
 function SiteAvailability() {
   const { currentUserRole, setAlert } = useServices();
   const { capitalize } = useFunction();
-  const { getAvailableSites, insertAvailableSites, getSiteBooking } =
+  const { getAvailableSites, insertAvailableSites, getSiteBooking, reload } =
     useSites();
   const [availableSites, setAvailableSites] = useState([]);
   const [modal, toggleModal] = useState(false);
@@ -85,6 +85,8 @@ function SiteAvailability() {
     "end_date",
     "remaining_days",
     "days_vacant",
+    "remarks",
+    "actions",
   ];
 
   const hasAccess = useMemo(() => {
@@ -109,7 +111,7 @@ function SiteAvailability() {
       setAvailableSites(response);
     };
     setup();
-  }, []);
+  }, [reload]);
 
   const filteredSites = useMemo(() => {
     const { search, show } = query;
@@ -221,24 +223,14 @@ function SiteAvailability() {
                   <Table.HeadCell
                     key={index}
                     className={classNames(
-                      "text-main-300 sticky top-0 z-[2]",
-                      header === "remaining_days"
-                        ? " max-w-[100px] text-center text-wrap"
-                        : ""
+                      "text-main-300 sticky top-0 z-[2] text-[0.6rem] whitespace-nowrap text-center"
                     )}
                   >
-                    {capitalize(header, "_")}
+                    {header === "remaining_days"
+                      ? "Days Left"
+                      : capitalize(header, "_")}
                   </Table.HeadCell>
                 ))}
-                <Table.HeadCell className="text-main-300 sticky top-0 z-[2]">
-                  Remarks
-                </Table.HeadCell>
-                <Table.HeadCell
-                  align="center"
-                  className="text-main-300 sticky top-0 z-[2]"
-                >
-                  Action
-                </Table.HeadCell>
               </Table.Head>
               <Table.Body>
                 {filteredSites.map((site, index) => {
@@ -247,6 +239,7 @@ function SiteAvailability() {
                       site={site}
                       setSite={setAvailableSites}
                       key={index}
+                      bookings={bookings}
                     />
                   );
                 })}
