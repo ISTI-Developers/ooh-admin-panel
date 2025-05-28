@@ -26,7 +26,7 @@ export const ParapetBookButton = ({
         <button
           onClick={onClick}
           className={`
-          ${isDisabled ? "bg-gray-500 hover:bg-gray-600 cursor-not-allowed" : ""} 
+          ${isDisabled ? "bg-neutral-600 hover:bg-neutral-700 cursor-not-allowed" : ""} 
           ${isBlocked ? "bg-custom-gray cursor-not-allowed" : "bg-blue-700 hover:bg-blue-800"} 
           ${isLargeParapet ? "h-[5.75rem] w-[7rem]" : "h-[2.875rem] min-w-[3.3rem]"}
           relative overflow-hidden text-white font-bold ${className}`}
@@ -67,8 +67,8 @@ ParapetBookButton.propTypes = {
 
 export const BacklitBookButton = ({ onClick, text, className, isDisabled }) => {
   const baseClasses = "h-[3.125rem] w-[12.0625rem] text-white font-bold rounded";
-  const enabledClasses = "bg-pink-700 hover:bg-pink-800";
-  const disabledClasses = "bg-gray-500 hover:bg-gray-600 cursor-not-allowed";
+  const enabledClasses = "bg-indigo-600 hover:bg-indigo-700";
+  const disabledClasses = "bg-neutral-600 hover:bg-neutral-700 cursor-not-allowed";
 
   return (
     <button
@@ -86,6 +86,51 @@ BacklitBookButton.propTypes = {
   isDisabled: PropTypes.bool,
   isSelected: PropTypes.bool,
 };
+
+export const TicketBoothBookButton = ({ onClick, text, className, isDisabled }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        h-[2.875rem] w-[12.0625rem] px-4 relative overflow-hidden rounded-lg font-semibold transition-colors duration-200
+        ${isDisabled ? "bg-neutral-600 hover:bg-neutral-700 cursor-not-allowed" : "bg-sky-600 hover:bg-sky-700 text-white"}
+        ${className}
+      `}
+    >
+      {text}
+    </button>
+  );
+};
+
+TicketBoothBookButton.propTypes = {
+  onClick: PropTypes.func,
+  text: PropTypes.string,
+  className: PropTypes.string,
+  isDisabled: PropTypes.bool,
+};
+
+export const StairsBookButton = ({ onClick, text, className, isDisabled }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        h-[2.875rem] w-[12.0625rem] px-4 relative overflow-hidden rounded-lg font-semibold transition-colors duration-200
+        ${isDisabled ? "bg-neutral-600 hover:bg-neutral-700 cursor-not-allowed" : "bg-teal-500 hover:bg-teal-600 text-white"}
+        ${className}
+      `}
+    >
+      {text}
+    </button>
+  );
+};
+
+StairsBookButton.propTypes = {
+  onClick: PropTypes.func,
+  text: PropTypes.string,
+  className: PropTypes.string,
+  isDisabled: PropTypes.bool,
+};
+
 export const EntryExitButton = ({ className, onClick }) => {
   return (
     <button onClick={onClick} className={`bg-black h-[92px] w-[126px] text-white font-bold ${className}`}>

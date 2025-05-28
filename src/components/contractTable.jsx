@@ -4,7 +4,7 @@ import { AiFillEdit, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { useStations } from "~contexts/LRTContext";
 import { useLRTapi } from "~contexts/LRT.api";
-import { Datepicker, Table } from "flowbite-react";
+import { Table } from "flowbite-react";
 
 const ContractTable = ({
   selectedContract,
@@ -16,6 +16,8 @@ const ContractTable = ({
   nbNeedsTag,
   matchedContract,
   selectedBacklit,
+  selectedTB,
+  selectedStairs,
   qty,
   avlbl,
   setTrainAssets,
@@ -87,6 +89,55 @@ const ContractTable = ({
         assetId: 2,
         assetFacing: selectedBacklit.asset_distinction.includes("SB") ? "SB" : "NB",
         backlitId: selectedBacklit.asset_id,
+      };
+      await attachContract(contractData);
+      alert("Updated successfully!");
+    } catch (error) {
+      console.error("Error updating asset:", error);
+      alert("Failed to update asset.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const bookTicketBooth = async () => {
+    if (!selectedTB) return;
+    setLoading(true);
+    try {
+      await updateAsset(selectedTB.asset_id, {
+        asset_status: "TAKEN",
+      });
+      const contractData = {
+        assetSalesOrderCode: selectedContract.SalesOrderCode,
+        assetDateStart: editedDates[`${0}-DateRef1`] ?? selectedContract?.DateRef1,
+        assetDateEnd: editedDates[`${0}-DateRef2`] ?? selectedContract?.DateRef2,
+        stationId: station_id,
+        assetId: 10,
+        assetFacing: selectedTB.asset_distinction.includes("SB") ? "SB" : "NB",
+        ticketBoothId: selectedTB.asset_id,
+      };
+      await attachContract(contractData);
+      alert("Updated successfully!");
+    } catch (error) {
+      console.error("Error updating asset:", error);
+      alert("Failed to update asset.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const bookStairs = async () => {
+    if (!selectedStairs) return;
+    setLoading(true);
+    try {
+      await updateAsset(selectedStairs.asset_id, {
+        asset_status: "TAKEN",
+      });
+      const contractData = {
+        assetSalesOrderCode: selectedContract.SalesOrderCode,
+        assetDateStart: editedDates[`${0}-DateRef1`] ?? selectedContract?.DateRef1,
+        assetDateEnd: editedDates[`${0}-DateRef2`] ?? selectedContract?.DateRef2,
+        stationId: station_id,
+        assetId: 11,
+        stairsId: selectedStairs.asset_id,
       };
       await attachContract(contractData);
       alert("Updated successfully!");
@@ -319,7 +370,7 @@ const ContractTable = ({
             disabled={loading}
             className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
           >
-            {loading ? "Tagging..." : "Backlit"}
+            {loading ? "Tagging..." : "Confirm"}
           </button>
         )}
         {[3, 4, 5, 6, 7].includes(asset_id) && (
@@ -336,6 +387,24 @@ const ContractTable = ({
         {asset_id === 9 && (
           <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700" onClick={bookPillar}>
             Confirm
+          </button>
+        )}
+        {asset_id === 10 && !matchedContract && attachedContract && (
+          <button
+            onClick={bookTicketBooth}
+            disabled={loading}
+            className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
+          >
+            {loading ? "Tagging..." : "Confirm"}
+          </button>
+        )}
+        {asset_id === 11 && !matchedContract && attachedContract && (
+          <button
+            onClick={bookStairs}
+            disabled={loading}
+            className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
+          >
+            {loading ? "Tagging..." : "Confirm"}
           </button>
         )}
         <button
@@ -362,6 +431,8 @@ ContractTable.propTypes = {
   nbNeedsTag: PropTypes.bool,
   matchedContract: PropTypes.bool,
   selectedBacklit: PropTypes.object,
+  selectedTB: PropTypes.object,
+  selectedStairs: PropTypes.object,
   qty: PropTypes.number,
   avlbl: PropTypes.number,
   setTrainAssets: PropTypes.func,

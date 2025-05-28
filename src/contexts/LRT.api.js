@@ -150,10 +150,10 @@ const updateAssetSpecs = async (id, payload) => {
     throw error;
   }
 };
-const unTagContract = async (id, backlitId, trainAssetId, qty) => {
+const unTagContract = async (id, backlitId, ticketBoothId, stairsId, trainAssetId, qty) => {
   try {
     const response = await axios.delete(`${endpoints.contracts}/${id}`, {
-      data: { backlitId, trainAssetId, qty },
+      data: { backlitId, ticketBoothId, stairsId, trainAssetId, qty },
       headers,
     });
     return response.data;
@@ -188,7 +188,23 @@ const retrieveBacklitsAvailability = async () => {
     const response = await axios.get(endpoints.availability + "/backlits", headers);
     return response.data;
   } catch (error) {
-    console.error("Error retrieving parapets availability:", error.message);
+    console.error("Error retrieving backlits availability:", error.message);
+  }
+};
+const retrieveTicketboothsAvailability = async () => {
+  try {
+    const response = await axios.get(endpoints.availability + "/ticketbooths", headers);
+    return response.data;
+  } catch (error) {
+    console.error("Error retrieving ticketbooths availability:", error.message);
+  }
+};
+const retrieveStairsAvailability = async () => {
+  try {
+    const response = await axios.get(endpoints.availability + "/stairs", headers);
+    return response.data;
+  } catch (error) {
+    console.error("Error retrieving stairs availability:", error.message);
   }
 };
 
@@ -229,6 +245,8 @@ export const useLRTapi = () => {
     unTagContract,
     retrieveParapetsAvailability,
     retrieveBacklitsAvailability,
+    retrieveTicketboothsAvailability,
+    retrieveStairsAvailability,
     updateAssetSpecs,
     addViaduct,
     deleteViaduct,

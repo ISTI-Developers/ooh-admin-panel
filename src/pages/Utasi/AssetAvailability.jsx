@@ -5,6 +5,7 @@ import { useLRTapi } from "~contexts/LRT.api";
 import { useStations } from "~contexts/LRTContext";
 import Pagination from "~components/Pagination";
 import { TextInput } from "flowbite-react";
+import { SWS, NWS, SES, NES, SBS, NBS } from "./utasi.const";
 
 const AssetAvailability = () => {
   // 1. Utilities
@@ -12,7 +13,13 @@ const AssetAvailability = () => {
     return format(new Date(isoDate), "MMMM dd, yyyy");
   };
   // 2. Custom Hooks
-  const { retrieveParapetsAvailability, retrieveBacklitsAvailability, getTrainAssets } = useLRTapi();
+  const {
+    retrieveParapetsAvailability,
+    retrieveBacklitsAvailability,
+    retrieveTicketboothsAvailability,
+    retrieveStairsAvailability,
+    getTrainAssets,
+  } = useLRTapi();
   const { pillars, queryExternalAssets, queryAssetContracts } = useStations();
   // 3. State Initialization
   const today = new Date();
@@ -22,6 +29,8 @@ const AssetAvailability = () => {
   const [selectedAsset, setSelectedAsset] = useState("parapets");
   const [parapets, setParapets] = useState([]);
   const [backlits, setBacklits] = useState([]);
+  const [ticketbooths, setTicketbooths] = useState([]);
+  const [stairs, setStairs] = useState([]);
   const [trainAssets, setTrainAssets] = useState([]);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,6 +94,14 @@ const AssetAvailability = () => {
     { assetKey: "id", contractKey: "backlit_id" },
   ]);
 
+  const enrichedTicketBooths = enrichAssetsWithContracts(ticketbooths, queryAssetContracts, [
+    { assetKey: "id", contractKey: "ticketbooth_id" },
+  ]);
+
+  const enrichedStairs = enrichAssetsWithContracts(stairs, queryAssetContracts, [
+    { assetKey: "id", contractKey: "stairs_id" },
+  ]);
+
   const enrichedExternalAssets = enrichAssetsWithContracts(queryExternalAssets, queryAssetContracts, [
     { assetKey: "id", contractKey: "viaduct_id" },
   ]);
@@ -103,6 +120,14 @@ const AssetAvailability = () => {
       backlits: {
         name: "Backlits",
         data: enrichedBacklits,
+      },
+      ticketbooths: {
+        name: "Ticket Booths",
+        data: enrichedTicketBooths,
+      },
+      stairs: {
+        name: "Stairs",
+        data: enrichedStairs,
       },
       viaducts: {
         name: "Viaducts",
@@ -133,7 +158,15 @@ const AssetAvailability = () => {
         data: [enrichedTrain[4]],
       },
     }),
-    [enrichedParapets, enrichedBacklits, enrichedExternalAssets, enrichedPillars, enrichedTrain]
+    [
+      enrichedParapets,
+      enrichedBacklits,
+      enrichedTicketBooths,
+      enrichedStairs,
+      enrichedExternalAssets,
+      enrichedPillars,
+      enrichedTrain,
+    ]
   );
 
   const handleSearch = (e) => {
@@ -178,6 +211,12 @@ const AssetAvailability = () => {
 
       const backlitRes = await retrieveBacklitsAvailability();
       setBacklits(backlitRes.data);
+
+      const TBRes = await retrieveTicketboothsAvailability();
+      setTicketbooths(TBRes.data);
+
+      const stairsRes = await retrieveStairsAvailability();
+      setStairs(stairsRes.data);
 
       const trainAssetsRes = await getTrainAssets();
       setTrainAssets(trainAssetsRes.data);
@@ -337,8 +376,15 @@ const AssetAvailability = () => {
                         ? data.asset_prefix === "NB"
                           ? "North Bound"
                           : "South Bound"
+                        : selectedAsset === "stairs"
+                        ? (() => {
+                            const labels = { SWS, NWS, SES, NES, SBS, NBS };
+                            const label = labels[data.asset_distinction];
+                            return label ? label : data.asset_direction || "Middle Stairs";
+                          })()
                         : data.asset_distinction || data.asset_direction}
                     </Table.Cell>
+
                     <Table.Cell className="text-center">
                       {data.contracts?.[0]?.asset_date_end
                         ? formatDate(data.contracts[0].asset_date_end)

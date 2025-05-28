@@ -6,6 +6,14 @@ import ContractTable from "~components/contractTable";
 import { FaArrowLeft } from "react-icons/fa";
 import PropTypes from "prop-types";
 import html2canvas from "html2canvas";
+import {
+  sb_ticketBooth_top,
+  sb_ticketBooth_mid,
+  sb_ticketBooth_bot,
+  nb_ticketBooth_top,
+  nb_ticketBooth_mid,
+  nb_ticketBooth_bot,
+} from "./utasi.const";
 
 const StationAssets = ({ onBackStations }) => {
   const { queryAllStationsData, querySpecs, attachedContract, queryAssetContracts } = useStations();
@@ -150,6 +158,14 @@ const StationAssets = ({ onBackStations }) => {
           northBound={currentStation.next_north_station || ""}
           handleSouthClick={handlePreviousStation}
           handleNorthClick={handleNextStation}
+          sbTop={currentStation.ticketbooths?.filter((b) => b.row_category === sb_ticketBooth_top)}
+          sbMid={currentStation.ticketbooths?.filter((b) => b.row_category === sb_ticketBooth_mid)}
+          sbBelow={currentStation.ticketbooths?.filter((b) => b.row_category === sb_ticketBooth_bot)}
+          nbTop={currentStation.ticketbooths?.filter((b) => b.row_category === nb_ticketBooth_top)}
+          nbMid={currentStation.ticketbooths?.filter((b) => b.row_category === nb_ticketBooth_mid)}
+          nbBelow={currentStation.ticketbooths?.filter((b) => b.row_category === nb_ticketBooth_bot)}
+          sbStairs={currentStation.stairs?.filter((s) => s.asset_distinction.includes("W") || s.asset_distinction === "SBS") || []}
+          nbStairs={currentStation.stairs?.filter((s) => s.asset_distinction.includes("E") || s.asset_distinction === "NBS") || []}
         />
       </div>
 

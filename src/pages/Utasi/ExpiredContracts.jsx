@@ -6,6 +6,7 @@ const ExpiredContracts = () => {
   const { unTagContract, updateParapetStatus, getContractFromAsset } = useLRTapi();
   const [deletingContractId, setDeletingContractId] = useState(null);
   const [contractFromAsset, setContractFromAsset] = useState([]);
+  
   useEffect(() => {
     refreshContract();
   }, []);
@@ -58,6 +59,8 @@ const ExpiredContracts = () => {
         <Table className="w-full table-auto border-collapse bg-white rounded-lg shadow-md">
           <Table.Head className="text-gray-700">
             <Table.HeadCell className="p-3 text-left font-bold">Sales Order Code</Table.HeadCell>
+            <Table.HeadCell className="p-3 text-left font-bold">Asset</Table.HeadCell>
+
             <Table.HeadCell className="p-3 text-left font-bold">Start Date</Table.HeadCell>
             <Table.HeadCell className="p-3 text-left font-bold">End Date</Table.HeadCell>
             <Table.HeadCell className="p-3 text-left font-bold">Actions</Table.HeadCell>
@@ -68,6 +71,8 @@ const ExpiredContracts = () => {
               expiredContracts.map((item) => (
                 <Table.Row key={item.asset_id} className="hover:bg-gray-50 even:bg-gray-50 transition">
                   <Table.Cell className="px-4 py-3">{item.asset_sales_order_code}</Table.Cell>
+                  <Table.Cell className="px-4 py-3 capitalize">{item.asset_name}</Table.Cell>
+
                   <Table.Cell className="px-4 py-3">
                     {item.asset_date_start ? new Date(item.asset_date_start).toLocaleDateString() : "-"}
                   </Table.Cell>

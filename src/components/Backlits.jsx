@@ -1,7 +1,7 @@
-import React from "react";
-// import BacklitBookButton from "./BacklitBookButton";
+import PropTypes from "prop-types";
 import { BacklitBookButton } from "./buttons/bookButtons";
 import { STATUS } from "~misc/generalAssets";
+
 const Backlits = ({ direction = "SOUTH", backlitData = [], onClick, icon = "▲" }) => {
   const isSouthBound = direction === "SOUTH";
 
@@ -32,6 +32,12 @@ const Backlits = ({ direction = "SOUTH", backlitData = [], onClick, icon = "▲"
       ))}
     </div>
   );
+};
+Backlits.propTypes = {
+  direction: PropTypes.string,
+  backlitData: PropTypes.array,
+  onClick: PropTypes.func,
+  icon: PropTypes.node,
 };
 
 export default Backlits;
