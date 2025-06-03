@@ -19,7 +19,11 @@ const Stairs = ({ direction = "SOUTH", activeSpots = [], stairsData = [], onClic
             {isSouthBound && (
               <div className="text-gray-500 text-sm uppercase tracking-wide">{stairs?.remarks && stairs?.remarks}</div>
             )}
-            <StairsBookButton isDisabled={stairs.asset_status === STATUS.TAKEN} onClick={() => onClick(stairs)} />
+            <StairsBookButton
+              text={stairs.asset_text ? stairs.asset_text : null}
+              isDisabled={stairs.asset_status === STATUS.TAKEN}
+              onClick={() => onClick(stairs)}
+            />
             {!isSouthBound && (
               <div className="text-gray-500 text-sm uppercase tracking-wide">{stairs?.remarks && stairs?.remarks}</div>
             )}

@@ -73,10 +73,6 @@ const Contract = () => {
     const contracts = await getContractFromAsset();
     setContractFromAsset(contracts.data);
   };
-  useEffect(() => {
-    fetchContracts(pagination.page, pagination.limit, search);
-    refreshContract();
-  }, [pagination.page, search]);
 
   const filteredContracts = useMemo(() => {
     if (!search.trim()) return contracts;
@@ -97,6 +93,11 @@ const Contract = () => {
     console.log(`Saving ${field}:`, editedDates[`${index}-${field}`]);
     setEditField(null);
   };
+  
+  useEffect(() => {
+    fetchContracts(pagination.page, pagination.limit, search);
+    refreshContract();
+  }, [pagination.page, search]);
   return (
     <>
       {selectAsset ? (

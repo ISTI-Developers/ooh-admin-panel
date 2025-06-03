@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { Table } from "flowbite-react";
 import { FaTrash } from "react-icons/fa6";
 import { useLRTapi } from "~contexts/LRT.api";
+import { format } from "date-fns";
 const ExpiredContracts = () => {
   const { unTagContract, updateParapetStatus, getContractFromAsset } = useLRTapi();
   const [deletingContractId, setDeletingContractId] = useState(null);
   const [contractFromAsset, setContractFromAsset] = useState([]);
-  
   useEffect(() => {
     refreshContract();
   }, []);
@@ -20,7 +20,9 @@ const ExpiredContracts = () => {
 
   const expiredContracts = contractFromAsset.filter((item) => {
     const endDate = new Date(item.asset_date_end);
-    return endDate < today;
+    const adjustedEndDate = new Date(item.adjusted_end_date);
+    const dateToUse = adjustedEndDate === null ? adjustedEndDate : endDate;
+    return dateToUse < today;
   });
   const deleteContract = async (matchedContract, trainAssetId) => {
     const isConfirmed = window.confirm("Are you sure you want to untag this contract?");
@@ -50,12 +52,6 @@ const ExpiredContracts = () => {
     <div className="p-4 bg-white rounded-lg container">
       <h2 className="text-xl font-bold mb-4">Expired Contracts</h2>
       <div className="overflow-x-auto flex flex-col mx-auto gap-3">
-        {/* <div className="flex items-center gap-2 opacity-60">
-          <label htmlFor="search" className="text-sm font-medium">
-            Search:
-          </label>
-          <TextInput id="search" type="text" placeholder="Type to search..." sizing="sm" className="w-64" />
-        </div> */}
         <Table className="w-full table-auto border-collapse bg-white rounded-lg shadow-md">
           <Table.Head className="text-gray-700">
             <Table.HeadCell className="p-3 text-left font-bold">Sales Order Code</Table.HeadCell>
@@ -69,15 +65,19 @@ const ExpiredContracts = () => {
           <Table.Body className="divide-y divide-gray-200">
             {expiredContracts.length > 0 ? (
               expiredContracts.map((item) => (
-                <Table.Row key={item.asset_id} className="hover:bg-gray-50 even:bg-gray-50 transition">
+                <Table.Row key={item.contract_id} className="hover:bg-gray-50 even:bg-gray-50 transition">
                   <Table.Cell className="px-4 py-3">{item.asset_sales_order_code}</Table.Cell>
                   <Table.Cell className="px-4 py-3 capitalize">{item.asset_name}</Table.Cell>
 
                   <Table.Cell className="px-4 py-3">
-                    {item.asset_date_start ? new Date(item.asset_date_start).toLocaleDateString() : "-"}
+                    {item.asset_date_start && format(new Date(item.asset_date_start), "MMMM dd, yyyy")}
                   </Table.Cell>
                   <Table.Cell className="px-4 py-3">
-                    {item.asset_date_end ? new Date(item.asset_date_end).toLocaleDateString() : "-"}
+                    {/* {contract.DateRef1 ? format(new Date(contract.DateRef1), "MMMM dd, yyyy") : "N/A"} */}
+
+                    {item.adjusted_end_date
+                      ? format(new Date(item.adjusted_end_date), "MMMM dd, yyyy")
+                      : format(new Date(item.asset_date_end), "MMMM dd, yyyy")}
                   </Table.Cell>
                   <Table.Cell className="px-4 py-3">
                     <button

@@ -1,4 +1,4 @@
-import Template from "~components/Template";
+import Template from "~components/template";
 import { useState, useEffect, useRef } from "react";
 import AssetDetailCard from "~/components/details";
 import { useStations } from "~/contexts/LRTContext";

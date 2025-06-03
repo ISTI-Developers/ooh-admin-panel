@@ -33,7 +33,7 @@ const Template = ({
   sbStairs,
   nbStairs,
 }) => {
-  const { updateAsset, queryAssetContracts, attachedContract } = useStations();
+  const { updateAsset, queryAssetContracts, attachedContract, allContracts } = useStations();
   const [selectedParapet, setSelectedParapet] = useState(null);
   const [selectedBacklit, setSelectedBacklit] = useState(null);
   const [selectedTB, setSelectedTB] = useState(null);
@@ -155,13 +155,61 @@ const Template = ({
     setSelectedStatus(e.target.value);
   };
   const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === selectedBacklit?.asset_id);
-
+  const matchedContractFinal = allContracts?.find(
+    (contract) => contract.SalesOrderCode === matchedContract?.asset_sales_order_code
+  );
   const matchedContractTB = queryAssetContracts?.find((contract) => contract.ticketbooth_id === selectedTB?.asset_id);
-
+  const matchedContractFinalTB = allContracts?.find(
+    (contract) => contract.SalesOrderCode === matchedContractTB?.asset_sales_order_code
+  );
   const matchedContractStairs = queryAssetContracts?.find(
     (contract) => contract.stairs_id === selectedStairs?.asset_id
   );
+  const matchedContractFinalStairs = allContracts?.find(
+    (contract) => contract.SalesOrderCode === matchedContractStairs?.asset_sales_order_code
+  );
 
+  const updatedBacklitsNB = backLitsNB.map((backlit) => {
+    const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === backlit.asset_id);
+    const matchedContractFinal = allContracts?.find(
+      (contract) => contract.SalesOrderCode === matchedContract?.asset_sales_order_code
+    );
+    return {
+      ...backlit,
+      asset_text: matchedContractFinal?.DebtorName || null,
+    };
+  });
+
+  const updatedBacklitsSB = backLitsSB.map((backlit) => {
+    const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === backlit.asset_id);
+    const matchedContractFinal = allContracts?.find(
+      (contract) => contract.SalesOrderCode === matchedContract?.asset_sales_order_code
+    );
+    return {
+      ...backlit,
+      asset_text: matchedContractFinal?.DebtorName || null,
+    };
+  });
+const updatedStairsNB = nbStairs.map((stair) => {
+    const matchedContract = queryAssetContracts?.find((contract) => contract.stairs_id === stair.asset_id);
+    const matchedContractFinal = allContracts?.find(
+      (contract) => contract.SalesOrderCode === matchedContract?.asset_sales_order_code
+    );
+    return {
+      ...stair,
+      asset_text: matchedContractFinal?.DebtorName || null,
+    };
+  });
+  const updatedStairsSB = sbStairs.map((stair) => {
+    const matchedContract = queryAssetContracts?.find((contract) => contract.stairs_id === stair.asset_id);
+    const matchedContractFinal = allContracts?.find(
+      (contract) => contract.SalesOrderCode === matchedContract?.asset_sales_order_code
+    );
+    return {
+      ...stair,
+      asset_text: matchedContractFinal?.DebtorName || null,
+    };
+  });
   useEffect(() => {
     setSelectedContract(attachedContract);
   }, [attachedContract]);
@@ -176,7 +224,7 @@ const Template = ({
 
       <Stairs
         direction="SOUTH"
-        stairsData={sbStairs}
+        stairsData={updatedStairsSB}
         activeSpots={sbStairs?.map((stair) => stair.position_index)}
         onClick={handleStairsClick}
         icon="▲"
@@ -189,7 +237,7 @@ const Template = ({
         icon="▲"
       />
 
-      <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
+      <Backlits direction="SOUTH" backlitData={updatedBacklitsSB} onClick={handleBacklitClick} icon="▲" />
 
       <TicketBooth
         direction="SOUTH"
@@ -245,7 +293,7 @@ const Template = ({
         icon="▼"
       />
 
-      <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
+      <Backlits direction="NORTH" backlitData={updatedBacklitsNB} onClick={handleBacklitClick} icon="▼" />
 
       <TicketBooth
         direction="NORTH"
@@ -256,7 +304,7 @@ const Template = ({
       />
       <Stairs
         direction="NORTH"
-        stairsData={nbStairs}
+        stairsData={updatedStairsNB}
         activeSpots={nbStairs?.map((stair) => stair.position_index)}
         onClick={handleStairsClick}
         icon="▼"
@@ -340,7 +388,6 @@ const Template = ({
 
             {!attachedContract && !matchedContract && (
               <div className="space-y-5">
-                {/* Asset Status Dropdown */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Asset Status</label>
                   <select
@@ -355,8 +402,6 @@ const Template = ({
                     ))}
                   </select>
                 </div>
-
-                {/* Action Buttons */}
                 <div className="flex justify-between items-center pt-2">
                   <button
                     onClick={editBacklit}
@@ -377,28 +422,32 @@ const Template = ({
               </div>
             )}
 
-            {matchedContract ? (
-              <div className="space-y-3 text-sm mb-6 text-gray-800 bg-white p-4 rounded-lg shadow-sm border">
+            {matchedContractFinal ? (
+              <div className="space-y-3 text-sm text-gray-800">
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Sales Order Code:</span>
-                  <span className="text-gray-900">{matchedContract.asset_sales_order_code}</span>
+                  <span className="text-gray-900">{matchedContractFinal.SalesOrderCode}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Start Date:</span>
                   <span className="text-gray-900">
-                    {format(new Date(matchedContract.asset_date_start), "MMMM dd, yyyy")}
+                    {format(new Date(matchedContractFinal.DateRef1), "MMMM dd, yyyy")}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">End Date:</span>
                   <span className="text-gray-900">
-                    {format(new Date(matchedContract.asset_date_end), "MMMM dd, yyyy")}
+                    {format(new Date(matchedContractFinal.DateRef2), "MMMM dd, yyyy")}
                   </span>
                 </div>
-                <div className="pt-3 text-right">
+                <div className="flex justify-between">
+                  <span className="font-medium text-gray-600">Owner:</span>
+                  <span className="text-gray-900">{matchedContractFinal.DebtorName} </span>
+                </div>
+                <div className="pt-4 text-right">
                   <button
                     onClick={handleSelectedBacklitModal}
-                    className="px-4 py-2 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
                   >
                     Close
                   </button>
@@ -432,7 +481,6 @@ const Template = ({
 
             {!attachedContract && !matchedContractTB && (
               <div className="space-y-5">
-                {/* Asset Status Dropdown */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Asset Status</label>
                   <select
@@ -448,7 +496,6 @@ const Template = ({
                   </select>
                 </div>
 
-                {/* Action Buttons */}
                 <div className="flex justify-between items-center pt-2">
                   <button
                     onClick={editTB}
@@ -469,28 +516,32 @@ const Template = ({
               </div>
             )}
 
-            {matchedContractTB ? (
-              <div className="space-y-3 text-sm mb-6 text-gray-800 bg-white p-4 rounded-lg shadow-sm border">
+            {matchedContractFinalTB ? (
+              <div className="space-y-3 text-sm text-gray-800">
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Sales Order Code:</span>
-                  <span className="text-gray-900">{matchedContractTB.asset_sales_order_code}</span>
+                  <span className="text-gray-900">{matchedContractFinalTB.SalesOrderCode}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Start Date:</span>
                   <span className="text-gray-900">
-                    {format(new Date(matchedContractTB.asset_date_start), "MMMM dd, yyyy")}
+                    {format(new Date(matchedContractFinalTB.DateRef1), "MMMM dd, yyyy")}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">End Date:</span>
                   <span className="text-gray-900">
-                    {format(new Date(matchedContractTB.asset_date_end), "MMMM dd, yyyy")}
+                    {format(new Date(matchedContractFinalTB.DateRef2), "MMMM dd, yyyy")}
                   </span>
                 </div>
-                <div className="pt-3 text-right">
+                <div className="flex justify-between">
+                  <span className="font-medium text-gray-600">Owner:</span>
+                  <span className="text-gray-900">{matchedContractFinalTB.DebtorName} </span>
+                </div>
+                <div className="pt-4 text-right">
                   <button
                     onClick={handleSelectedTBModal}
-                    className="px-4 py-2 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
                   >
                     Close
                   </button>
@@ -527,9 +578,8 @@ const Template = ({
               </h3>
             </div>
 
-            {!attachedContract && !matchedContractTB && (
+            {!attachedContract && !matchedContractStairs && (
               <div className="space-y-5">
-                {/* Asset Status Dropdown */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Asset Status</label>
                   <select
@@ -545,7 +595,6 @@ const Template = ({
                   </select>
                 </div>
 
-                {/* Action Buttons */}
                 <div className="flex justify-between items-center pt-2">
                   <button
                     onClick={editStair}
@@ -566,28 +615,32 @@ const Template = ({
               </div>
             )}
 
-            {matchedContractStairs ? (
-              <div className="space-y-3 text-sm mb-6 text-gray-800 bg-white p-4 rounded-lg shadow-sm border">
+            {matchedContractFinalStairs ? (
+              <div className="space-y-3 text-sm text-gray-800">
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Sales Order Code:</span>
-                  <span className="text-gray-900">{matchedContractStairs.asset_sales_order_code}</span>
+                  <span className="text-gray-900">{matchedContractFinalStairs.SalesOrderCode}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Start Date:</span>
                   <span className="text-gray-900">
-                    {format(new Date(matchedContractStairs.asset_date_start), "MMMM dd, yyyy")}
+                    {format(new Date(matchedContractFinalStairs.DateRef1), "MMMM dd, yyyy")}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">End Date:</span>
                   <span className="text-gray-900">
-                    {format(new Date(matchedContractStairs.asset_date_end), "MMMM dd, yyyy")}
+                    {format(new Date(matchedContractFinalStairs.DateRef2), "MMMM dd, yyyy")}
                   </span>
                 </div>
-                <div className="pt-3 text-right">
+                <div className="flex justify-between">
+                  <span className="font-medium text-gray-600">Owner:</span>
+                  <span className="text-gray-900">{matchedContractFinalStairs.DebtorName} </span>
+                </div>
+                <div className="pt-4 text-right">
                   <button
                     onClick={handleSelectedStairsModal}
-                    className="px-4 py-2 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
                   >
                     Close
                   </button>

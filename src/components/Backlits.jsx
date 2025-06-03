@@ -17,7 +17,7 @@ const Backlits = ({ direction = "SOUTH", backlitData = [], onClick, icon = "▲"
           )}
 
           <BacklitBookButton
-            text={item.asset_sales_order_code === "" ? item.asset_id : item.asset_sales_order_code}
+            text={item.asset_text ? item.asset_text : null}
             isDisabled={item.asset_status === STATUS.TAKEN}
             onClick={() => onClick(item)}
           />
