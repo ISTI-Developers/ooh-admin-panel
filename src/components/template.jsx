@@ -155,19 +155,11 @@ const Template = ({
     setSelectedStatus(e.target.value);
   };
   const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === selectedBacklit?.asset_id);
-  const matchedContractFinal = allContracts?.find(
-    (contract) => contract.SalesOrderCode === matchedContract?.asset_sales_order_code
-  );
+  const matchedContractFinal = allContracts?.find((contract) => contract.SalesOrderCode === matchedContract?.asset_sales_order_code);
   const matchedContractTB = queryAssetContracts?.find((contract) => contract.ticketbooth_id === selectedTB?.asset_id);
-  const matchedContractFinalTB = allContracts?.find(
-    (contract) => contract.SalesOrderCode === matchedContractTB?.asset_sales_order_code
-  );
-  const matchedContractStairs = queryAssetContracts?.find(
-    (contract) => contract.stairs_id === selectedStairs?.asset_id
-  );
-  const matchedContractFinalStairs = allContracts?.find(
-    (contract) => contract.SalesOrderCode === matchedContractStairs?.asset_sales_order_code
-  );
+  const matchedContractFinalTB = allContracts?.find((contract) => contract.SalesOrderCode === matchedContractTB?.asset_sales_order_code);
+  const matchedContractStairs = queryAssetContracts?.find((contract) => contract.stairs_id === selectedStairs?.asset_id);
+  const matchedContractFinalStairs = allContracts?.find((contract) => contract.SalesOrderCode === matchedContractStairs?.asset_sales_order_code);
 
   const updatedBacklitsNB = backLitsNB.map((backlit) => {
     const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === backlit.asset_id);
@@ -190,7 +182,7 @@ const Template = ({
       asset_text: matchedContractFinal?.DebtorName || null,
     };
   });
-const updatedStairsNB = nbStairs.map((stair) => {
+  const updatedStairsNB = nbStairs.map((stair) => {
     const matchedContract = queryAssetContracts?.find((contract) => contract.stairs_id === stair.asset_id);
     const matchedContractFinal = allContracts?.find(
       (contract) => contract.SalesOrderCode === matchedContract?.asset_sales_order_code
