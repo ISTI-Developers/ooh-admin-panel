@@ -25,3 +25,18 @@ export const imageMap2 = {
   3: Pic3Map,
   4: Pic4Map,
 };
+
+export const sb_ticketBooth_top = "sb_top";
+export const sb_ticketBooth_mid = "sb_mid";
+export const sb_ticketBooth_bot = "sb_below";
+
+export const nb_ticketBooth_top = "nb_top";
+export const nb_ticketBooth_mid = "nb_mid";
+export const nb_ticketBooth_bot = "nb_below";
+
+export const SWS = "South West Stairs";
+export const NWS = "North West Stairs";
+export const SES = "South East Stairs";
+export const NES = "North East Stairs";
+export const SBS = "South Bound Stairs";
+export const NBS = "North Bound Stairs";

@@ -1,12 +1,13 @@
 import { useEffect, useState, useMemo } from "react";
 import { parseISO, format } from "date-fns";
-import { AiFillEdit, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { Button, Table, TextInput } from "flowbite-react";
 import ContractDetailsModal from "~components/ContractDetailsModal";
 import Pagination from "~components/Pagination";
 import { useLRTapi } from "~contexts/LRT.api";
 import { useStations } from "~contexts/LRTContext";
 import LandingPage from "./LandingPage";
+import { SWS, NWS, SES, NES, SBS, NBS } from "./utasi.const";
 
 const Contract = () => {
   const {
@@ -25,6 +26,7 @@ const Contract = () => {
   const [editedDates, setEditedDates] = useState({});
   const [modal, setModal] = useState(false);
   const [selectedContract, setSelectedContract] = useState(null);
+
   const [contractFromAsset, setContractFromAsset] = useState([]);
   const [selectAsset, setSelectAsset] = useState(null);
   const [deletingContractId, setDeletingContractId] = useState(null);
@@ -33,7 +35,6 @@ const Contract = () => {
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
-    // Optionally reset page to 1 when searching
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
@@ -45,6 +46,8 @@ const Contract = () => {
       const result = await unTagContract(
         matchedContract.contract_id,
         matchedContract.backlit_id,
+        matchedContract.ticketbooth_id,
+        matchedContract.stairs_id,
         trainAssetId,
         matchedContract.quantity
       );
@@ -70,10 +73,6 @@ const Contract = () => {
     const contracts = await getContractFromAsset();
     setContractFromAsset(contracts.data);
   };
-  useEffect(() => {
-    fetchContracts(pagination.page, pagination.limit, search);
-    refreshContract();
-  }, [pagination.page, search]);
 
   const filteredContracts = useMemo(() => {
     if (!search.trim()) return contracts;
@@ -94,7 +93,11 @@ const Contract = () => {
     console.log(`Saving ${field}:`, editedDates[`${index}-${field}`]);
     setEditField(null);
   };
-  console.log(filteredContracts);
+  
+  useEffect(() => {
+    fetchContracts(pagination.page, pagination.limit, search);
+    refreshContract();
+  }, [pagination.page, search]);
   return (
     <>
       {selectAsset ? (
@@ -271,6 +274,18 @@ const Contract = () => {
                   const stationWithParapets = queryAllStationsData?.find(
                     (a) => a.station_id === matchedContract.station_id
                   );
+
+                  const stationWithTicketBooth = queryAllStationsData?.find((station) =>
+                    station.ticketbooths?.some((b) => b.asset_id === matchedContract.ticketbooth_id)
+                  );
+                  const ticketBooth = stationWithTicketBooth?.ticketbooths?.find(
+                    (b) => b.asset_id === matchedContract.ticketbooth_id
+                  );
+
+                  const stationWithStairs = queryAllStationsData?.find((station) =>
+                    station.stairs?.some((b) => b.asset_id === matchedContract.stairs_id)
+                  );
+                  const stairs = stationWithStairs?.stairs?.find((b) => b.asset_id === matchedContract.stairs_id);
                   return (
                     <div className="flex justify-between items-center" key={matchedContract.contract_id}>
                       <div className="flex flex-col space-y-1">
@@ -308,6 +323,26 @@ const Contract = () => {
                             {stationWithBacklit?.station_name || ""} {backlit?.asset_distinction || ""}
                           </p>
                         )}
+
+                        {/* Ticketbooth Station Info */}
+                        {(stationWithTicketBooth?.station_name || ticketBooth?.asset_distinction) && (
+                          <p className="capitalize">
+                            {stationWithTicketBooth?.station_name || ""} {ticketBooth?.asset_distinction || ""}
+                          </p>
+                        )}
+
+                        {/* Stairs Station Info */}
+                        {(stationWithStairs?.station_name || stairs?.asset_distinction) && (
+                          <p className="capitalize">
+                            {stationWithStairs?.station_name || ""}{" "}
+                            {(() => {
+                              const labels = { SWS, NWS, SES, NES, SBS, NBS };
+                              const label = labels[stairs.asset_distinction];
+                              return label || stairs.asset_direction || "Middle Stairs";
+                            })()}
+                          </p>
+                        )}
+
                         {selectedContract?.DateRef1 &&
                           format(new Date(selectedContract.DateRef1), "yyyy-MM-dd") !==
                             format(new Date(matchedContract.asset_date_start), "yyyy-MM-dd") && (

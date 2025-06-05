@@ -6,7 +6,7 @@ import { FaInfoCircle, FaArrowLeft } from "react-icons/fa";
 import { useStations } from "~contexts/LRTContext";
 import ContractTable from "~components/contractTable";
 import handgrips from "../../assets/handgrips.jpg";
-import overheadpanels from "../../assets/overheadpanels.jpg";
+import overheadpanels from "../../assets/overheadpanels.png";
 import seatdividersticker from "../../assets/seatdividersticker.jpg";
 import seatdividersticker2 from "../../assets/seatdividersticker2.png";
 import trainwrap from "../../assets/trainwrap.jpg";
