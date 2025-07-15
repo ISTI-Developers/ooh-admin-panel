@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 const server = window.location.hostname.includes("localhost")
   ? "http://localhost:20601"
-  : "https://oohplatformapi.retailgate.tech:20601";
+  : "https://oohunapi.retailgate.tech:8000";
 
 export const headers = {
   headers: {

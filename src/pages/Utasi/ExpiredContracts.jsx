@@ -7,9 +7,7 @@ const ExpiredContracts = () => {
   const { unTagContract, updateParapetStatus, getContractFromAsset } = useLRTapi();
   const [deletingContractId, setDeletingContractId] = useState(null);
   const [contractFromAsset, setContractFromAsset] = useState([]);
-  useEffect(() => {
-    refreshContract();
-  }, []);
+
   const refreshContract = async () => {
     const contracts = await getContractFromAsset();
     setContractFromAsset(contracts.data);
@@ -48,6 +46,9 @@ const ExpiredContracts = () => {
       setDeletingContractId(null);
     }
   };
+  useEffect(() => {
+    refreshContract();
+  }, []);
   return (
     <div className="p-4 bg-white rounded-lg container">
       <h2 className="text-xl font-bold mb-4">Expired Contracts</h2>
@@ -56,7 +57,7 @@ const ExpiredContracts = () => {
           <Table.Head className="text-gray-700">
             <Table.HeadCell className="p-3 text-left font-bold">Sales Order Code</Table.HeadCell>
             <Table.HeadCell className="p-3 text-left font-bold">Asset</Table.HeadCell>
-
+            <Table.HeadCell className="p-3 text-left font-bold">Brand Owner (ProjectCode)</Table.HeadCell>
             <Table.HeadCell className="p-3 text-left font-bold">Start Date</Table.HeadCell>
             <Table.HeadCell className="p-3 text-left font-bold">End Date</Table.HeadCell>
             <Table.HeadCell className="p-3 text-left font-bold">Actions</Table.HeadCell>
@@ -68,6 +69,7 @@ const ExpiredContracts = () => {
                 <Table.Row key={item.contract_id} className="hover:bg-gray-50 even:bg-gray-50 transition">
                   <Table.Cell className="px-4 py-3">{item.asset_sales_order_code}</Table.Cell>
                   <Table.Cell className="px-4 py-3 capitalize">{item.asset_name}</Table.Cell>
+                  <Table.Cell className="px-4 py-3 capitalize">{item.brand_owner}</Table.Cell>
 
                   <Table.Cell className="px-4 py-3">
                     {item.asset_date_start && format(new Date(item.asset_date_start), "MMMM dd, yyyy")}

@@ -60,6 +60,7 @@ const ContractTable = ({
           stationId: station?.station_id ?? "",
           assetId: 1,
           assetFacing: bound,
+          brand_owner: selectedContract?.ProjectCode ?? "",
         };
         const response = await attachContract(contractData);
         const response2 = await updateParapetStatus(station?.station_id, bound, 1, "TAKEN");
@@ -89,6 +90,7 @@ const ContractTable = ({
         assetId: 2,
         assetFacing: selectedBacklit.asset_distinction.includes("SB") ? "SB" : "NB",
         backlitId: selectedBacklit.asset_id,
+        brand_owner: selectedContract?.ProjectCode ?? "",
       };
       await attachContract(contractData);
       alert("Updated successfully!");
@@ -114,6 +116,7 @@ const ContractTable = ({
         assetId: 10,
         assetFacing: selectedTB.asset_distinction.includes("SB") ? "SB" : "NB",
         ticketBoothId: selectedTB.asset_id,
+        brand_owner: selectedContract?.ProjectCode ?? "",
       };
       await attachContract(contractData);
       alert("Updated successfully!");
@@ -138,6 +141,7 @@ const ContractTable = ({
         stationId: station_id,
         assetId: 11,
         stairsId: selectedStairs.asset_id,
+        brand_owner: selectedContract?.ProjectCode ?? "",
       };
       await attachContract(contractData);
       alert("Updated successfully!");
@@ -163,6 +167,7 @@ const ContractTable = ({
         assetDateEnd: editedDates[`${0}-DateRef2`] ?? selectedContract?.DateRef2,
         assetId: asset_id,
         quantity: qty,
+        brand_owner: selectedContract?.ProjectCode ?? "",
       };
       const response2 = await attachContract(contractData);
       if (response2) {
@@ -198,6 +203,7 @@ const ContractTable = ({
         assetDateEnd: editedDates[`${0}-DateRef2`] ?? selectedContract?.DateRef2,
         assetId: asset_id,
         viaductId: viaduct_id,
+        brand_owner: selectedContract?.ProjectCode ?? "",
       };
 
       const response = await attachContract(contractData);
@@ -227,6 +233,7 @@ const ContractTable = ({
         assetDateEnd: editedDates[`${0}-DateRef2`] ?? selectedContract?.DateRef2,
         assetId: asset_id,
         pillarId: pillar_id,
+        brand_owner: selectedContract?.ProjectCode ?? "",
       };
       const response = await attachContract(contractData);
       console.log("Booking successful:", response);
