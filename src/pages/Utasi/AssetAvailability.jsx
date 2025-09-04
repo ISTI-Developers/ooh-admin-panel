@@ -180,6 +180,7 @@ const AssetAvailability = () => {
   };
 
   const paginatedData = getPaginatedData(filteredData);
+  console.log(paginatedData);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   // 5. Effect Hook
   useEffect(() => {
@@ -366,7 +367,9 @@ const AssetAvailability = () => {
                     : data.asset_distinction || data.asset_direction}
                 </Table.Cell>
 
-                <Table.Cell className="text-center">{data.contracts?.[0]?.brand_owner ?? "N/A"}</Table.Cell>
+                <Table.Cell className="text-center">
+                  {data.contracts?.[0]?.brand_owner ?? data.remarks ?? "N/A"}
+                </Table.Cell>
                 <Table.Cell className="text-center">
                   {data.contracts?.[0]?.asset_date_end
                     ? formatDate(data.contracts[0].asset_date_end)

@@ -17,7 +17,11 @@ const TicketBooth = ({ direction = "SOUTH", activeSpots = [], ticketBoothData = 
                 <div className="text-gray-500 text-lg">{icon}</div>
               </>
             )}
-            <TicketBoothBookButton isDisabled={booth.asset_status === STATUS.TAKEN} onClick={() => onClick(booth)} />
+            <TicketBoothBookButton
+              text={booth.brand || null}
+              isDisabled={booth.asset_status === STATUS.TAKEN}
+              onClick={() => onClick(booth)}
+            />
             {isSouthBound && (
               <>
                 <div className="text-gray-500 text-lg">{icon}</div>
@@ -25,7 +29,6 @@ const TicketBooth = ({ direction = "SOUTH", activeSpots = [], ticketBoothData = 
                 <div className="text-gray-500 text-sm uppercase tracking-wide">{booth?.remarks && booth?.remarks}</div>
               </>
             )}
-          
           </div>
         ) : (
           <div key={position}></div>

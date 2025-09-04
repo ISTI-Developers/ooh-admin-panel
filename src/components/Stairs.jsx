@@ -20,7 +20,7 @@ const Stairs = ({ direction = "SOUTH", activeSpots = [], stairsData = [], onClic
               <div className="text-gray-500 text-sm uppercase tracking-wide">{stairs?.remarks && stairs?.remarks}</div>
             )}
             <StairsBookButton
-              text={stairs.asset_text ? stairs.asset_text : null}
+              text={stairs.brand || null}
               isDisabled={stairs.asset_status === STATUS.TAKEN}
               onClick={() => onClick(stairs)}
             />

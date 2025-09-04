@@ -29,7 +29,7 @@ export const ParapetBookButton = ({
           ${isDisabled ? "bg-neutral-600 hover:bg-neutral-700 cursor-not-allowed" : ""} 
           ${isBlocked ? "bg-custom-gray cursor-not-allowed" : "bg-blue-700 hover:bg-blue-800"} 
           ${isLargeParapet ? "h-[5.75rem] w-[7rem]" : "h-[2.875rem] min-w-[3.3rem]"}
-          px-4 relative overflow-hidden rounded-lg font-semibold transition-colors duration-200 text-white ${className}`} 
+          px-4 relative overflow-hidden rounded-lg font-semibold transition-colors duration-200 text-white ${className}`}
         >
           {isBlocked && (
             <>
@@ -90,14 +90,14 @@ BacklitBookButton.propTypes = {
 };
 
 export const TicketBoothBookButton = ({ onClick, text, className, isDisabled }) => {
-    const displayText = text?.length > 15 ? `${text.slice(0, 15)}...` : text;
+  const displayText = text?.length > 15 ? `${text.slice(0, 15)}...` : text;
 
   return (
     <button
       onClick={onClick}
       className={`
-        h-[2.875rem] w-[12.0625rem] px-4 relative overflow-hidden rounded-lg font-semibold transition-colors duration-200
-        ${isDisabled ? "bg-neutral-600 hover:bg-neutral-700 cursor-not-allowed" : "bg-sky-600 hover:bg-sky-700 text-white"}
+        h-[2.875rem] w-[12.0625rem] px-4 relative overflow-hidden rounded-lg font-semibold transition-colors duration-200 text-white
+        ${isDisabled ? "bg-neutral-600 hover:bg-neutral-700 cursor-not-allowed" : "bg-sky-600 hover:bg-sky-700"}
         ${className}
       `}
     >
@@ -114,7 +114,7 @@ TicketBoothBookButton.propTypes = {
 };
 
 export const StairsBookButton = ({ onClick, text, className, isDisabled }) => {
-      const displayText = text?.length > 15 ? `${text.slice(0, 15)}...` : text;
+  const displayText = text?.length > 15 ? `${text.slice(0, 15)}...` : text;
 
   return (
     <button
@@ -139,9 +139,12 @@ StairsBookButton.propTypes = {
 
 export const EntryExitButton = ({ className, onClick }) => {
   return (
-    <button onClick={onClick} className={`bg-black h-[5.75rem] w-[7.875rem] text-white font-bold 
+    <button
+      onClick={onClick}
+      className={`bg-black h-[5.75rem] w-[7.875rem] text-white font-bold 
     px-4 relative overflow-hidden rounded-lg font-semibold transition-colors duration-200
-    ${className}`}>
+    ${className}`}
+    >
       ENTRY/EXIT
     </button>
   );

@@ -163,7 +163,7 @@ const StationAssets = ({ onBackStations }) => {
                 bg-blue-500 hover:bg-blue-600 shadow-md hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
                 onClick={() => setIsModalOpen(true)}
               >
-                Tag a contract
+                Tag a parapet
               </button>
             </div>
           )}

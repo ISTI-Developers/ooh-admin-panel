@@ -81,6 +81,7 @@ const ContractTable = ({
     try {
       await updateAsset(selectedBacklit.asset_id, {
         asset_status: "TAKEN",
+        brand: selectedContract?.ProjectCode ?? "",
       });
       const contractData = {
         assetSalesOrderCode: selectedContract.SalesOrderCode,
@@ -107,6 +108,7 @@ const ContractTable = ({
     try {
       await updateAsset(selectedTB.asset_id, {
         asset_status: "TAKEN",
+        brand: selectedContract?.ProjectCode ?? "",
       });
       const contractData = {
         assetSalesOrderCode: selectedContract.SalesOrderCode,
@@ -133,6 +135,7 @@ const ContractTable = ({
     try {
       await updateAsset(selectedStairs.asset_id, {
         asset_status: "TAKEN",
+        brand: selectedContract?.ProjectCode ?? "",
       });
       const contractData = {
         assetSalesOrderCode: selectedContract.SalesOrderCode,

@@ -38,7 +38,6 @@ const Template = ({
   const [selectedBacklit, setSelectedBacklit] = useState(null);
   const [selectedTB, setSelectedTB] = useState(null);
   const [selectedStairs, setSelectedStairs] = useState(null);
-
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [width, setWidth] = useState("");
@@ -49,6 +48,7 @@ const Template = ({
   const [isModalOpentb, setIsModalOpentb] = useState(false);
   const [isModalOpenStairs, setIsModalOpenStairs] = useState(false);
 
+  const [brandOwner, setBrandOwner] = useState("");
   const handleParapetClick = (parapet) => {
     setSelectedParapet(parapet);
     setSelectedStatus(parapet.asset_status);
@@ -106,12 +106,13 @@ const Template = ({
     }
   };
 
-  const editBacklit = async () => {
-    if (!selectedBacklit) return;
+  const editAsset = async (selectedAsset) => {
+    if (!selectedAsset) return;
     setLoading(true);
     try {
-      await updateAsset(selectedBacklit.asset_id, {
+      await updateAsset(selectedAsset.asset_id, {
         asset_status: selectedStatus,
+        brand: selectedStatus === STATUS.TAKEN ? brandOwner : null,
       });
       alert("Updated successfully!");
     } catch (error) {
@@ -121,73 +122,16 @@ const Template = ({
       setLoading(false);
     }
   };
-  const editTB = async () => {
-    if (!selectedTB) return;
-    setLoading(true);
-    try {
-      await updateAsset(selectedTB.asset_id, {
-        asset_status: selectedStatus,
-      });
-      alert("Updated successfully!");
-    } catch (error) {
-      console.error("Error updating asset:", error);
-      alert("Failed to update asset.");
-    } finally {
-      setLoading(false);
-    }
-  };
-  const editStair = async () => {
-    if (!selectedStairs) return;
-    setLoading(true);
-    try {
-      await updateAsset(selectedStairs.asset_id, {
-        asset_status: selectedStatus,
-      });
-      alert("Updated successfully!");
-    } catch (error) {
-      console.error("Error updating asset:", error);
-      alert("Failed to update asset.");
-    } finally {
-      setLoading(false);
-    }
-  };
+
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
   };
   const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === selectedBacklit?.asset_id);
   const matchedContractTB = queryAssetContracts?.find((contract) => contract.ticketbooth_id === selectedTB?.asset_id);
-  const matchedContractStairs = queryAssetContracts?.find((contract) => contract.stairs_id === selectedStairs?.asset_id);
+  const matchedContractStairs = queryAssetContracts?.find(
+    (contract) => contract.stairs_id === selectedStairs?.asset_id
+  );
 
-  const updatedBacklitsNB = backLitsNB.map((backlit) => {
-    const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === backlit.asset_id);
-    return {
-      ...backlit,
-      asset_text: matchedContract?.brand_owner || null,
-    };
-  });
-
-  const updatedBacklitsSB = backLitsSB.map((backlit) => {
-    const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === backlit.asset_id);
-    return {
-      ...backlit,
-      asset_text: matchedContract?.brand_owner || null,
-    };
-  });
-
-  const updatedStairsNB = nbStairs.map((stair) => {
-    const matchedContract = queryAssetContracts?.find((contract) => contract.stairs_id === stair.asset_id);
-    return {
-      ...stair,
-      asset_text: matchedContract?.brand_owner || null,
-    };
-  });
-  const updatedStairsSB = sbStairs.map((stair) => {
-    const matchedContract = queryAssetContracts?.find((contract) => contract.stairs_id === stair.asset_id);
-    return {
-      ...stair,
-      asset_text: matchedContract?.brand_owner || null,
-    };
-  });
   useEffect(() => {
     setSelectedContract(attachedContract);
   }, [attachedContract]);
@@ -202,7 +146,7 @@ const Template = ({
 
       <Stairs
         direction="SOUTH"
-        stairsData={updatedStairsSB}
+        stairsData={sbStairs}
         activeSpots={sbStairs?.map((stair) => stair.position_index)}
         onClick={handleStairsClick}
         icon="▲"
@@ -215,7 +159,7 @@ const Template = ({
         icon="▲"
       />
 
-      <Backlits direction="SOUTH" backlitData={updatedBacklitsSB} onClick={handleBacklitClick} icon="▲" />
+      <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
 
       <TicketBooth
         direction="SOUTH"
@@ -271,7 +215,7 @@ const Template = ({
         icon="▼"
       />
 
-      <Backlits direction="NORTH" backlitData={updatedBacklitsNB} onClick={handleBacklitClick} icon="▼" />
+      <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
 
       <TicketBooth
         direction="NORTH"
@@ -282,7 +226,7 @@ const Template = ({
       />
       <Stairs
         direction="NORTH"
-        stairsData={updatedStairsNB}
+        stairsData={nbStairs}
         activeSpots={nbStairs?.map((stair) => stair.position_index)}
         onClick={handleStairsClick}
         icon="▼"
@@ -373,16 +317,30 @@ const Template = ({
                     onChange={handleStatusChange}
                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                   >
-                    {Object.values(STATUS).map((status) => (
-                      <option key={status} value={status}>
-                        {status}
-                      </option>
-                    ))}
+                    {Object.values(STATUS)
+                      .filter((status) => status !== STATUS.BLOCKED)
+                      .map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
                   </select>
                 </div>
+                {selectedStatus === STATUS.TAKEN && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Brand Owner</label>
+                    <input
+                      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      type="text"
+                      value={selectedBacklit.brand || brandOwner}
+                      onChange={(e) => setBrandOwner(e.target.value)}
+                    />
+                  </div>
+                )}
+
                 <div className="flex justify-between items-center pt-2">
                   <button
-                    onClick={editBacklit}
+                    onClick={() => editAsset(selectedBacklit)}
                     disabled={loading}
                     className={`px-4 py-2 rounded-md text-white transition-colors ${
                       loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
@@ -465,17 +423,30 @@ const Template = ({
                     onChange={handleStatusChange}
                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                   >
-                    {Object.values(STATUS).map((status) => (
-                      <option key={status} value={status}>
-                        {status}
-                      </option>
-                    ))}
+                    {Object.values(STATUS)
+                      .filter((status) => status !== STATUS.BLOCKED)
+                      .map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
                   </select>
                 </div>
+                {selectedStatus === STATUS.TAKEN && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Brand Owner</label>
+                    <input
+                      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      type="text"
+                      value={selectedTB.brand || brandOwner}
+                      onChange={(e) => setBrandOwner(e.target.value)}
+                    />
+                  </div>
+                )}
 
                 <div className="flex justify-between items-center pt-2">
                   <button
-                    onClick={editTB}
+                    onClick={() => editAsset(selectedTB)}
                     disabled={loading}
                     className={`px-4 py-2 rounded-md text-white transition-colors ${
                       loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
@@ -564,17 +535,30 @@ const Template = ({
                     onChange={handleStatusChange}
                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                   >
-                    {Object.values(STATUS).map((status) => (
-                      <option key={status} value={status}>
-                        {status}
-                      </option>
-                    ))}
+                    {Object.values(STATUS)
+                      .filter((status) => status !== STATUS.BLOCKED)
+                      .map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
                   </select>
                 </div>
+                {selectedStatus === STATUS.TAKEN && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Brand Owner</label>
+                    <input
+                      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      type="text"
+                      value={selectedStairs.brand || brandOwner}
+                      onChange={(e) => setBrandOwner(e.target.value)}
+                    />
+                  </div>
+                )}
 
                 <div className="flex justify-between items-center pt-2">
                   <button
-                    onClick={editStair}
+                    onClick={() => editAsset(selectedStairs)}
                     disabled={loading}
                     className={`px-4 py-2 rounded-md text-white transition-colors ${
                       loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
