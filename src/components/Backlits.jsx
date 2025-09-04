@@ -11,8 +11,8 @@ const Backlits = ({ direction = "SOUTH", backlitData = [], onClick, icon = "▲"
         <div key={item.asset_id} className="flex flex-col justify-center items-center">
           {!isSouthBound && (
             <>
-              <div className="text-gray-500 text-sm uppercase tracking-wide">Backlit</div>
-              <div className="text-gray-500 text-lg">{icon}</div>
+              <div className="text-sm uppercase tracking-wide">Backlit</div>
+              <div className="text-lg">{icon}</div>
             </>
           )}
 
@@ -24,8 +24,8 @@ const Backlits = ({ direction = "SOUTH", backlitData = [], onClick, icon = "▲"
 
           {isSouthBound && (
             <>
-              <div className="text-gray-500 text-lg">{icon}</div>
-              <div className="text-gray-500 text-sm uppercase tracking-wide">Backlit</div>
+              <div className="text-lg">{icon}</div>
+              <div className="text-sm uppercase tracking-wide">Backlit</div>
             </>
           )}
         </div>

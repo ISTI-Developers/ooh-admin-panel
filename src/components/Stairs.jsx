@@ -12,12 +12,12 @@ const Stairs = ({ direction = "SOUTH", activeSpots = [], stairsData = [], onClic
           <div className="flex flex-col justify-center items-center" key={stairs?.asset_id ?? position}>
             {!isSouthBound && (
               <>
-                <div className="text-gray-500 text-sm uppercase tracking-wide">Stairs</div>
-                <div className="text-gray-500 text-lg">{icon}</div>
+                <div className="text-sm uppercase tracking-wide">Stairs</div>
+                <div className="text-lg">{icon}</div>
               </>
             )}
             {isSouthBound && (
-              <div className="text-gray-500 text-sm uppercase tracking-wide">{stairs?.remarks && stairs?.remarks}</div>
+              <div className="text-sm uppercase tracking-wide">{stairs?.remarks && stairs?.remarks}</div>
             )}
             <StairsBookButton
               text={stairs.brand || null}
@@ -25,13 +25,13 @@ const Stairs = ({ direction = "SOUTH", activeSpots = [], stairsData = [], onClic
               onClick={() => onClick(stairs)}
             />
             {!isSouthBound && (
-              <div className="text-gray-500 text-sm uppercase tracking-wide">{stairs?.remarks && stairs?.remarks}</div>
+              <div className="text-sm uppercase tracking-wide">{stairs?.remarks && stairs?.remarks}</div>
             )}
 
             {isSouthBound && (
               <>
-                <div className="text-gray-500 text-lg">{icon}</div>
-                <div className="text-gray-500 text-sm uppercase tracking-wide">Stairs</div>
+                <div className="text-lg">{icon}</div>
+                <div className="text-sm uppercase tracking-wide">Stairs</div>
               </>
             )}
           </div>

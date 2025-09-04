@@ -180,7 +180,6 @@ const AssetAvailability = () => {
   };
 
   const paginatedData = getPaginatedData(filteredData);
-  console.log(paginatedData);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   // 5. Effect Hook
   useEffect(() => {
