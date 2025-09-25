@@ -30,8 +30,14 @@ const ContractTable = ({
 }) => {
   const [editField, setEditField] = useState(null);
   const [editedDates, setEditedDates] = useState({});
-  const { attachContract, updateParapetStatus, trainAssetBook, getExternalAssetSpecs, getContractFromAsset } =
-    useLRTapi();
+  const {
+    attachContract,
+    updateParapetStatus,
+    trainAssetBook,
+    getExternalAssetSpecs,
+    getContractFromAsset,
+    updateExternal,
+  } = useLRTapi();
   const { attachedContract, updateAsset } = useStations();
   const [bound, setBound] = useState("");
   const [loading, setLoading] = useState(false);
@@ -209,8 +215,10 @@ const ContractTable = ({
         brand_owner: selectedContract?.ProjectCode ?? "",
       };
 
-      const response = await attachContract(contractData);
-      alert(response.message || "Booking successful!");
+      await attachContract(contractData);
+      await updateExternal(viaduct_id, 1, selectedContract?.ProjectCode ?? "");
+
+      alert("Booking successful!");
     } catch (error) {
       console.error("Booking failed:", error);
       alert("Booking failed. Please try again.");
@@ -238,9 +246,10 @@ const ContractTable = ({
         pillarId: pillar_id,
         brand_owner: selectedContract?.ProjectCode ?? "",
       };
-      const response = await attachContract(contractData);
-      console.log("Booking successful:", response);
-      window.alert("Pillar successfully booked.");
+      await attachContract(contractData);
+      await updateExternal(pillar_id, 1, selectedContract?.ProjectCode ?? "");
+
+      alert("Pillar successfully booked.");
     } catch (error) {
       console.error("Booking failed:", error);
       window.alert("Booking failed. Please try again.");

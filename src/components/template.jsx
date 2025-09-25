@@ -11,6 +11,7 @@ import Parapets from "./Parapets";
 import TicketBooth from "./TicketBooth";
 import Stairs from "./Stairs";
 import { SWS, NWS, SES, NES, SBS, NBS } from "../pages/Utasi/utasi.const";
+import { useLRTapi } from "~contexts/LRT.api";
 const Template = ({
   station_id,
   station_name,
@@ -33,7 +34,8 @@ const Template = ({
   sbStairs,
   nbStairs,
 }) => {
-  const { updateAsset, queryAssetContracts, attachedContract } = useStations();
+  const { updateAsset, queryAssetContracts, attachedContract, setStationData } = useStations();
+  const { retrieveAllStationDetails } = useLRTapi();
   const [selectedParapet, setSelectedParapet] = useState(null);
   const [selectedBacklit, setSelectedBacklit] = useState(null);
   const [selectedTB, setSelectedTB] = useState(null);
@@ -110,10 +112,18 @@ const Template = ({
     if (!selectedAsset) return;
     setLoading(true);
     try {
-      await updateAsset(selectedAsset.asset_id, {
+      const payload = {
         asset_status: selectedStatus,
         brand: selectedStatus === STATUS.TAKEN ? brandOwner : null,
-      });
+      };
+      await updateAsset(selectedAsset.asset_id, payload);
+      const stationData = await retrieveAllStationDetails();
+      setStationData(stationData);
+
+      setBrandOwner("");
+      setIsModalOpen(false);
+      setIsModalOpentb(false);
+      setIsModalOpenStairs(false);
       alert("Updated successfully!");
     } catch (error) {
       console.error("Error updating asset:", error);

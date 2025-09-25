@@ -17,8 +17,8 @@ import {
 } from "./utasi.const";
 import { useLRTapi } from "~contexts/LRT.api";
 const StationAssets = ({ onBackStations }) => {
-  const { queryAllStationsData, querySpecs, attachedContract, queryAssetContracts } = useStations();
-  const { updateParapetStatus } = useLRTapi();
+  const { queryAllStationsData, querySpecs, attachedContract, queryAssetContracts, setStationData } = useStations();
+  const { updateParapetStatus, retrieveAllStationDetails } = useLRTapi();
   const [currentStationId, setCurrentStationId] = useState(null);
   const [selectedContract, setSelectedContract] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -100,6 +100,8 @@ const StationAssets = ({ onBackStations }) => {
       alert("Parapets updated succesfully.");
       setBookParapets(false);
       setBound(null);
+      const stationData = await retrieveAllStationDetails();
+      setStationData(stationData);
     } catch (error) {
       console.error("Failed to update a bound parapet:", error);
       alert("Failed to update a bound parapet. Please try again.");
@@ -114,6 +116,9 @@ const StationAssets = ({ onBackStations }) => {
       const response = await updateParapetStatus(currentStation?.station_id, bound, 1, "AVAILABLE");
       console.log(response);
       alert("Parapets updated succesfully.");
+      const stationData = await retrieveAllStationDetails();
+      setStationData(stationData);
+      setBookParapets(false);
     } catch (error) {
       console.error("Failed to update a bound parapet:", error);
       alert("Failed to update a bound parapet. Please try again.");

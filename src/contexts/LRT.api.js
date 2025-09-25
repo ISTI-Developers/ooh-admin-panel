@@ -166,15 +166,6 @@ const unTagContract = async (id, backlitId, ticketBoothId, stairsId, trainAssetI
   }
 };
 
-const retrieveLandmarks = async () => {
-  try {
-    const response = await axios.get(endpoints.landmarks, headers);
-    return response.data;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 const retrieveParapetsAvailability = async () => {
   try {
     const response = await axios.get(endpoints.availability + "/parapets", headers);
@@ -226,6 +217,12 @@ const deleteViaduct = async (id, spec_id) => {
     throw error;
   }
 };
+const updateExternal = async (id, isBooked, brand) => {
+  const body = { isBooked: Number(isBooked), brand }; // 0 or 1
+
+  const { data } = await axios.put(`${endpoints.trains}/external/updateExternal/${id}`, body, headers);
+  return data;
+};
 
 export const useLRTapi = () => {
   return {
@@ -241,7 +238,6 @@ export const useLRTapi = () => {
     getExternalAssetSpecs,
     trainAssetBook,
     updateTrainAsset,
-    retrieveLandmarks,
     unTagContract,
     retrieveParapetsAvailability,
     retrieveBacklitsAvailability,
@@ -250,5 +246,6 @@ export const useLRTapi = () => {
     updateAssetSpecs,
     addViaduct,
     deleteViaduct,
+    updateExternal,
   };
 };

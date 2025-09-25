@@ -12,7 +12,6 @@ import { SWS, NWS, SES, NES, SBS, NBS } from "./utasi.const";
 const Contract = () => {
   const {
     setAttachedContract,
-    queryExternalAssets,
     pillars,
     contracts,
     fetchContracts,
@@ -21,11 +20,12 @@ const Contract = () => {
     setPagination,
     updateParapetStatus,
   } = useStations();
-  const { getContractFromAsset, unTagContract } = useLRTapi();
+  const { getContractFromAsset, unTagContract, updateExternal, getExternalAssetSpecs } = useLRTapi();
   const [editField, setEditField] = useState(null);
   const [editedDates, setEditedDates] = useState({});
   const [modal, setModal] = useState(false);
   const [selectedContract, setSelectedContract] = useState(null);
+  const [externalAssetSpecs, setExternalAssetSpecs] = useState([]);
 
   const [contractFromAsset, setContractFromAsset] = useState([]);
   const [selectAsset, setSelectAsset] = useState(null);
@@ -53,6 +53,9 @@ const Contract = () => {
       );
       if (matchedContract.asset_id === 1) {
         await updateParapetStatus(matchedContract.station_id, matchedContract.asset_facing, 1, "AVAILABLE");
+      }
+      if (matchedContract.asset_id === 8) {
+        await updateExternal(matchedContract.viaduct_id, 0, null);
       }
       alert("Contract successfully untagged.");
       refreshContract();
@@ -93,11 +96,20 @@ const Contract = () => {
     console.log(`Saving ${field}:`, editedDates[`${index}-${field}`]);
     setEditField(null);
   };
-  
+
   useEffect(() => {
     fetchContracts(pagination.page, pagination.limit, search);
     refreshContract();
   }, [pagination.page, search]);
+
+  // 5. Effects
+  useEffect(() => {
+    const fetchExternal = async () => {
+      const data = await getExternalAssetSpecs(8);
+      setExternalAssetSpecs(data.data);
+    };
+    fetchExternal();
+  }, []);
   return (
     <>
       {selectAsset ? (
@@ -265,7 +277,7 @@ const Contract = () => {
             >
               <div className="space-y-4 text-gray-700 mt-3 dark:text-gray-300">
                 {matchedContracts.map((matchedContract) => {
-                  const asset = queryExternalAssets?.find((a) => a.id === matchedContract.viaduct_id);
+                  const asset = externalAssetSpecs?.find((a) => a.id === matchedContract.viaduct_id);
                   const pillar = pillars?.find((p) => p.id === matchedContract.pillar_id);
                   const stationWithBacklit = queryAllStationsData?.find((station) =>
                     station.backlits?.some((b) => b.asset_id === matchedContract.backlit_id)

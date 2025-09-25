@@ -19,8 +19,9 @@ const AssetAvailability = () => {
     retrieveTicketboothsAvailability,
     retrieveStairsAvailability,
     getTrainAssets,
+    getExternalAssetSpecs,
   } = useLRTapi();
-  const { pillars, queryExternalAssets, queryAssetContracts } = useStations();
+  const { pillars, queryAssetContracts } = useStations();
   // 3. State Initialization
   const today = new Date();
   const oneYearFromToday = addYears(today, 1);
@@ -35,6 +36,7 @@ const AssetAvailability = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [externalAssetSpecs, setExternalAssetSpecs] = useState([]);
 
   // 4. Derived Data
   const parsedFromDate = parse(fromDate, "MMMM d, yyyy", new Date());
@@ -74,10 +76,9 @@ const AssetAvailability = () => {
     { assetKey: "id", contractKey: "stairs_id" },
   ]);
 
-  const enrichedExternalAssets = enrichAssetsWithContracts(queryExternalAssets, queryAssetContracts, [
+  const enrichedExternalAssets = enrichAssetsWithContracts(externalAssetSpecs, queryAssetContracts, [
     { assetKey: "id", contractKey: "viaduct_id" },
   ]);
-
   const enrichedPillars = enrichAssetsWithContracts(pillars, queryAssetContracts, [
     { assetKey: "id", contractKey: "pillar_id" },
   ]);
@@ -180,7 +181,7 @@ const AssetAvailability = () => {
   };
 
   const paginatedData = getPaginatedData(filteredData);
-  console.log(paginatedData);
+
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   // 5. Effect Hook
   useEffect(() => {
@@ -199,6 +200,9 @@ const AssetAvailability = () => {
 
       const trainAssetsRes = await getTrainAssets();
       setTrainAssets(trainAssetsRes.data);
+
+      const data = await getExternalAssetSpecs(8);
+      setExternalAssetSpecs(data.data);
     };
     fetchParapets();
   }, []);
@@ -211,7 +215,7 @@ const AssetAvailability = () => {
             From:
             <Datepicker
               value={fromDate}
-              minDate={today}
+              // minDate={today}
               onSelectedDateChanged={(date) => {
                 const formatted = formatDate(date);
                 setFromDate(formatted);
@@ -368,14 +372,17 @@ const AssetAvailability = () => {
                 </Table.Cell>
 
                 <Table.Cell className="text-center">
-                  {data.contracts?.[0]?.brand_owner ?? data.remarks ?? "N/A"}
+                  {data.contracts?.[0]?.brand_owner ??
+                    data.remarks ??
+                    (data.brand && data.brand !== "" ? data.brand : "N/A")}
                 </Table.Cell>
                 <Table.Cell className="text-center">
                   {data.contracts?.[0]?.asset_date_end
                     ? formatDate(data.contracts[0].asset_date_end)
                     : data.asset_date_end
                     ? formatDate(data.asset_date_end)
-                    : (["backlits", "stairs", "ticketbooths"].includes(selectedAsset) &&
+                    : data.is_booked === 1 ||
+                      (["backlits", "stairs", "ticketbooths"].includes(selectedAsset) &&
                         data.asset_status === "TAKEN") ||
                       (selectedAsset === "parapets" && data.availability_status === "Currently Unavailable")
                     ? "Currently Unavailable"
