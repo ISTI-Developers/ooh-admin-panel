@@ -12,9 +12,9 @@ const TicketBooth = ({ direction = "SOUTH", activeSpots = [], ticketBoothData = 
           <div className="flex flex-col justify-center items-center" key={booth?.asset_id ?? position}>
             {!isSouthBound && (
               <>
-                <div className="text-gray-500 text-sm uppercase tracking-wide">{booth?.remarks && booth?.remarks}</div>
-                <div className="text-gray-500 text-sm uppercase tracking-wide">Ticket Booth</div>
-                <div className="text-gray-500 text-lg">{icon}</div>
+                <div className="text-sm uppercase tracking-wide">{booth?.remarks && booth?.remarks}</div>
+                <div className="text-sm uppercase tracking-wide">Ticket Booth</div>
+                <div className="text-lg">{icon}</div>
               </>
             )}
             <TicketBoothBookButton
@@ -24,9 +24,9 @@ const TicketBooth = ({ direction = "SOUTH", activeSpots = [], ticketBoothData = 
             />
             {isSouthBound && (
               <>
-                <div className="text-gray-500 text-lg">{icon}</div>
-                <div className="text-gray-500 text-sm uppercase tracking-wide">Ticket Booth</div>
-                <div className="text-gray-500 text-sm uppercase tracking-wide">{booth?.remarks && booth?.remarks}</div>
+                <div className="text-lg">{icon}</div>
+                <div className="text-sm uppercase tracking-wide">Ticket Booth</div>
+                <div className="text-sm uppercase tracking-wide">{booth?.remarks && booth?.remarks}</div>
               </>
             )}
           </div>

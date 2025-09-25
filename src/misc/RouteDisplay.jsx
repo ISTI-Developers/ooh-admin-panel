@@ -1,48 +1,42 @@
 import PropTypes from "prop-types";
 import { IoArrowForwardSharp, IoArrowBackSharp } from "react-icons/io5";
-
-export const RouteDisplay = ({
-  SouthBound,
-  NorthBound,
-  handleSouth,
-  handleNorth,
-}) => {
+import railtracks from "../assets/railtracks.png";
+export const RouteDisplay = ({ SouthBound, NorthBound, handleSouth, handleNorth }) => {
   return (
     <div className="w-full">
-      <hr className="h-[3px] bg-black border-none my-5" />
-      <div className="flex justify-evenly items-center my-5">
-        <div>
-          {SouthBound ? (
-            <>
-              <button
-                className="flex items-center space-x-2"
-                onClick={handleSouth}
-              >
-                <IoArrowBackSharp />
-                <span className="font-bold">{SouthBound}</span>
-              </button>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
-        <div>
-          {NorthBound ? (
-            <>
-              <button
-                className="flex items-center space-x-2"
-                onClick={handleNorth}
-              >
-                <span className="font-bold">{NorthBound}</span>
-                <IoArrowForwardSharp />
-              </button>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
+      <div className="relative my-5 w-full">
+        {/* Repeating track strip */}
+        <div
+          className="w-full h-24 bg-repeat-x"
+          style={{
+            backgroundImage: `url(${railtracks})`,
+            backgroundSize: "auto 100%", // keep height small; repeat along X
+            backgroundPosition: "center",
+          }}
+        />
+
+        {/* SouthBound button (left) */}
+        {SouthBound && (
+          <button
+            onClick={handleSouth}
+            className="absolute left-4 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 font-bold shadow-md hover:bg-neutral-100"
+          >
+            <IoArrowBackSharp />
+            <span className="truncate">{SouthBound} Station</span>
+          </button>
+        )}
+
+        {/* NorthBound button (right) */}
+        {NorthBound && (
+          <button
+            onClick={handleNorth}
+            className="absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 font-bold shadow-md hover:bg-neutral-100"
+          >
+            <span className="truncate">{NorthBound} Station</span>
+            <IoArrowForwardSharp />
+          </button>
+        )}
       </div>
-      <hr className="h-[3px] bg-black border-none my-5" />
     </div>
   );
 };
