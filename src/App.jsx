@@ -88,7 +88,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route exact path="/" element={<>{console.log(moduleList)}</>} />
+      <Route exact path="/" element={<></>} />
 
       {/* mapping of pages for dynamic routing based on the user's permissions */}
       {moduleList.map((module) => {

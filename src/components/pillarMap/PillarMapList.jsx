@@ -6,7 +6,7 @@ import { IoMdMenu } from "react-icons/io";
 import { useFunction } from "~misc/functions";
 import { accordion } from "~misc/themes";
 import { useStations } from "~contexts/LRTContext";
-                                                                                                                                                                                                                                                                                                                              
+
 function PillarMapList({ updateMapCenter }) {
   const { queryResults, setSelectedPillar, queryAssetContracts } = useStations();
   const { offsetCoordinate } = useFunction();
@@ -34,7 +34,7 @@ function PillarMapList({ updateMapCenter }) {
                       .filter((item) => item.asset_direction.toLowerCase() === type)
                       .map((boards, index) => {
                         const { viaduct_name, asset_type, latitude, longitude, asset_direction } = boards;
-                        const isBooked = contractedPillar.includes(boards.id);
+                        const isBooked = contractedPillar.includes(boards.id) || boards.is_booked === 1;
                         return (
                           <li
                             key={asset_type + index}

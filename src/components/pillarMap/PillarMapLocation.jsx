@@ -1,63 +1,21 @@
 /* eslint-disable react/prop-types */
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import PillarMarkers from "./PillarMarkers";
 import { Label, TextInput } from "flowbite-react";
 
 import Loader from "~misc/Loader";
 import { defaultTextTheme } from "~misc/themes";
-import PillarLandMarkers from "./PillarLandMarkers";
 import { useStations } from "~contexts/LRTContext";
 import PillarMapList from "./PillarMapList";
 import PillarMapSiteOverview from "./PillarMapSiteOverview";
 function PillarMapLocation() {
-  const {
-    queryResults,
-    setQuery,
-    setSelectedPillar,
-    visibleLandmarks,
-    setVisibleLandmarks,
-    zoom,
-    setZoom,
-    landmarks,
-    setSelectedLandmark,
-  } = useStations();
+  const { queryResults, setQuery, setSelectedPillar, zoom, setZoom, setSelectedLandmark } = useStations();
   const [center, setCenter] = useState({ lat: 12.8797, lng: 121.774 });
 
   const updateMapCenter = (coords, zoom) => {
     setZoom(() => zoom);
     setCenter(() => coords);
-  };
-
-  const onBoundsChanged = useCallback(
-    (e) => {
-      if (zoom < 17) {
-        setVisibleLandmarks(null);
-        return;
-      }
-
-      const { map } = e;
-      const bounds = map.getBounds();
-      const ne = bounds.getNorthEast();
-      const sw = bounds.getSouthWest();
-
-      const visibleMarkers = getMarkersWithinBounds(ne, sw);
-      setVisibleLandmarks(visibleMarkers);
-    },
-    [zoom]
-  );
-
-  const getMarkersWithinBounds = (ne, sw) => {
-    // Implement logic to filter or fetch markers based on bounds
-    const allMarkers = [...landmarks];
-
-    return allMarkers.filter(
-      (marker) =>
-        marker.latitude <= ne.lat() &&
-        marker.latitude >= sw.lat() &&
-        marker.longitude <= ne.lng() &&
-        marker.longitude >= sw.lng()
-    );
   };
 
   return queryResults ? (
@@ -85,10 +43,8 @@ function PillarMapLocation() {
                 setSelectedPillar(null);
                 setSelectedLandmark(null);
               }}
-              onBoundsChanged={onBoundsChanged}
             >
               <PillarMarkers center={center} setCenter={setCenter} />
-              {visibleLandmarks && <PillarLandMarkers />}
             </Map>
             <PillarMapSiteOverview />
           </div>

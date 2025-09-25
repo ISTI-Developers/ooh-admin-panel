@@ -15,12 +15,10 @@ export function StationProvider({ children }) {
     updateAsset,
     updateParapetStatus,
     retrieveContracts,
-    attachContract,
     getContractFromAsset,
     getTrainAssets,
     getTrainAssetsSpecs,
     getExternalAssetSpecs,
-    retrieveLandmarks,
   } = useLRTapi();
 
   const [stationData, setStationData] = useState([]);
@@ -28,20 +26,14 @@ export function StationProvider({ children }) {
   const [contracts, setContracts] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, limit: 10, totalPages: 0 });
 
-  const [allContracts, setAllContracts] = useState([]);
-
   const [assetContracts, setAssetContracts] = useState([]);
-  const [externalAssetSpecs, setExternalAssetSpecs] = useState([]);
   const [attachedContract, setAttachedContract] = useState(null);
 
-  const { toUnderscored, haversineDistance } = useFunction();
+  const { toUnderscored } = useFunction();
   const [pillars, setPillars] = useState([]);
-  const [landmarks, setLandmarks] = useState([]);
   const [zoom, setZoom] = useState(6);
   const [query, setQuery] = useState("");
   const [selectedPillar, setSelectedPillar] = useState(null);
-  const [visibleLandmarks, setVisibleLandmarks] = useState(null);
-  const [selectedLandmark, setSelectedLandmark] = useState(null);
 
   const queryResults = useMemo(() => {
     if (!pillars) return [];
@@ -57,23 +49,6 @@ export function StationProvider({ children }) {
     return pillars.filter(includesQuery);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, pillars]);
-
-  const nearbyLandmarks = useMemo(() => {
-    if (!selectedPillar || !landmarks) return [];
-
-    const { latitude, longitude } = selectedPillar;
-    return landmarks.filter((lm) => {
-      const midpoint = { lat: latitude, lng: longitude };
-      const coordinates = { lat: lm.latitude, lng: lm.longitude };
-      const distance = haversineDistance(midpoint, coordinates);
-      return distance <= 200; // 200 meters
-    });
-  }, [haversineDistance, selectedPillar, landmarks]);
-
-  const queryExternalAssets = useMemo(() => {
-    if (!externalAssetSpecs || !externalAssetSpecs.data) return [];
-    return externalAssetSpecs.data;
-  }, [externalAssetSpecs]);
 
   const queryAllStationsData = useMemo(() => {
     if (!stationData || !stationData.data) return [];
@@ -96,35 +71,16 @@ export function StationProvider({ children }) {
     setPagination(result.pagination);
   };
 
-  const fetchAllContracts = async (page = 1, limit = 10000, search = "") => {
-    const result = await retrieveContracts(page, limit, search);
-    setAllContracts(result.data);
-  }
   useEffect(() => {
     const setup = async () => {
-      fetchAllContracts()
       const stationData = await retrieveAllStationDetails();
-      const specsData = await retrieveSpecifications();
-      const assetContract = await getContractFromAsset();
-      const externalAssets = await getExternalAssetSpecs(8);
       setStationData(stationData);
+      const specsData = await retrieveSpecifications();
       setSpecs(specsData);
-
+      const assetContract = await getContractFromAsset();
       setAssetContracts(assetContract);
-      setExternalAssetSpecs(externalAssets);
-      const data = await getExternalAssetSpecs(9);
-      const lms = await retrieveLandmarks();
-      const modLms = lms.map((lm) => {
-        let types = lm.types;
-        types = types.replace("{", "");
-        types = types.replace("}", "");
-        types = types.split(",");
-        return {
-          ...lm,
-          types: types,
-        };
-      });
-      setLandmarks(modLms);
+
+      const data = await getExternalAssetSpecs(9); 
       setPillars([
         ...data.data.map((item) => ({
           ...item,
@@ -138,37 +94,27 @@ export function StationProvider({ children }) {
   const values = {
     querySpecs,
     queryAllStationsData,
-    // queryContracts,
+    stationData,
+    setStationData,
     contracts,
-    allContracts,
     fetchContracts,
     pagination,
     setPagination,
     queryAssetContracts,
-    externalAssetSpecs,
-    setExternalAssetSpecs,
-    queryExternalAssets,
-    // fetchExternalAssets,
     attachedContract,
     setAttachedContract,
     updateAsset,
     updateParapetStatus,
-    attachContract,
     getTrainAssets,
     getTrainAssetsSpecs,
     zoom,
     pillars,
-    landmarks,
+    setPillars,
     queryResults,
     selectedPillar,
-    nearbyLandmarks,
-    selectedLandmark,
-    visibleLandmarks,
     setZoom,
     setQuery,
     setSelectedPillar,
-    setVisibleLandmarks,
-    setSelectedLandmark,
   };
 
   return <StationContext.Provider value={values}>{children}</StationContext.Provider>;

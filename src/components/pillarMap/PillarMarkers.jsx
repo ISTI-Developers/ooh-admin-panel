@@ -24,7 +24,7 @@ function PillarMarkers({ center, setCenter }) {
     const contractedPillar = queryAssetContracts
       .filter((cp) => cp.pillar_id !== null && cp.pillar_id !== undefined)
       .map((cp) => cp.pillar_id);
-    const isBooked = contractedPillar.includes(item.id);
+    const isBooked = contractedPillar.includes(item.id) || item.is_booked === 1;
 
     return (
       <AdvancedMarker

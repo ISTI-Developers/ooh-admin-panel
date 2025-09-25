@@ -11,8 +11,8 @@ const Parapets = ({ direction = "SOUTH", parapetData = [], entryExitIndexes = []
       {/* NORTHBOUND label + icon above buttons */}
       {parapetData.length > 0 && !isSouthBound && (
         <div className="flex flex-col items-center mb-1">
-          <div className="text-gray-500 text-sm uppercase tracking-wide">Parapets</div>
-          <div className="text-gray-500 text-lg">▼</div>
+          <div className="text-sm uppercase tracking-wide">Parapets</div>
+          <div className="text-lg">▼</div>
         </div>
       )}
 
@@ -37,8 +37,8 @@ const Parapets = ({ direction = "SOUTH", parapetData = [], entryExitIndexes = []
       {/* SOUTHBOUND label + icon below buttons */}
       {parapetData.length > 0 && isSouthBound && (
         <div className="flex flex-col items-center mt-1">
-          <div className="text-gray-500 text-lg">▲</div>
-          <div className="text-gray-500 text-sm uppercase tracking-wide">Parapets</div>
+          <div className="text-lg">▲</div>
+          <div className="text-sm uppercase tracking-wide">Parapets</div>
         </div>
       )}
     </>
