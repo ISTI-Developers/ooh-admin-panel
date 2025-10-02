@@ -3,20 +3,22 @@ import { Table } from "flowbite-react";
 import { FaTrash } from "react-icons/fa6";
 import { useLRTapi } from "~contexts/LRT.api";
 import { format } from "date-fns";
+import { useStations } from "~contexts/LRTContext";
 const ExpiredContracts = () => {
-  const { unTagContract, updateParapetStatus, getContractFromAsset } = useLRTapi();
+  const { unTagContract, updateParapetStatus } = useLRTapi();
+  const { refreshAssetContracts, assetContracts } = useStations();
   const [deletingContractId, setDeletingContractId] = useState(null);
-  const [contractFromAsset, setContractFromAsset] = useState([]);
-
-  const refreshContract = async () => {
-    const contracts = await getContractFromAsset();
-    setContractFromAsset(contracts.data);
-  };
 
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set to start of today
 
-  const expiredContracts = contractFromAsset.filter((item) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      await refreshAssetContracts();
+    };
+    fetchData();
+  }, []);
+  const expiredContracts = assetContracts.filter((item) => {
     const endDate = new Date(item.asset_date_end);
     const adjustedEndDate = new Date(item.adjusted_end_date);
     const dateToUse = adjustedEndDate === null ? adjustedEndDate : endDate;
@@ -37,18 +39,16 @@ const ExpiredContracts = () => {
         await updateParapetStatus(matchedContract.station_id, matchedContract.asset_facing, 1, "AVAILABLE");
       }
       alert("Contract successfully untagged.");
-      refreshContract();
       return result;
     } catch (error) {
       console.error("Error deleting contract:", error);
       alert("An error occurred while untagging the contract.");
     } finally {
+      refreshAssetContracts();
       setDeletingContractId(null);
     }
   };
-  useEffect(() => {
-    refreshContract();
-  }, []);
+
   return (
     <div className="p-4 bg-white rounded-lg container">
       <h2 className="text-xl font-bold mb-4">Expired Contracts</h2>

@@ -34,8 +34,8 @@ const Template = ({
   sbStairs,
   nbStairs,
 }) => {
-  const { updateAsset, queryAssetContracts, attachedContract, setStationData } = useStations();
-  const { retrieveAllStationDetails } = useLRTapi();
+  const { assetContracts, attachedContract, refreshAllStationAssets } = useStations();
+  const { updateAsset } = useLRTapi();
   const [selectedParapet, setSelectedParapet] = useState(null);
   const [selectedBacklit, setSelectedBacklit] = useState(null);
   const [selectedTB, setSelectedTB] = useState(null);
@@ -117,8 +117,7 @@ const Template = ({
         brand: selectedStatus === STATUS.TAKEN ? brandOwner : null,
       };
       await updateAsset(selectedAsset.asset_id, payload);
-      const stationData = await retrieveAllStationDetails();
-      setStationData(stationData);
+      await refreshAllStationAssets();
 
       setBrandOwner("");
       setIsModalOpen(false);
@@ -136,11 +135,9 @@ const Template = ({
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
   };
-  const matchedContract = queryAssetContracts?.find((contract) => contract.backlit_id === selectedBacklit?.asset_id);
-  const matchedContractTB = queryAssetContracts?.find((contract) => contract.ticketbooth_id === selectedTB?.asset_id);
-  const matchedContractStairs = queryAssetContracts?.find(
-    (contract) => contract.stairs_id === selectedStairs?.asset_id
-  );
+  const matchedContract = assetContracts?.find((contract) => contract.backlit_id === selectedBacklit?.asset_id);
+  const matchedContractTB = assetContracts?.find((contract) => contract.ticketbooth_id === selectedTB?.asset_id);
+  const matchedContractStairs = assetContracts?.find((contract) => contract.stairs_id === selectedStairs?.asset_id);
 
   useEffect(() => {
     setSelectedContract(attachedContract);

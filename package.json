@@ -14,6 +14,7 @@
     "axios": "^1.6.2",
     "classnames": "^2.3.3",
     "date-fns": "^3.0.6",
+    "firebase": "^12.3.0",
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
     "html2canvas": "^1.4.1",

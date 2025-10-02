@@ -5,18 +5,19 @@ import { Modal } from "flowbite-react";
 import { FaInfoCircle, FaArrowLeft } from "react-icons/fa";
 import { useStations } from "~contexts/LRTContext";
 import ContractTable from "~components/contractTable";
-import handgrips from "../../assets/handgrips.jpg";
-import overheadpanels from "../../assets/overheadpanels.png";
-import seatdividersticker from "../../assets/seatdividersticker.jpg";
-import seatdividersticker2 from "../../assets/seatdividersticker2.png";
-import trainwrap from "../../assets/trainwrap.jpg";
-import twoseaterwrap from "../../assets/twoseaterwrap.jpg";
+import { useImageUrl } from "~/misc/useImageUrl";
 import { useLRTapi } from "~contexts/LRT.api";
+
 const TrainAssets = ({ onBackTrain }) => {
-  const { getTrainAssets, getTrainAssetsSpecs, attachedContract } = useStations();
+  const handgrips = useImageUrl("handgrips.jpg");
+  const overheadpanels = useImageUrl("overheadpanels.png");
+  const seatdividersticker = useImageUrl("seatdividersticker.jpg");
+  const seatdividersticker2 = useImageUrl("seatdividersticker2.png");
+  const trainwrap = useImageUrl("trainwrap.jpg");
+  const twoseaterwrap = useImageUrl("twoseaterwrap.jpg");
+  const { attachedContract, trainAssets, setTrainAssets, trainSpecs, refreshAllTrainAssets, refreshTrainSpecs } =
+    useStations();
   const { updateTrainAsset, updateAssetSpecs } = useLRTapi();
-  const [trainAssets, setTrainAssets] = useState([]);
-  const [assetSpecs, setAssetSpecs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedAsset, setSelectedAsset] = useState(null);
@@ -72,66 +73,31 @@ const TrainAssets = ({ onBackTrain }) => {
     }
     const updatedFormData = {
       ...formData,
-      vat_exclusive: formData.vatExclusive === "true" ? true : false, // Convert string to boolean
-      media_rental: parseFloat(formData.mediaRental), // Convert string to number
-      ratecard: parseFloat(formData.rateCard), // Convert string to number
-      prod_cost: parseFloat(formData.prodCost), // Convert string to number
-      min_duration_months: parseInt(formData.minDuration), // Convert string to integer
+      vat_exclusive: formData.vatExclusive === "true" ? true : false,
+      media_rental: parseFloat(formData.mediaRental),
+      ratecard: parseFloat(formData.rateCard),
+      prod_cost: parseFloat(formData.prodCost),
+      min_duration_months: parseInt(formData.minDuration),
     };
 
     try {
       await updateAssetSpecs(selectedAsset.asset_id, updatedFormData);
       console.log("Update successful!");
-      alert("Asset details updated successfully!"); // optional success alert
+      alert("Asset details updated successfully!");
     } catch (error) {
       console.error("Update failed:", error);
-      alert("Failed to update asset details. Please try again."); // optional error alert
+      alert("Failed to update asset details. Please try again.");
     } finally {
       setIsEditing(false);
     }
   };
 
   const handleDetailModal = (asset) => {
-    const matchedSpec = assetSpecs.find((spec) => spec.asset_id === asset.asset_id);
+    const matchedSpec = trainSpecs.find((spec) => spec.asset_id === asset.asset_id);
     setSelectedAsset(matchedSpec || asset);
     setDetailModal(true);
   };
 
-  // const bookTrain = async (e) => {
-  //   e.preventDefault();
-  //   if (qty <= 0 || qty > avlbl) {
-  //     alert(`Invalid quantity! Must be between 1 and ${avlbl}.`);
-  //     return;
-  //   }
-  //   const confirmed = window.confirm(`Confirm booking ${qty} asset(s)?`);
-  //   if (!confirmed) return;
-  //   try {
-  //     const contractData = {
-  //       assetSalesOrderCode: attachedContract.SalesOrderCode,
-  //       assetDateStart: attachedContract.DateRef1,
-  //       assetDateEnd: attachedContract.DateRef2,
-  //       assetId: bookedAsset,
-  //       quantity: qty,
-  //     };
-  //     const response = await trainAssetBook(bookedAsset, qty);
-  //     const response2 = await attachContract(contractData);
-  //     console.log("Booking successful:", response);
-  //     console.log("Booking 2 successful:", response2);
-  //     setTrainAssets((prev) =>
-  //       prev.map((asset) =>
-  //         asset.asset_id === bookedAsset
-  //           ? { ...asset, booked: asset.booked + qty, available: asset.available - qty }
-  //           : asset
-  //       )
-  //     );
-  //   } catch (error) {
-  //     console.error("Booking failed:", error);
-  //     alert("Booking failed. Please try again.");
-  //   } finally {
-  //     setBookModal(false);
-  //     setQty(0);
-  //   }
-  // };
   const updateTrain = async () => {
     try {
       const response = await updateTrainAsset(selectedAsset.asset_id, avlbl, ood);
@@ -155,31 +121,46 @@ const TrainAssets = ({ onBackTrain }) => {
     }
   };
 
+  const refresh = async () => {
+    setLoading(true);
+    try {
+      await refreshAllTrainAssets();
+      await refreshTrainSpecs();
+    } catch {
+      setError("Failed to load train assets data.");
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [trainAssets, assetSpecs] = await Promise.all([getTrainAssets(), getTrainAssetsSpecs()]);
-        setTrainAssets(trainAssets.data);
-        setAssetSpecs(assetSpecs.data);
-      } catch (err) {
-        setError(err.response?.data || "Failed to fetch data");
-      } finally {
-        setLoading(false);
-      }
-    };
+    refresh();
+  }, []);
 
-    fetchData();
-  }, [getTrainAssets, getTrainAssetsSpecs]);
-
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   return (
     <div className="container rounded-lg">
-      <div className="mb-4">
-        <button onClick={onBackTrain} className="flex items-center px-4 py-2 rounded hover:bg-gray-400">
+      <div className="flex items-center justify-between mb-6">
+        <button
+          onClick={onBackTrain}
+          className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-200 rounded-lg shadow-sm hover:bg-gray-300 active:scale-95 transition"
+        >
           <FaArrowLeft />
           Back
-        </button>
+        </button>{" "}
+        <div className="flex gap-3">
+          {/* Refresh Button */}
+          <button
+            onClick={refresh}
+            disabled={loading}
+            className={`px-4 py-2 rounded-lg font-semibold shadow-md transition ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed text-white"
+                : "bg-blue-600 hover:bg-blue-700 active:scale-95 text-white"
+            }`}
+          >
+            {loading ? "Refreshing..." : "Refresh"}
+          </button>
+        </div>
       </div>
       <h2 className="text-xl font-bold text-blue-500 mb-4">TRAIN ASSETS</h2>
       <div className="overflow-x-auto">

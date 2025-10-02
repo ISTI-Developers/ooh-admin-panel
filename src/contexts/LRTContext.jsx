@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState, useMemo } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { useLRTapi } from "./LRT.api";
-import { useFunction } from "~misc/functions";
 const StationContext = React.createContext();
 
 export function useStations() {
@@ -12,13 +11,11 @@ export function StationProvider({ children }) {
   const {
     retrieveAllStationDetails,
     retrieveSpecifications,
-    updateAsset,
-    updateParapetStatus,
     retrieveContracts,
     getContractFromAsset,
+    getExternalAssetSpecs,
     getTrainAssets,
     getTrainAssetsSpecs,
-    getExternalAssetSpecs,
   } = useLRTapi();
 
   const [stationData, setStationData] = useState([]);
@@ -29,41 +26,50 @@ export function StationProvider({ children }) {
   const [assetContracts, setAssetContracts] = useState([]);
   const [attachedContract, setAttachedContract] = useState(null);
 
-  const { toUnderscored } = useFunction();
   const [pillars, setPillars] = useState([]);
+  const [viaducts, setViaducts] = useState([]);
   const [zoom, setZoom] = useState(6);
-  const [query, setQuery] = useState("");
   const [selectedPillar, setSelectedPillar] = useState(null);
 
-  const queryResults = useMemo(() => {
-    if (!pillars) return [];
+  const [trainAssets, setTrainAssets] = useState([]);
+  const [trainSpecs, setTrainSpecs] = useState([]);
 
-    if (query.length < 4) return pillars;
-    const normalizedQuery = toUnderscored(query.toLowerCase());
-
-    const includesQuery = (item) =>
-      [item.site ?? item.site_code, item.region, item.city, item?.address]
-        .map((field) => toUnderscored(field?.toLowerCase() ?? ""))
-        .some((field) => field.includes(normalizedQuery));
-
-    return pillars.filter(includesQuery);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, pillars]);
-
-  const queryAllStationsData = useMemo(() => {
-    if (!stationData || !stationData.data) return [];
-    return stationData.data;
-  }, [stationData]);
-
-  const querySpecs = useMemo(() => {
-    if (!specs || !specs.data) return [];
-    return specs.data;
-  }, [specs]);
-
-  const queryAssetContracts = useMemo(() => {
-    if (!assetContracts || !assetContracts.data) return [];
-    return assetContracts.data;
-  }, [assetContracts]);
+  const refreshAllStationAssets = async () => {
+    const res = await retrieveAllStationDetails();
+    setStationData(res?.data || []);
+  };
+  const refreshSpecifications = async () => {
+    const res = await retrieveSpecifications();
+    setSpecs(res?.data || []);
+  };
+  const refreshAllTrainAssets = async () => {
+    const res = await getTrainAssets();
+    setTrainAssets(res?.data || []);
+  };
+  const refreshTrainSpecs = async () => {
+    const res = await getTrainAssetsSpecs();
+    setTrainSpecs(res?.data || []);
+  };
+  const refreshViaducts = async () => {
+    const res = await getExternalAssetSpecs(8);
+    setViaducts(res?.data || []);
+  };
+  const refreshPillars = async () => {
+    const res = await getExternalAssetSpecs(9);
+    setPillars(
+      [
+        ...res.data.map((item) => ({
+          ...item,
+          longitude: parseFloat(item.longitude),
+          latitude: parseFloat(item.latitude),
+        })),
+      ] || []
+    );
+  };
+  const refreshAssetContracts = async () => {
+    const res = await getContractFromAsset();
+    setAssetContracts(res?.data || []);
+  };
 
   const fetchContracts = async (page = 1, limit = 10, search = "") => {
     const result = await retrieveContracts(page, limit, search);
@@ -71,49 +77,36 @@ export function StationProvider({ children }) {
     setPagination(result.pagination);
   };
 
-  useEffect(() => {
-    const setup = async () => {
-      const stationData = await retrieveAllStationDetails();
-      setStationData(stationData);
-      const specsData = await retrieveSpecifications();
-      setSpecs(specsData);
-      const assetContract = await getContractFromAsset();
-      setAssetContracts(assetContract);
-
-      const data = await getExternalAssetSpecs(9); 
-      setPillars([
-        ...data.data.map((item) => ({
-          ...item,
-          longitude: parseFloat(item.longitude),
-          latitude: parseFloat(item.latitude),
-        })),
-      ]);
-    };
-    setup();
-  }, []);
   const values = {
-    querySpecs,
-    queryAllStationsData,
+    refreshAssetContracts,
+    assetContracts,
+    setAssetContracts,
+    refreshAllStationAssets,
     stationData,
     setStationData,
-    contracts,
+    refreshSpecifications,
+    specs,
+    setSpecs,
+    trainAssets,
+    setTrainAssets,
+    trainSpecs,
+    refreshAllTrainAssets,
+    refreshTrainSpecs,
     fetchContracts,
+    contracts,
     pagination,
     setPagination,
-    queryAssetContracts,
     attachedContract,
     setAttachedContract,
-    updateAsset,
-    updateParapetStatus,
-    getTrainAssets,
-    getTrainAssetsSpecs,
     zoom,
+    setZoom,
+    refreshViaducts,
+    viaducts,
+    setViaducts,
+    refreshPillars,
     pillars,
     setPillars,
-    queryResults,
     selectedPillar,
-    setZoom,
-    setQuery,
     setSelectedPillar,
   };
 

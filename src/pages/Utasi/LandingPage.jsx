@@ -25,10 +25,13 @@ const LandingPage = ({ backToContracts }) => {
       {selectedTransport ? (
         <>{selectedTransport}</>
       ) : (
-        <div className="container flex flex-col justify-center">
+        <>
           {attachedContract && (
             <div className="mb-4">
-              <button onClick={backToContracts} className="flex items-center px-4 py-2 rounded hover:bg-gray-400">
+              <button
+                onClick={backToContracts}
+                className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-200 rounded-lg shadow-sm hover:bg-gray-300 active:scale-95 transition"
+              >
                 <FaArrowLeft />
                 Back
               </button>
@@ -59,7 +62,7 @@ const LandingPage = ({ backToContracts }) => {
               ))}
             </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );
