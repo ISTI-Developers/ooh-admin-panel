@@ -3,16 +3,17 @@ import { useStations } from "~contexts/LRTContext";
 import classNames from "classnames";
 import { Button } from "flowbite-react";
 import ContractTable from "~components/contractTable";
-import Pillar from "~assets/Pillar.jpg";
 import { useLRTapi } from "~contexts/LRT.api";
+import { useImageUrl } from "~/misc/useImageUrl";
+
 function PillarMapSiteOverview() {
-  const { selectedPillar, attachedContract, queryAssetContracts, setSelectedPillar, setPillars } = useStations();
+  const Pillar = useImageUrl("Pillar.jpg");
+  const { selectedPillar, assetContracts, attachedContract, setSelectedPillar, setPillars } = useStations();
   const { updateExternal } = useLRTapi();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [brand, setBrand] = useState("");
   const [brandModalOpen, setBrandModalOpen] = useState(false);
-
-  const contractedPillar = queryAssetContracts
+  const contractedPillar = assetContracts
     .filter((cp) => cp.pillar_id !== null && cp.pillar_id !== undefined)
     .map((cp) => cp.pillar_id);
 
@@ -69,11 +70,11 @@ function PillarMapSiteOverview() {
                   <p className="font-semibold text-base">{selectedPillar.viaduct_name}</p>
                   <p>{selectedPillar.asset_direction}</p>
                   <p>
-                    Media Rental:
+                    Media Rental:{" "}
                     <span className="font-medium">₱{Number(selectedPillar.media_rental).toLocaleString()}</span>
                   </p>
                   <p>
-                    1X Prod Cost:
+                    1X Prod Cost:{" "}
                     <span className="font-medium">₱{Number(selectedPillar.prod_cost).toLocaleString()}</span>
                   </p>
                   <p>

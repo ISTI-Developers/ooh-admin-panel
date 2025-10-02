@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { IoArrowForwardSharp, IoArrowBackSharp } from "react-icons/io5";
-import railtracks from "../assets/railtracks.png";
+import railtrackts from "../assets/railtracks.png";
 export const RouteDisplay = ({ SouthBound, NorthBound, handleSouth, handleNorth }) => {
   return (
     <div className="w-full">
@@ -9,7 +9,7 @@ export const RouteDisplay = ({ SouthBound, NorthBound, handleSouth, handleNorth 
         <div
           className="w-full h-24 bg-repeat-x"
           style={{
-            backgroundImage: `url(${railtracks})`,
+            backgroundImage: `url(${railtrackts})`,
             backgroundSize: "auto 100%", // keep height small; repeat along X
             backgroundPosition: "center",
           }}

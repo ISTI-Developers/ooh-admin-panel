@@ -13,21 +13,24 @@ const Contract = () => {
   const {
     setAttachedContract,
     pillars,
+    refreshPillars,
     contracts,
     fetchContracts,
     pagination,
-    queryAllStationsData,
+    stationData,
     setPagination,
-    updateParapetStatus,
+    refreshViaducts,
+    viaducts,
+    refreshAllStationAssets,
+    refreshAssetContracts,
+    assetContracts,
   } = useStations();
-  const { getContractFromAsset, unTagContract, updateExternal, getExternalAssetSpecs } = useLRTapi();
+  const { unTagContract, updateExternal, updateParapetStatus, updateAsset } = useLRTapi();
   const [editField, setEditField] = useState(null);
   const [editedDates, setEditedDates] = useState({});
   const [modal, setModal] = useState(false);
   const [selectedContract, setSelectedContract] = useState(null);
-  const [externalAssetSpecs, setExternalAssetSpecs] = useState([]);
 
-  const [contractFromAsset, setContractFromAsset] = useState([]);
   const [selectAsset, setSelectAsset] = useState(null);
   const [deletingContractId, setDeletingContractId] = useState(null);
   const [search, setSearch] = useState("");
@@ -38,9 +41,15 @@ const Contract = () => {
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
+  const ALL_STATION_ASSET_IDS = new Set([1, 2, 10, 11]);
+  const UPDATE_ASSET_FIELD = {
+    2: "backlit_id",
+    10: "ticketbooth_id",
+    11: "stairs_id",
+  };
+
   const deleteContract = async (matchedContract, trainAssetId) => {
-    const isConfirmed = window.confirm("Are you sure you want to untag this contract?");
-    if (!isConfirmed) return;
+    if (!window.confirm("Are you sure you want to untag this contract?")) return;
     setDeletingContractId(matchedContract.contract_id);
     try {
       const result = await unTagContract(
@@ -51,31 +60,43 @@ const Contract = () => {
         trainAssetId,
         matchedContract.quantity
       );
-      if (matchedContract.asset_id === 1) {
+      const { asset_id } = matchedContract;
+      if (asset_id === 1) {
         await updateParapetStatus(matchedContract.station_id, matchedContract.asset_facing, 1, "AVAILABLE");
       }
-      if (matchedContract.asset_id === 8) {
+      const updateField = UPDATE_ASSET_FIELD[asset_id];
+      if (updateField) {
+        await updateAsset(matchedContract[updateField], {
+          asset_status: "AVAILABLE",
+          brand: null,
+        });
+      }
+      if (asset_id === 8) {
         await updateExternal(matchedContract.viaduct_id, 0, null);
       }
+      if (asset_id === 9) {
+        await updateExternal(matchedContract.pillar_id, 0, null);
+      }
+      const refreshers = new Set();
+      if (ALL_STATION_ASSET_IDS.has(asset_id)) refreshers.add(refreshAllStationAssets);
+      if (asset_id === 8) refreshers.add(refreshViaducts);
+      if (asset_id === 9) refreshers.add(refreshPillars);
+      await Promise.all([...refreshers].map((fn) => fn()));
+
       alert("Contract successfully untagged.");
-      refreshContract();
       return result;
     } catch (error) {
       console.error("Error deleting contract:", error);
       alert("An error occurred while untagging the contract.");
     } finally {
       setDeletingContractId(null);
+      await Promise.all([refreshAssetContracts()]);
     }
   };
 
-  const matchedContracts = contractFromAsset
-    ? contractFromAsset.filter((c) => c.asset_sales_order_code === selectedContract?.SalesOrderCode)
+  const matchedContracts = assetContracts
+    ? assetContracts.filter((c) => c.asset_sales_order_code === selectedContract?.SalesOrderCode)
     : [];
-
-  const refreshContract = async () => {
-    const contracts = await getContractFromAsset();
-    setContractFromAsset(contracts.data);
-  };
 
   const filteredContracts = useMemo(() => {
     if (!search.trim()) return contracts;
@@ -98,24 +119,18 @@ const Contract = () => {
   };
 
   useEffect(() => {
-    fetchContracts(pagination.page, pagination.limit, search);
-    refreshContract();
-  }, [pagination.page, search]);
-
-  // 5. Effects
-  useEffect(() => {
-    const fetchExternal = async () => {
-      const data = await getExternalAssetSpecs(8);
-      setExternalAssetSpecs(data.data);
+    const setup = async () => {
+      fetchContracts(pagination.page, pagination.limit, search);
+      refreshAssetContracts();
     };
-    fetchExternal();
-  }, []);
+    setup();
+  }, [pagination.page, search]);
   return (
     <>
       {selectAsset ? (
         <LandingPage
           backToContracts={() => {
-            setSelectAsset(false), setAttachedContract(null), refreshContract();
+            setSelectAsset(false), setAttachedContract(null), refreshAssetContracts();
           }}
         />
       ) : (
@@ -129,7 +144,7 @@ const Contract = () => {
                 itemsPerPage={pagination.limit}
                 setItemsPerPage={(limit) => {
                   setPagination((prev) => ({ ...prev, page: 1, limit }));
-                  fetchContracts(1, limit); // reset to page 1 when rows per page changes
+                  fetchContracts(1, limit);
                 }}
                 onPageChange={(page) => {
                   setPagination((prev) => ({ ...prev, page }));
@@ -163,8 +178,7 @@ const Contract = () => {
                 <Table.Body>
                   {filteredContracts.map((contract, index) => {
                     const matchCount =
-                      contractFromAsset?.filter((c) => c.asset_sales_order_code === contract.SalesOrderCode).length ||
-                      0;
+                      assetContracts?.filter((c) => c.asset_sales_order_code === contract.SalesOrderCode).length || 0;
                     return (
                       <Table.Row
                         key={index}
@@ -277,24 +291,22 @@ const Contract = () => {
             >
               <div className="space-y-4 text-gray-700 mt-3 dark:text-gray-300">
                 {matchedContracts.map((matchedContract) => {
-                  const asset = externalAssetSpecs?.find((a) => a.id === matchedContract.viaduct_id);
+                  const asset = viaducts?.find((a) => a.id === matchedContract.viaduct_id);
                   const pillar = pillars?.find((p) => p.id === matchedContract.pillar_id);
-                  const stationWithBacklit = queryAllStationsData?.find((station) =>
+                  const stationWithBacklit = stationData?.find((station) =>
                     station.backlits?.some((b) => b.asset_id === matchedContract.backlit_id)
                   );
                   const backlit = stationWithBacklit?.backlits?.find((b) => b.asset_id === matchedContract.backlit_id);
-                  const stationWithParapets = queryAllStationsData?.find(
-                    (a) => a.station_id === matchedContract.station_id
-                  );
+                  const stationWithParapets = stationData?.find((a) => a.station_id === matchedContract.station_id);
 
-                  const stationWithTicketBooth = queryAllStationsData?.find((station) =>
+                  const stationWithTicketBooth = stationData?.find((station) =>
                     station.ticketbooths?.some((b) => b.asset_id === matchedContract.ticketbooth_id)
                   );
                   const ticketBooth = stationWithTicketBooth?.ticketbooths?.find(
                     (b) => b.asset_id === matchedContract.ticketbooth_id
                   );
 
-                  const stationWithStairs = queryAllStationsData?.find((station) =>
+                  const stationWithStairs = stationData?.find((station) =>
                     station.stairs?.some((b) => b.asset_id === matchedContract.stairs_id)
                   );
                   const stairs = stationWithStairs?.stairs?.find((b) => b.asset_id === matchedContract.stairs_id);

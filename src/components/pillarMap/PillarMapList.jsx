@@ -8,15 +8,15 @@ import { accordion } from "~misc/themes";
 import { useStations } from "~contexts/LRTContext";
 
 function PillarMapList({ updateMapCenter }) {
-  const { queryResults, setSelectedPillar, queryAssetContracts } = useStations();
+  const { pillars, setSelectedPillar, assetContracts } = useStations();
   const { offsetCoordinate } = useFunction();
   const [showLocations, toggleLocations] = useState(false);
 
-  const contractedPillar = queryAssetContracts
+  const contractedPillar = assetContracts
     .filter((cp) => cp.pillar_id !== null && cp.pillar_id !== undefined)
     .map((cp) => cp.pillar_id);
   return (
-    queryResults && (
+    pillars && (
       <>
         <div
           className={classNames(
@@ -25,12 +25,12 @@ function PillarMapList({ updateMapCenter }) {
           )}
         >
           <Accordion flush theme={accordion}>
-            {[...new Set(queryResults.map((item) => item.asset_direction.toLowerCase()))].map((type) => (
+            {[...new Set(pillars.map((item) => item.asset_direction.toLowerCase()))].map((type) => (
               <Accordion.Panel key={type}>
                 <Accordion.Title className="capitalize">{type}</Accordion.Title>
                 <Accordion.Content>
                   <ul className="flex flex-col max-h-[375px] overflow-y-auto">
-                    {queryResults
+                    {pillars
                       .filter((item) => item.asset_direction.toLowerCase() === type)
                       .map((boards, index) => {
                         const { viaduct_name, asset_type, latitude, longitude, asset_direction } = boards;

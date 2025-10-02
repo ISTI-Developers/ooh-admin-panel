@@ -19,9 +19,8 @@ const AssetAvailability = () => {
     retrieveTicketboothsAvailability,
     retrieveStairsAvailability,
     getTrainAssets,
-    getExternalAssetSpecs,
   } = useLRTapi();
-  const { pillars, queryAssetContracts } = useStations();
+  const { pillars, assetContracts, refreshViaducts, viaducts, refreshPillars } = useStations();
   // 3. State Initialization
   const today = new Date();
   const oneYearFromToday = addYears(today, 1);
@@ -36,7 +35,6 @@ const AssetAvailability = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [externalAssetSpecs, setExternalAssetSpecs] = useState([]);
 
   // 4. Derived Data
   const parsedFromDate = parse(fromDate, "MMMM d, yyyy", new Date());
@@ -54,32 +52,32 @@ const AssetAvailability = () => {
     });
   };
 
-  const enrichedTrain = enrichAssetsWithContracts(trainAssets, queryAssetContracts, [
+  const enrichedTrain = enrichAssetsWithContracts(trainAssets, assetContracts, [
     { assetKey: "asset_id", contractKey: "asset_id" },
   ]);
 
-  const enrichedParapets = enrichAssetsWithContracts(parapets, queryAssetContracts, [
+  const enrichedParapets = enrichAssetsWithContracts(parapets, assetContracts, [
     { assetKey: "station_id", contractKey: "station_id" },
     { assetKey: "asset_id", contractKey: "asset_id" },
     { assetKey: "asset_prefix", contractKey: "asset_facing" },
   ]);
 
-  const enrichedBacklits = enrichAssetsWithContracts(backlits, queryAssetContracts, [
+  const enrichedBacklits = enrichAssetsWithContracts(backlits, assetContracts, [
     { assetKey: "id", contractKey: "backlit_id" },
   ]);
 
-  const enrichedTicketBooths = enrichAssetsWithContracts(ticketbooths, queryAssetContracts, [
+  const enrichedTicketBooths = enrichAssetsWithContracts(ticketbooths, assetContracts, [
     { assetKey: "id", contractKey: "ticketbooth_id" },
   ]);
 
-  const enrichedStairs = enrichAssetsWithContracts(stairs, queryAssetContracts, [
+  const enrichedStairs = enrichAssetsWithContracts(stairs, assetContracts, [
     { assetKey: "id", contractKey: "stairs_id" },
   ]);
 
-  const enrichedExternalAssets = enrichAssetsWithContracts(externalAssetSpecs, queryAssetContracts, [
+  const enrichedExternalAssets = enrichAssetsWithContracts(viaducts, assetContracts, [
     { assetKey: "id", contractKey: "viaduct_id" },
   ]);
-  const enrichedPillars = enrichAssetsWithContracts(pillars, queryAssetContracts, [
+  const enrichedPillars = enrichAssetsWithContracts(pillars, assetContracts, [
     { assetKey: "id", contractKey: "pillar_id" },
   ]);
 
@@ -185,7 +183,7 @@ const AssetAvailability = () => {
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   // 5. Effect Hook
   useEffect(() => {
-    const fetchParapets = async () => {
+    const fetchAssets = async () => {
       const parapetRes = await retrieveParapetsAvailability();
       setParapets(parapetRes.data);
 
@@ -201,10 +199,10 @@ const AssetAvailability = () => {
       const trainAssetsRes = await getTrainAssets();
       setTrainAssets(trainAssetsRes.data);
 
-      const data = await getExternalAssetSpecs(8);
-      setExternalAssetSpecs(data.data);
+      await refreshViaducts();
+      await refreshPillars();
     };
-    fetchParapets();
+    fetchAssets();
   }, []);
   return (
     <div className=" flex flex-col p-4 bg-white rounded-lg container gap-3">

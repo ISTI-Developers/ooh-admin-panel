@@ -10,7 +10,7 @@ import { useStations } from "~contexts/LRTContext";
 import PillarMapList from "./PillarMapList";
 import PillarMapSiteOverview from "./PillarMapSiteOverview";
 function PillarMapLocation() {
-  const { queryResults, setQuery, setSelectedPillar, zoom, setZoom, setSelectedLandmark } = useStations();
+  const { pillars, setSelectedPillar, zoom, setZoom } = useStations();
   const [center, setCenter] = useState({ lat: 12.8797, lng: 121.774 });
 
   const updateMapCenter = (coords, zoom) => {
@@ -18,12 +18,12 @@ function PillarMapLocation() {
     setCenter(() => coords);
   };
 
-  return queryResults ? (
+  return pillars ? (
     <div className="flex flex-col bg-white shadow p-4 pt-2 gap-4">
       <span className="hidden" />
       <div>
         <Label value="Search pillar" />
-        <TextInput disabled type="search" theme={defaultTextTheme} onChange={(e) => setQuery(e.target.value)} />
+        <TextInput disabled type="search" theme={defaultTextTheme} />
       </div>
       <div className="relative flex gap-4 overflow-hidden">
         {/* LIST OF SITES */}
@@ -41,7 +41,6 @@ function PillarMapLocation() {
               onZoomChanged={(e) => setZoom(e.detail.zoom)}
               onClick={() => {
                 setSelectedPillar(null);
-                setSelectedLandmark(null);
               }}
             >
               <PillarMarkers center={center} setCenter={setCenter} />

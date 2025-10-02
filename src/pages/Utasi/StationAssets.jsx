@@ -17,14 +17,30 @@ import {
 } from "./utasi.const";
 import { useLRTapi } from "~contexts/LRT.api";
 const StationAssets = ({ onBackStations }) => {
-  const { queryAllStationsData, querySpecs, attachedContract, queryAssetContracts, setStationData } = useStations();
-  const { updateParapetStatus, retrieveAllStationDetails } = useLRTapi();
+  const { stationData, specs, attachedContract, assetContracts, refreshAllStationAssets, refreshSpecifications } =
+    useStations();
+  const { updateParapetStatus } = useLRTapi();
   const [currentStationId, setCurrentStationId] = useState(null);
   const [selectedContract, setSelectedContract] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookParapets, setBookParapets] = useState(false);
   const [bound, setBound] = useState(null);
+  const [loading, setLoading] = useState(false);
   const componentRef = useRef();
+
+  const refresh = async () => {
+    setLoading(true);
+    try {
+      await refreshAllStationAssets();
+      await refreshSpecifications();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    refresh();
+  }, []);
 
   const takeScreenshot = () => {
     html2canvas(componentRef.current).then((canvas) => {
@@ -35,31 +51,31 @@ const StationAssets = ({ onBackStations }) => {
     });
   };
   useEffect(() => {
-    if (queryAllStationsData.length > 0 && !currentStationId) {
-      setCurrentStationId(queryAllStationsData[0]?.station_id);
+    if (stationData.length > 0 && !currentStationId) {
+      setCurrentStationId(stationData[0]?.station_id);
     }
     setSelectedContract(attachedContract);
-  }, [attachedContract, currentStationId, queryAllStationsData]);
+  }, [attachedContract, currentStationId, stationData]);
 
   const handleNextStation = () => {
-    const currentIndex = queryAllStationsData.findIndex((station) => station.station_id === currentStationId);
+    const currentIndex = stationData.findIndex((station) => station.station_id === currentStationId);
     if (currentIndex !== -1) {
-      const nextIndex = (currentIndex + 1) % queryAllStationsData.length;
-      setCurrentStationId(queryAllStationsData[nextIndex].station_id);
+      const nextIndex = (currentIndex + 1) % stationData.length;
+      setCurrentStationId(stationData[nextIndex].station_id);
     }
   };
 
   const handlePreviousStation = () => {
-    const currentIndex = queryAllStationsData.findIndex((station) => station.station_id === currentStationId);
+    const currentIndex = stationData.findIndex((station) => station.station_id === currentStationId);
     if (currentIndex !== -1) {
-      const prevIndex = (currentIndex - 1 + queryAllStationsData.length) % queryAllStationsData.length;
-      setCurrentStationId(queryAllStationsData[prevIndex].station_id);
+      const prevIndex = (currentIndex - 1 + stationData.length) % stationData.length;
+      setCurrentStationId(stationData[prevIndex].station_id);
     }
   };
 
-  const mergedStations = queryAllStationsData.map((station) => ({
+  const mergedStations = stationData.map((station) => ({
     ...station,
-    details: querySpecs.filter((spec) => spec.station_id === station.station_id),
+    details: specs.filter((spec) => spec.station_id === station.station_id),
   }));
 
   const currentStation = mergedStations.find((station) => station.station_id === currentStationId);
@@ -67,7 +83,7 @@ const StationAssets = ({ onBackStations }) => {
 
   const needsTag = (facing) => {
     const hasParapet = currentStation.parapets?.some((p) => p.asset_distinction.startsWith(facing));
-    const isTagged = queryAssetContracts.some(
+    const isTagged = assetContracts.some(
       (contract) =>
         contract.asset_facing === facing &&
         contract.station_id === currentStationId &&
@@ -100,8 +116,7 @@ const StationAssets = ({ onBackStations }) => {
       alert("Parapets updated succesfully.");
       setBookParapets(false);
       setBound(null);
-      const stationData = await retrieveAllStationDetails();
-      setStationData(stationData);
+      await refreshAllStationAssets();
     } catch (error) {
       console.error("Failed to update a bound parapet:", error);
       alert("Failed to update a bound parapet. Please try again.");
@@ -116,9 +131,8 @@ const StationAssets = ({ onBackStations }) => {
       const response = await updateParapetStatus(currentStation?.station_id, bound, 1, "AVAILABLE");
       console.log(response);
       alert("Parapets updated succesfully.");
-      const stationData = await retrieveAllStationDetails();
-      setStationData(stationData);
       setBookParapets(false);
+      await refreshAllStationAssets();
     } catch (error) {
       console.error("Failed to update a bound parapet:", error);
       alert("Failed to update a bound parapet. Please try again.");
@@ -127,15 +141,18 @@ const StationAssets = ({ onBackStations }) => {
 
   return (
     <div className="container">
-      <div className="mb-4">
-        <button onClick={onBackStations} className="flex items-center px-4 py-2 rounded hover:bg-gray-400">
-          <FaArrowLeft />
-          Back
-        </button>
-      </div>
+      {/* Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        {/* Left cluster: Back + Station select */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={onBackStations}
+            className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-200 rounded-lg shadow-sm hover:bg-gray-300 active:scale-95 transition"
+          >
+            <FaArrowLeft className="text-gray-600" />
+            <span className="font-medium">Back</span>
+          </button>
 
-      <div className="flex justify-between mb-5">
-        <div className="flex gap-2">
           <select
             name="station"
             id="station-select"
@@ -143,48 +160,61 @@ const StationAssets = ({ onBackStations }) => {
             onChange={(e) => setCurrentStationId(parseInt(e.target.value, 10))}
             className="py-2 px-4 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
           >
-            {queryAllStationsData.map((station) => (
+            {stationData.map((station) => (
               <option key={station.station_id} value={station.station_id}>
                 {station.station_name}
               </option>
             ))}
           </select>
-          {!attachedContract && (
-            <div>
-              <button
-                onClick={takeScreenshot}
-                className="p-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105"
-              >
-                📸 Take Screenshot
-              </button>
-            </div>
-          )}
         </div>
-        <div className="flex gap-2">
+
+        {/* Right cluster: Actions */}
+        <div className="flex items-center gap-3">
+          {/* Refresh */}
+          <button
+            onClick={refresh}
+            disabled={loading}
+            className={`px-4 py-2 rounded-lg font-semibold shadow-md transition ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed text-white"
+                : "bg-blue-600 hover:bg-blue-700 active:scale-95 text-white"
+            }`}
+          >
+            {loading ? "Refreshing..." : "Refresh"}
+          </button>
+
+          {/* Tag parapet (conditional) */}
           {shouldShowTagButton && (
-            <div className="space-x-2">
-              <button
-                className={`text-white font-bold py-2 px-2 rounded-lg transition-all duration-200 ease-in-out 
-                bg-blue-500 hover:bg-blue-600 shadow-md hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
-                onClick={() => setIsModalOpen(true)}
-              >
-                Tag a parapet
-              </button>
-            </div>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-4 py-2 text-white font-semibold rounded-lg shadow-md bg-blue-600 hover:bg-blue-700 active:scale-95 transition"
+            >
+              Tag parapet
+            </button>
           )}
+
+          {/* Book parapets (conditional) */}
           {showBookButton && (
-            <div className="space-x-2">
-              <button
-                className={`text-white font-bold py-2 px-2 rounded-lg transition-all duration-200 ease-in-out 
-                bg-blue-500 hover:bg-blue-600 shadow-md hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
-                onClick={() => setBookParapets(true)}
-              >
-                Book parapets
-              </button>
-            </div>
+            <button
+              onClick={() => setBookParapets(true)}
+              className="px-4 py-2 text-white font-semibold rounded-lg shadow-md bg-blue-600 hover:bg-blue-700 active:scale-95 transition"
+            >
+              Book parapets
+            </button>
+          )}
+
+          {/* Screenshot (only when NO attached contract, per your earlier logic) */}
+          {!attachedContract && (
+            <button
+              onClick={takeScreenshot}
+              className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 active:scale-95 transition"
+            >
+              📸 Take Screenshot
+            </button>
           )}
         </div>
       </div>
+
       <div ref={componentRef}>
         <Template
           key={currentStation.station_id}

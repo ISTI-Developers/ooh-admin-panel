@@ -24,21 +24,13 @@ const ContractTable = ({
   setQty,
   viaduct_id,
   setSelectedViaduct,
-  setExternalAssetSpecs,
-  setAssetContracts,
   pillar_id,
 }) => {
   const [editField, setEditField] = useState(null);
   const [editedDates, setEditedDates] = useState({});
-  const {
-    attachContract,
-    updateParapetStatus,
-    trainAssetBook,
-    getExternalAssetSpecs,
-    getContractFromAsset,
-    updateExternal,
-  } = useLRTapi();
-  const { attachedContract, updateAsset } = useStations();
+  const { attachContract, updateParapetStatus, trainAssetBook, updateExternal, updateAsset } = useLRTapi();
+  const { attachedContract, refreshPillars, refreshViaducts, refreshAssetContracts, refreshAllStationAssets } =
+    useStations();
   const [bound, setBound] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -58,20 +50,17 @@ const ContractTable = ({
     if (!confirm) return;
     setLoading(true);
     try {
-      if (asset_id === 1) {
-        const contractData = {
-          assetSalesOrderCode: selectedContract?.SalesOrderCode ?? "",
-          assetDateStart: editedDates[`${0}-DateRef1`] ?? selectedContract?.DateRef1,
-          assetDateEnd: editedDates[`${0}-DateRef2`] ?? selectedContract?.DateRef2,
-          stationId: station?.station_id ?? "",
-          assetId: 1,
-          assetFacing: bound,
-          brand_owner: selectedContract?.ProjectCode ?? "",
-        };
-        const response = await attachContract(contractData);
-        const response2 = await updateParapetStatus(station?.station_id, bound, 1, "TAKEN");
-        console.log("Contract attached successfully:", response, response2);
-      }
+      const contractData = {
+        assetSalesOrderCode: selectedContract?.SalesOrderCode ?? "",
+        assetDateStart: editedDates[`${0}-DateRef1`] ?? selectedContract?.DateRef1,
+        assetDateEnd: editedDates[`${0}-DateRef2`] ?? selectedContract?.DateRef2,
+        stationId: station?.station_id ?? "",
+        assetId: 1,
+        assetFacing: bound,
+        brand_owner: selectedContract?.ProjectCode ?? "",
+      };
+      await attachContract(contractData);
+      await updateParapetStatus(station?.station_id, bound, 1, "TAKEN");
       alert("Contract attached successfully.");
     } catch (error) {
       console.error("Failed to attach contract:", error);
@@ -79,6 +68,8 @@ const ContractTable = ({
     } finally {
       setIsModalOpen(false);
       setLoading(false);
+      await refreshAssetContracts();
+      await refreshAllStationAssets();
     }
   };
   const bookBackLit = async () => {
@@ -106,6 +97,8 @@ const ContractTable = ({
       alert("Failed to update asset.");
     } finally {
       setLoading(false);
+      await refreshAssetContracts();
+      await refreshAllStationAssets();
     }
   };
   const bookTicketBooth = async () => {
@@ -133,6 +126,8 @@ const ContractTable = ({
       alert("Failed to update asset.");
     } finally {
       setLoading(false);
+      await refreshAssetContracts();
+      await refreshAllStationAssets();
     }
   };
   const bookStairs = async () => {
@@ -159,6 +154,8 @@ const ContractTable = ({
       alert("Failed to update asset.");
     } finally {
       setLoading(false);
+      await refreshAssetContracts();
+      await refreshAllStationAssets();
     }
   };
   const bookTrain = async (e) => {
@@ -227,16 +224,14 @@ const ContractTable = ({
       setIsModalOpen(false);
       setSelectedViaduct(null);
 
-      // Refresh external assets and contract data
-      const data = await getExternalAssetSpecs(8);
-      setExternalAssetSpecs(data.data);
-      const assetContract = await getContractFromAsset();
-      setAssetContracts(assetContract.data);
+      await refreshViaducts();
+      await refreshAssetContracts();
     }
   };
   const bookPillar = async () => {
     const confirmed = window.confirm("Are you sure you want to book this pillar?");
     if (!confirmed) return;
+    setLoading(true);
     try {
       const contractData = {
         assetSalesOrderCode: selectedContract.SalesOrderCode,
@@ -255,6 +250,10 @@ const ContractTable = ({
       window.alert("Booking failed. Please try again.");
     } finally {
       setIsModalOpen(false);
+      setLoading(false);
+
+      await refreshPillars();
+      await refreshAssetContracts();
     }
   };
   return (
@@ -309,11 +308,6 @@ const ContractTable = ({
                     value={editedDates[`0-DateRef1`] || format(new Date(selectedContract.DateRef1), "yyyy-MM-dd")}
                     onChange={(e) => handleDateChange(0, "DateRef1", e.target.value)}
                   />
-                  {/* <Datepicker
-                    value={editedDates[`0-DateRef1`] || format(new Date(selectedContract.DateRef1), "yyyy-MM-dd")}
-                    onSelectedDateChanged={(date) => handleDateChange(0, "DateRef1", format(date, "yyyy-MM-dd"))}
-                    defaultDate={new Date(selectedContract.DateRef1)}
-                  /> */}
                   <button type="button" onClick={() => saveDate(0, "DateRef1")}>
                     <AiOutlineCheck className="text-lg" />
                   </button>
@@ -379,7 +373,7 @@ const ContractTable = ({
               !bound ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"
             }`}
           >
-            Parapet
+            {loading ? "Tagging..." : "Confirm"}
           </button>
         )}
 
@@ -398,14 +392,22 @@ const ContractTable = ({
           </button>
         )}
 
-        {asset_id === 8 && (
-          <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700" onClick={bookViaduct}>
+        {asset_id === 8 && !matchedContract && attachedContract && (
+          <button
+            onClick={bookViaduct}
+            disabled={loading}
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 disabled:bg-gray-400"
+          >
             {loading ? "Tagging..." : "Confirm"}
           </button>
         )}
-        {asset_id === 9 && (
-          <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700" onClick={bookPillar}>
-            Confirm
+        {asset_id === 9 && !matchedContract && attachedContract && (
+          <button
+            onClick={bookPillar}
+            disabled={loading}
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 disabled:bg-gray-400"
+          >
+            {loading ? "Tagging..." : "Confirm"}
           </button>
         )}
         {asset_id === 10 && !matchedContract && attachedContract && (
@@ -458,8 +460,6 @@ ContractTable.propTypes = {
   setQty: PropTypes.func,
   viaduct_id: PropTypes.number,
   setSelectedViaduct: PropTypes.func,
-  setExternalAssetSpecs: PropTypes.func,
-  setAssetContracts: PropTypes.func,
   pillar_id: PropTypes.number,
 };
 export default ContractTable;

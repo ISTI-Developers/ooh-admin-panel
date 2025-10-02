@@ -2,27 +2,38 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FaArrowLeft } from "react-icons/fa";
 import { useStations } from "~contexts/LRTContext";
-import { imageMap, imageMap2 } from "./utasi.const";
+import { useUtasiImages } from "./utasi.const";
 import ContractTable from "~components/contractTable";
 import { useLRTapi } from "~contexts/LRT.api";
 import PillarMapLocation from "~components/pillarMap/PillarMapLocation";
 import { ViaductCard } from "~components/ViaductCard";
 import { Modal, Button } from "flowbite-react";
-import viad from "~assets/viad.jpg";
+import { useImageUrl } from "~/misc/useImageUrl";
+
 const ExternalAssets = ({ onBackExternal }) => {
+  const viad = useImageUrl("viad.jpg");
+  const { imageMap, imageMap2 } = useUtasiImages();
   // 1. Hooks & Dependencies
-  const { attachedContract } = useStations();
-  const { getExternalAssetSpecs, addViaduct, deleteViaduct, updateExternal, getContractFromAsset } = useLRTapi();
+  const {
+    attachedContract,
+    refreshAssetContracts,
+    assetContracts,
+    refreshPillars,
+    refreshViaducts,
+    viaducts,
+    setViaducts,
+  } = useStations();
+  const { addViaduct, deleteViaduct, updateExternal } = useLRTapi();
 
   // 2. State Initialization
   const [selectedViaduct, setSelectedViaduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViaduct, setIsViaduct] = useState(true);
-  const [externalAssetSpecs, setExternalAssetSpecs] = useState([]);
-  const [assetContracts, setAssetContracts] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [brand, setBrand] = useState("");
   const [brandModalOpen, setBrandModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [form, setForm] = useState({
     viaductName: "",
@@ -39,7 +50,7 @@ const ExternalAssets = ({ onBackExternal }) => {
 
   // 3. Derived Data
   const contractedViaduct = assetContracts.filter((cv) => cv.viaduct_id != null).map((cv) => cv.viaduct_id);
-  const externalAssetsWithImages = externalAssetSpecs.map((asset) => ({
+  const externalAssetsWithImages = viaducts.map((asset) => ({
     ...asset,
     picture: imageMap[asset.id] || null,
     picture2: imageMap2[asset.id] || null,
@@ -52,20 +63,21 @@ const ExternalAssets = ({ onBackExternal }) => {
   const handleDetailsClick = (viaduct) => {
     setSelectedViaduct(viaduct);
   };
-
-  const effects = async () => {
-    const data = await getExternalAssetSpecs(8);
-    setExternalAssetSpecs(data.data);
-
-    const assetContract = await getContractFromAsset();
-    setAssetContracts(assetContract.data);
+  const refresh = async () => {
+    setLoading(true);
+    try {
+      await refreshViaducts();
+      await refreshAssetContracts();
+      await refreshPillars();
+    } catch {
+      setError("Failed to load train assets data.");
+    } finally {
+      setLoading(false);
+    }
   };
-
-  // 5. Effects
   useEffect(() => {
-    effects();
+    refresh();
   }, []);
-
   const handleSave = async () => {
     const confirm = window.confirm("Are you sure you want to attach this contract?");
     if (!confirm) return;
@@ -85,7 +97,7 @@ const ExternalAssets = ({ onBackExternal }) => {
     } catch (error) {
       console.error("Add failed:", error);
     } finally {
-      effects();
+      refresh();
     }
   };
   const handleDeleteViaduct = async (id, spec_id) => {
@@ -96,29 +108,31 @@ const ExternalAssets = ({ onBackExternal }) => {
     } catch (error) {
       console.error("Delete failed:", error);
     } finally {
-      effects();
+      refresh();
     }
   };
   const handleBookViaduct = async (id, isBooked, brand) => {
     try {
       await updateExternal(id, isBooked, brand);
       alert(isBooked === 1 ? "Viaduct booked successfully!" : "Viaduct unbooked successfully!");
-      setExternalAssetSpecs((prev) => prev.map((v) => (v.id === id ? { ...v, is_booked: isBooked, brand } : v)));
+      setViaducts((prev) => prev.map((v) => (v.id === id ? { ...v, is_booked: isBooked, brand } : v)));
       setSelectedViaduct((prev) => (prev && prev.id === id ? { ...prev, is_booked: isBooked, brand } : prev));
     } catch (e) {
       console.error("Update failed:", e);
     } finally {
       setBrandModalOpen(false);
       setBrand("");
-      effects();
+      refresh();
     }
   };
+
   const isBooked = Number(selectedViaduct?.is_booked) === 1;
 
   // Normalize ids to strings to avoid "1" vs 1 mismatches
   const contractedIds = Array.isArray(contractedViaduct) ? contractedViaduct.map((id) => String(id)) : [];
   const isContracted = selectedViaduct?.id != null ? contractedIds.includes(String(selectedViaduct.id)) : false;
 
+  if (error) return <p>Error: {error}</p>;
   return (
     <div className="container p-6">
       <div className="flex justify-between mb-4">
@@ -146,11 +160,26 @@ const ExternalAssets = ({ onBackExternal }) => {
             Pillar
           </Button>
         </div>
-
-        <button onClick={onBackExternal} className="flex items-center px-4 py-2 rounded hover:bg-gray-400">
-          <FaArrowLeft />
-          Back
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={onBackExternal}
+            className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-200 rounded-lg shadow-sm hover:bg-gray-300 active:scale-95 transition"
+          >
+            <FaArrowLeft />
+            Back
+          </button>
+          <button
+            onClick={refresh}
+            disabled={loading}
+            className={`px-4 py-2 rounded-lg font-semibold shadow-md transition ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed text-white"
+                : "bg-blue-600 hover:bg-blue-700 active:scale-95 text-white"
+            }`}
+          >
+            {loading ? "Refreshing..." : "Refresh"}
+          </button>
+        </div>
       </div>
       {isViaduct ? (
         <>
@@ -341,31 +370,27 @@ const ExternalAssets = ({ onBackExternal }) => {
               )}
 
               {rest.length > 0 && <p className="text-sm text-green-600">{rest.join(",")}</p>}
-
               {isContracted ? null : attachedContract ? (
-                <button
-                  className="bg-green-400 text-white font-bold py-2 px-4 rounded-md mt-4 w-full hover:bg-green-700"
-                  onClick={() => setIsModalOpen(true)}
-                >
+                <Button className="rounded-md mt-4 w-full" onClick={() => setIsModalOpen(true)}>
                   BOOK VIADUCT
-                </button>
+                </Button>
               ) : isBooked ? (
-                <button
-                  className="bg-green-400 text-white font-bold py-2 px-4 rounded-md mt-4 w-full hover:bg-green-700"
+                <Button
+                  className="rounded-md mt-4 w-full"
                   onClick={() => handleBookViaduct(selectedViaduct.id, 0, null)}
                 >
                   Unbook Viaduct?
-                </button>
+                </Button>
               ) : (
-                <button
-                  className="bg-green-400 text-white font-bold py-2 px-4 rounded-md mt-4 w-full hover:bg-green-700"
+                <Button
+                  className="rounded-md mt-4 w-full"
                   onClick={() => {
                     setBrand(selectedViaduct.brand ?? "");
                     setBrandModalOpen(true);
                   }}
                 >
                   Book Viaduct without contract?
-                </button>
+                </Button>
               )}
             </div>
           )}
@@ -428,7 +453,6 @@ const ExternalAssets = ({ onBackExternal }) => {
                     viaduct_id={selectedViaduct.id}
                     setIsModalOpen={setIsModalOpen}
                     setSelectedViaduct={setSelectedViaduct}
-                    setExternalAssetSpecs={setExternalAssetSpecs}
                   />
                 )}
               </div>
