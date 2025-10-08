@@ -24,4 +24,5 @@ export const endpoints = {
   parapets: server + "/utasi/parapets",
   availability: server + "/utasi/availability",
   specs: server + "/utasi/specs",
+  api: server + "/api",
 };

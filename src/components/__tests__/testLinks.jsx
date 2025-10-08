@@ -1,5 +1,5 @@
 import { HiUsers, HiViewGrid } from "react-icons/hi";
-import { FaUserGear } from "react-icons/fa6";
+import { FaKey, FaUserGear } from "react-icons/fa6";
 import { DiGoogleAnalytics } from "react-icons/di";
 import { CgWebsite } from "react-icons/cg";
 import { TbChecks } from "react-icons/tb";
@@ -68,6 +68,11 @@ export const testLinks = {
       title: "modules",
       link: "/modules",
       icon: IoMdSwitch,
+    },
+    {
+      title: "API_Keys",
+      link: "/api_keys",
+      icon: FaKey,
     },
   ],
 };
