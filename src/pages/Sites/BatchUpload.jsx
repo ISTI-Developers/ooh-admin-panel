@@ -472,6 +472,7 @@ function FileUpload({ setData }) {
 
       const processItem = async (item) => {
         try {
+          console.log(item);
           const address = await getAddressInformation(
             item.latitude,
             item.longitude

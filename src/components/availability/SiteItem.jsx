@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from "flowbite-react";
 import classNames from "classnames";
-import { differenceInDays, format } from "date-fns";
+import { differenceInDays, format, isAfter } from "date-fns";
 import { AiFillEdit } from "react-icons/ai";
 import { useEffect, useMemo, useState } from "react";
 import { mainButtonTheme } from "~/misc/themes";
@@ -211,7 +211,7 @@ const SiteItem = ({ site, setSite, bookings }) => {
                     setOnEdit(true);
                     setCurrentSite(site);
                   }}
-                  className="absolute right-0 top-0 opacity-0 text-lg pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
+                  className="absolute -right-4 top-0 opacity-0 text-lg pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
                 >
                   <AiFillEdit />
                 </button>
@@ -287,69 +287,16 @@ const SiteItem = ({ site, setSite, bookings }) => {
           </div>
         </Table.Cell>
       </Table.Row>
-      {currentSite && (
-        <Modal
-          show={onEdit}
-          size="xl"
-          dismissible
-          onClose={() => setOnEdit(false)}
-        >
-          <Modal.Header>
-            <p className="font-bold">Override Date | {currentSite.site}</p>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="grid grid-cols-2 gap-4">
-              <Label value="Original date:" />
-              <p className="text-sm p-2 border-gray-100">
-                {format(new Date(currentSite.end_date), "MMMM d, yyyy")}
-              </p>
-              <Label id="date" value="Updated date:" />
-              <input
-                type="date"
-                id="date"
-                min={format(new Date(currentSite.end_date), "yyyy-MM-dd")}
-                value={format(new Date(date), "yyyy-MM-dd")}
-                onChange={(e) => setDate(e.target.value)}
-                className=" rounded-md border-gray-100 shadow"
-              />
-              <Label id="date" value="Adjustment reason:" />
-              <Textarea
-                id="reason"
-                onChange={(e) => setAdjustmentReason(e.target.value)}
-                value={adjustmentReason}
-                className="bg-white shadow border-gray-100 resize-none h-[100px]"
-                required
-              />
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <div className="flex justify-end gap-4 w-full">
-              {currentSite.adjusted_end_date && (
-                <Button
-                  size="sm"
-                  color=""
-                  type="button"
-                  className="px-2 text-red-400 mr-auto"
-                  onClick={onClearDate}
-                >
-                  Clear
-                </Button>
-              )}
-              <Button
-                size="sm"
-                color="success"
-                className="px-2"
-                onClick={onDateChange}
-              >
-                Save
-              </Button>
-              <Button size="sm" color="gray" onClick={() => setOnEdit(false)}>
-                Cancel
-              </Button>
-            </div>
-          </Modal.Footer>
-        </Modal>
-      )}
+      <AdjustDate
+        currentSite={currentSite}
+        onEdit={onEdit}
+        setOnEdit={setOnEdit}
+        date={date}
+        setDate={setDate}
+        setAdjustmentReason={setAdjustmentReason}
+        onClearDate={onClearDate}
+        onDateChange={onDateChange}
+      />
       <ViewBooking booking={onView} setView={setView} />
       <BookingModal
         onBook={onBook}
@@ -359,6 +306,84 @@ const SiteItem = ({ site, setSite, bookings }) => {
         onBookSubmit={onBookSubmit}
       />
     </>
+  );
+};
+
+const AdjustDate = ({
+  currentSite,
+  onEdit,
+  setOnEdit,
+  date,
+  setDate,
+  setAdjustmentReason,
+  adjustmentReason,
+  onClearDate,
+  onDateChange,
+}) => {
+  return (
+    currentSite && (
+      <Modal
+        show={onEdit}
+        size="xl"
+        dismissible
+        onClose={() => setOnEdit(false)}
+      >
+        <Modal.Header>
+          <p className="font-bold">Override Date | {currentSite.site}</p>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="grid grid-cols-2 gap-4">
+            <Label value="Original date:" />
+            <p className="text-sm p-2 border-gray-100">
+              {format(new Date(currentSite.end_date), "MMMM d, yyyy")}
+            </p>
+            <Label id="date" value="Updated date:" />
+            <input
+              type="date"
+              id="date"
+              min={format(new Date(currentSite.end_date), "yyyy-MM-dd")}
+              value={format(new Date(date), "yyyy-MM-dd")}
+              onChange={(e) => setDate(e.target.value)}
+              className=" rounded-md border-gray-100 shadow"
+            />
+            <Label id="date" value="Adjustment reason:" />
+            <Textarea
+              id="reason"
+              onChange={(e) => setAdjustmentReason(e.target.value)}
+              value={adjustmentReason}
+              className="bg-white shadow border-gray-100 resize-none h-[100px]"
+              required
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="flex justify-end gap-4 w-full">
+            {currentSite.adjusted_end_date && (
+              <Button
+                size="sm"
+                color=""
+                type="button"
+                className="px-2 text-red-400 mr-auto"
+                onClick={onClearDate}
+              >
+                Clear
+              </Button>
+            )}
+            <Button
+              size="sm"
+              color="success"
+              className="px-2"
+              onClick={onDateChange}
+            >
+              Save
+            </Button>
+            <Button size="sm" color="gray" onClick={() => setOnEdit(false)}>
+              Cancel
+            </Button>
+          </div>
+        </Modal.Footer>
+      </Modal>
+    )
   );
 };
 
@@ -539,13 +564,14 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
   }, [onBook]);
 
   useEffect(() => {
+    const current = isAfter(new Date(), new Date(site.end_date));
     setInformation({
       srp: 0,
       booking_status: "NEW",
       client: "",
       account_executive: null,
-      start: new Date(site.end_date),
-      end: new Date(site.end_date),
+      start: current ? new Date() : new Date(site.end_date),
+      end: current ? new Date() : new Date(site.end_date),
       monthly_rate: 0,
       remarks: "",
     });
@@ -563,7 +589,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
                 id="srp"
                 type="number"
                 min={0}
-                step={0.5}
+                step={0.0001}
                 value={information.srp}
                 onChange={onInformationChange}
                 className="rounded-md border-gray-100 shadow"
@@ -685,7 +711,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
                   id="monthly_rate"
                   type="number"
                   min={0}
-                  step={0.5}
+                  step={0.0001}
                   value={information.monthly_rate}
                   onChange={onInformationChange}
                   className="rounded-md border-gray-100 shadow"
@@ -758,6 +784,7 @@ const BookingModal = ({ onBook, setOnBook, site, onBookSubmit, proceed }) => {
 
 const BookingSummary = ({ information, site }) => {
   const { capitalize } = useFunction();
+  console.log(information);
   return (
     <table>
       <tbody>
@@ -792,6 +819,8 @@ const BookingSummary = ({ information, site }) => {
                         ? Intl.NumberFormat("en-PH", {
                             style: "currency",
                             currency: "PHP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 4,
                           }).format(information[key])
                         : information[key]
                       : "---"}

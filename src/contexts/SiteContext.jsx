@@ -219,6 +219,8 @@ export function SiteProvider({ children }) {
       monthly_rate: Intl.NumberFormat("en-PH", {
         style: "currency",
         currency: "PHP",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 4,
       }).format(booking.monthly_rate),
       old_client: booking.old_client,
       owner: currentSite.site_owner,
@@ -232,6 +234,8 @@ export function SiteProvider({ children }) {
       srp: Intl.NumberFormat("en-PH", {
         style: "currency",
         currency: "PHP",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 4,
       }).format(booking.srp),
       start: format(new Date(booking.date_from), "MMM dd, yyyy"),
     };
@@ -244,6 +248,8 @@ export function SiteProvider({ children }) {
       token: "tlBCMBcSK2OoJ2klJV2yefuk0rxHlD0N",
       booking_data: JSON.stringify(bookingData),
     };
+
+    // console.log(bookingData);
 
     try {
       const api = `/booking?id=${booking.site_booking_id}`;

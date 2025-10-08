@@ -1,5 +1,5 @@
 import { Button, Label, Select, TextInput } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRoles } from "~/contexts/RoleContext";
@@ -54,6 +54,7 @@ function UserInformation() {
   const handleAddUser = async () => {
     const tempUser = { ...user };
     tempUser.status = "active";
+    tempUser.password = "password";
     const response = await createUser(tempUser);
     if (response?.user_id) {
       setAlert({

@@ -83,7 +83,7 @@ export function ServiceProvider({ children }) {
 
     // Find the module with the given path
     const permission = modules.find(
-      (module) => module.name.toLowerCase() === path
+      (module) => module.name.toLowerCase() === path.toLowerCase()
     );
 
     // If permission exists and has view access, render children
@@ -196,7 +196,6 @@ export function ServiceProvider({ children }) {
 
       const response = await retrieveRole(user.role_id);
       setCurrentUserRole(response);
-      console.log("Role Fetched");
     };
 
     setup();
