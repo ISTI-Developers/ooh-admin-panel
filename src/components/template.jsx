@@ -12,6 +12,7 @@ import TicketBooth from "./TicketBooth";
 import Stairs from "./Stairs";
 import { SWS, NWS, SES, NES, SBS, NBS } from "../pages/Utasi/utasi.const";
 import { useLRTapi } from "~contexts/LRT.api";
+import BaclaranSVG from "../assets/Baclaran.jsx";
 const Template = ({
   station_id,
   station_name,
@@ -49,7 +50,7 @@ const Template = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpentb, setIsModalOpentb] = useState(false);
   const [isModalOpenStairs, setIsModalOpenStairs] = useState(false);
-
+  console.log(station_id);
   const [brandOwner, setBrandOwner] = useState("");
   const handleParapetClick = (parapet) => {
     setSelectedParapet(parapet);
@@ -150,7 +151,11 @@ const Template = ({
       </header>
       <hr className="h-[3px] bg-black border-none" />
       <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
-
+      {station_id === 20 && (
+        <>
+          <BaclaranSVG backlitData={backLitsSB} onClick={handleBacklitClick} />
+        </>
+      )}
       <Stairs
         direction="SOUTH"
         stairsData={sbStairs}
