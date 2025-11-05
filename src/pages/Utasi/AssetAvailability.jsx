@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Table, Select, Datepicker } from "flowbite-react";
-import { parse, isAfter, isBefore, format, addYears } from "date-fns";
+import { parse, isAfter, isBefore, format, addYears, differenceInDays, parseISO } from "date-fns";
 import { useLRTapi } from "~contexts/LRT.api";
 import { useStations } from "~contexts/LRTContext";
 import Pagination from "~components/Pagination";
@@ -20,7 +20,7 @@ const AssetAvailability = () => {
     retrieveStairsAvailability,
     getTrainAssets,
   } = useLRTapi();
-  const { pillars, assetContracts, refreshViaducts, viaducts, refreshPillars } = useStations();
+  const { pillars, assetContracts, refreshViaducts, viaducts, refreshPillars, refreshAssetContracts } = useStations();
   // 3. State Initialization
   const today = new Date();
   const oneYearFromToday = addYears(today, 1);
@@ -179,7 +179,6 @@ const AssetAvailability = () => {
   };
 
   const paginatedData = getPaginatedData(filteredData);
-
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   // 5. Effect Hook
   useEffect(() => {
@@ -201,6 +200,7 @@ const AssetAvailability = () => {
 
       await refreshViaducts();
       await refreshPillars();
+      await refreshAssetContracts();
     };
     fetchAssets();
   }, []);
@@ -375,16 +375,24 @@ const AssetAvailability = () => {
                     (data.brand && data.brand !== "" ? data.brand : "N/A")}
                 </Table.Cell>
                 <Table.Cell className="text-center">
-                  {data.contracts?.[0]?.asset_date_end
-                    ? formatDate(data.contracts[0].asset_date_end)
-                    : data.asset_date_end
-                    ? formatDate(data.asset_date_end)
-                    : data.is_booked === 1 ||
+                  {(() => {
+                    const endDate = data.contracts?.[0]?.asset_date_end || data.asset_date_end;
+                    if (endDate) {
+                      const end = parseISO(endDate);
+                      const today = new Date();
+                      const daysLeft = differenceInDays(end, today);
+                      return `${formatDate(endDate)} (${daysLeft} days left)`;
+                    }
+                    if (
+                      data.is_booked === 1 ||
                       (["backlits", "stairs", "ticketbooths"].includes(selectedAsset) &&
                         data.asset_status === "TAKEN") ||
                       (selectedAsset === "parapets" && data.availability_status === "Currently Unavailable")
-                    ? "Currently Unavailable"
-                    : "Available Now"}
+                    ) {
+                      return "Currently Unavailable";
+                    }
+                    return "Available Now";
+                  })()}
                 </Table.Cell>
               </Table.Row>
             ))}

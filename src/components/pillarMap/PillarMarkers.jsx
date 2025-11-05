@@ -6,8 +6,7 @@ import { useStations } from "~contexts/LRTContext";
 
 function PillarMarkers({ center, setCenter }) {
   const { offsetCoordinate } = useFunction();
-  const { pillars, setZoom, setSelectedPillar, setSelectedLandmark, selectedPillar, zoom, assetContracts } =
-    useStations();
+  const { pillars, setZoom, setSelectedPillar, selectedPillar, zoom, assetContracts } = useStations();
 
   return pillars.map((item, index) => {
     const position = { lat: item.latitude, lng: item.longitude };
@@ -25,7 +24,6 @@ function PillarMarkers({ center, setCenter }) {
       .filter((cp) => cp.pillar_id !== null && cp.pillar_id !== undefined)
       .map((cp) => cp.pillar_id);
     const isBooked = contractedPillar.includes(item.id) || item.is_booked === 1;
-
     return (
       <AdvancedMarker
         position={position}
@@ -34,7 +32,6 @@ function PillarMarkers({ center, setCenter }) {
           setZoom(18);
           const newCenter = offsetCoordinate(e.latLng.toJSON().lat, e.latLng.toJSON().lng, 20);
           setCenter(newCenter);
-          setSelectedLandmark(null);
           setSelectedPillar(item);
         }}
       >

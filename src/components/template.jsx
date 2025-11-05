@@ -13,6 +13,24 @@ import Stairs from "./Stairs";
 import { SWS, NWS, SES, NES, SBS, NBS } from "../pages/Utasi/utasi.const";
 import { useLRTapi } from "~contexts/LRT.api";
 import BaclaranSVG from "../assets/Baclaran.jsx";
+import EDSA from "~assets/EDSA";
+import GilPuyat from "~assets/GilPuyat";
+import DoroteoJose from "~assets/DoroteoJose";
+import Libertad from "~assets/Libertad";
+import VitoCruz from "~assets/VitoCruz";
+import Quirino from "~assets/Quirino";
+import PedroGil from "~assets/PedroGil";
+import UNAve from "~assets/UNAve";
+import Central from "~assets/Central";
+import Carriedo from "~assets/Carriedo";
+import Bambang from "~assets/Bambang";
+import Tayuman from "~assets/Tayuman";
+import AbadSantos from "~assets/AbadSantos";
+import Blumentritt from "~assets/Blumentritt";
+import RPapa from "~assets/RPapa";
+import Fifth from "~assets/Fifth";
+import Balintawak from "~assets/Balintawak";
+import FPJ from "~assets/FPJ";
 const Template = ({
   station_id,
   station_name,
@@ -50,7 +68,6 @@ const Template = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpentb, setIsModalOpentb] = useState(false);
   const [isModalOpenStairs, setIsModalOpenStairs] = useState(false);
-  console.log(station_id);
   const [brandOwner, setBrandOwner] = useState("");
   const handleParapetClick = (parapet) => {
     setSelectedParapet(parapet);
@@ -143,111 +160,297 @@ const Template = ({
   useEffect(() => {
     setSelectedContract(attachedContract);
   }, [attachedContract]);
+  const renderStationLayout = () => {
+    switch (station_id) {
+      case 20:
+        return (
+          <BaclaranSVG
+            backlitData={backLitsSB}
+            parapetData={parapetSB}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleStairsClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+
+      case 19:
+        return (
+          <EDSA
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 18:
+        return (
+          <Libertad
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+
+      case 17:
+        return (
+          <GilPuyat
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 16:
+        return (
+          <VitoCruz
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 15:
+        return (
+          <Quirino
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 14:
+        return (
+          <PedroGil
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 13:
+        return (
+          <UNAve
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 12:
+        return (
+          <Central
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 11:
+        return (
+          <Carriedo
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 10:
+        return (
+          <DoroteoJose
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
+      case 9:
+        return <Bambang />;
+      case 8:
+        return <Tayuman />;
+      case 7:
+        return <Blumentritt />;
+      case 6:
+        return <AbadSantos />;
+      case 5:
+        return <RPapa />;
+      case 4:
+        return <Fifth />;
+      case 2:
+        return <Balintawak />;
+      case 1:
+        return <FPJ />;
+      default:
+        return <></>;
+    }
+  };
 
   return (
     <div>
       <header className="flex justify-center items-center mb-5">
         <h1 className="text-2xl font-bold text-center">{station_name} Station</h1>
+        {station_id}
       </header>
-      <hr className="h-[3px] bg-black border-none" />
-      <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
-      {station_id === 20 && (
-        <>
-          <BaclaranSVG backlitData={backLitsSB} onClick={handleBacklitClick} />
-        </>
-      )}
-      <Stairs
-        direction="SOUTH"
-        stairsData={sbStairs}
-        activeSpots={sbStairs?.map((stair) => stair.position_index)}
-        onClick={handleStairsClick}
-        icon="▲"
-      />
-      <TicketBooth
-        direction="SOUTH"
-        ticketBoothData={sbTop}
-        activeSpots={sbTop?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▲"
-      />
-
-      <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
-
-      <TicketBooth
-        direction="SOUTH"
-        ticketBoothData={sbMid}
-        activeSpots={sbMid?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▲"
-      />
-
-      <Parapets
-        direction="SOUTH"
-        parapetData={parapetSB}
-        entryExitIndexes={SBentryExitButton}
-        onClick={handleParapetClick}
-      />
-
-      <TicketBooth
-        direction="SOUTH"
-        ticketBoothData={sbBelow}
-        activeSpots={sbBelow?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▲"
-      />
-
-      <div className="w-full flex justify-center my-4">
-        <RouteDisplay
-          SouthBound={southBound}
-          NorthBound={northBound}
-          handleNorth={handleNorthClick}
-          handleSouth={handleSouthClick}
+      {renderStationLayout()}
+      <>
+        <hr className="h-[3px] bg-black border-none" />
+        <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
+        <Stairs
+          direction="SOUTH"
+          stairsData={sbStairs}
+          activeSpots={sbStairs?.map((stair) => stair.position_index)}
+          onClick={handleStairsClick}
+          icon="▲"
         />
-      </div>
+        <TicketBooth
+          direction="SOUTH"
+          ticketBoothData={sbTop}
+          activeSpots={sbTop?.map((booth) => booth.position_index)}
+          onClick={handleTicketBoothClick}
+          icon="▲"
+        />
 
-      <TicketBooth
-        direction="NORTH"
-        ticketBoothData={nbBelow}
-        activeSpots={nbBelow?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▼"
-      />
+        <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
 
-      <Parapets
-        direction="NORTH"
-        parapetData={parapetNB}
-        entryExitIndexes={NBentryExitButton}
-        onClick={handleParapetClick}
-      />
-      <TicketBooth
-        direction="NORTH"
-        ticketBoothData={nbMid}
-        activeSpots={nbMid?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▼"
-      />
+        <TicketBooth
+          direction="SOUTH"
+          ticketBoothData={sbMid}
+          activeSpots={sbMid?.map((booth) => booth.position_index)}
+          onClick={handleTicketBoothClick}
+          icon="▲"
+        />
 
-      <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
+        <Parapets
+          direction="SOUTH"
+          parapetData={parapetSB}
+          entryExitIndexes={SBentryExitButton}
+          onClick={handleParapetClick}
+        />
 
-      <TicketBooth
-        direction="NORTH"
-        ticketBoothData={nbTop}
-        activeSpots={nbTop?.map((booth) => booth.position_index)}
-        icon="▼"
-        onClick={handleTicketBoothClick}
-      />
-      <Stairs
-        direction="NORTH"
-        stairsData={nbStairs}
-        activeSpots={nbStairs?.map((stair) => stair.position_index)}
-        onClick={handleStairsClick}
-        icon="▼"
-      />
+        <TicketBooth
+          direction="SOUTH"
+          ticketBoothData={sbBelow}
+          activeSpots={sbBelow?.map((booth) => booth.position_index)}
+          onClick={handleTicketBoothClick}
+          icon="▲"
+        />
 
-      <h1 className="text-2xl font-bold text-center">NORTH BOUND</h1>
-      <hr className="h-[3px] bg-black border-none" />
-      <Legend />
+        <div className="w-full flex justify-center my-4">
+          <RouteDisplay
+            SouthBound={southBound}
+            NorthBound={northBound}
+            handleSouth={handleSouthClick}
+            handleNorth={handleNorthClick}
+          />
+        </div>
 
+        <TicketBooth
+          direction="NORTH"
+          ticketBoothData={nbBelow}
+          activeSpots={nbBelow?.map((booth) => booth.position_index)}
+          onClick={handleTicketBoothClick}
+          icon="▼"
+        />
+
+        <Parapets
+          direction="NORTH"
+          parapetData={parapetNB}
+          entryExitIndexes={NBentryExitButton}
+          onClick={handleParapetClick}
+        />
+        <TicketBooth
+          direction="NORTH"
+          ticketBoothData={nbMid}
+          activeSpots={nbMid?.map((booth) => booth.position_index)}
+          onClick={handleTicketBoothClick}
+          icon="▼"
+        />
+
+        <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
+
+        <TicketBooth
+          direction="NORTH"
+          ticketBoothData={nbTop}
+          activeSpots={nbTop?.map((booth) => booth.position_index)}
+          icon="▼"
+          onClick={handleTicketBoothClick}
+        />
+        <Stairs
+          direction="NORTH"
+          stairsData={nbStairs}
+          activeSpots={nbStairs?.map((stair) => stair.position_index)}
+          onClick={handleStairsClick}
+          icon="▼"
+        />
+
+        <h1 className="text-2xl font-bold text-center">NORTH BOUND</h1>
+        <hr className="h-[3px] bg-black border-none" />
+        <Legend />
+      </>
       {selectedParapet && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded shadow-lg relative w-80">
