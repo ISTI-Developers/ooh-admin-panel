@@ -1,271 +1,181 @@
-const Quirino = () => {
+import PropTypes from "prop-types";
+import { ParapetSlot, BacklitSlot } from "~components/ParapetSlot";
+const Quirino = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2, onClick3 }) => {
+  const positionsP = [
+    { x: 103.377, y: 658.039, rotate: 2.29006 },
+    { x: 242.058, y: 663.039, rotate: 2.29006 },
+    { x: 380.739, y: 670.039, rotate: 2.29006 },
+    { x: 704.325, y: 686.034, rotate: 1.99978 },
+    { x: 876.929, y: 692.034, rotate: 1.99978 },
+    { x: 1049.53, y: 697.034, rotate: 1.99978 },
+    { x: 1222.13, y: 700.034, rotate: 1.99978 },
+    { x: 1394.74, y: 705.034, rotate: 1.99978 },
+    { x: 1567.22, y: 709.604, rotate: 1.31612 },
+    { x: 1739.62, y: 712.704, rotate: 0.0 },
+    { x: 1912.22, y: 715.704, rotate: 0.0 },
+    { x: 2084.83, y: 717.704, rotate: 0.0 },
+    { x: 2257.43, y: 718.704, rotate: 0.0 },
+    { x: 2430.03, y: 721.704, rotate: 0.0 },
+    { x: 2602.64, y: 722.704, rotate: 0.0 },
+    { x: 2775.24, y: 721.704, rotate: 0.0 },
+    { x: 2947.84, y: 720.704, rotate: 0.0 },
+    { x: 3120.45, y: 720.704, rotate: 0.0 },
+
+    { x: 324.772, y: 965, rotate: 2.46508 },
+    { x: 461.448, y: 969, rotate: 2.46508 },
+
+    { x: 900.0, y: 989, rotate: 1.35016 },
+    { x: 1081.82, y: 994, rotate: 1.3197 },
+    { x: 1263.64, y: 999, rotate: 1.3197 },
+    { x: 1445.45, y: 1002, rotate: 1.02004 },
+    { x: 1627.27, y: 1005, rotate: 1.02004 },
+    { x: 1809.09, y: 1008, rotate: 1.02004 },
+    { x: 1990.91, y: 1011, rotate: 0.26977 },
+    { x: 2172.73, y: 1011, rotate: 0.26977 },
+    { x: 2354.55, y: 1013, rotate: 0.26977 },
+    { x: 2536.36, y: 1013, rotate: 0.26977 },
+    { x: 2718.18, y: 1012, rotate: 0.26977 },
+    { x: 2900.0, y: 1013, rotate: 0.26977 },
+  ];
+  const positionsB = [
+    // upper row
+    { x: 1138.24, y: 750, rotate: 1.5 },
+    { x: 1869.31, y: 765, rotate: 1.0 },
+    { x: 2600.68, y: 770, rotate: 0.0 },
+
+    // lower row
+    { x: 1138.47, y: 946.026, rotate: 1.5 },
+    { x: 1869.38, y: 961.14, rotate: 0.0 },
+    { x: 2600.91, y: 968.503, rotate: 0.0 },
+  ];
+
   return (
-    <svg className="w-full h-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 4052 1606">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-auto"
+      preserveAspectRatio="xMidYMin meet"
+      fill="none"
+      viewBox="0 50 4052 1606"
+    >
       <g className="Quirino Station">
-        <path fill="url(#a)" d="M0 0h4052v1606H0z" className="Quirino" opacity=".7" />
-        <g className="Quirino Frame">
-          <path stroke="#000" strokeWidth="4" d="m53.09 979.002 512.475 23.198" className="Line 642" />
-          <path stroke="#000" strokeWidth="4" d="M563 1004v25" className="Line 643" />
-          <path stroke="#000" strokeWidth="4" d="m481.996 1000.13-17 267" className="Line 644" />
-          <path stroke="#000" strokeWidth="4" d="m501.994 1000.16-20 249" className="Line 645" />
-          <path stroke="#000" strokeWidth="4" d="m463.083 1265 408 17" className="Line 646" />
-          <path stroke="#000" strokeWidth="4" d="M480.088 1251.05 857.09 1268" className="Line 647" />
-          <path stroke="#000" strokeWidth="4" d="m855.006 1283.85 6-79" className="Line 648" />
-          <path stroke="#000" strokeWidth="4" d="m869.009 1283.81 7-75" className="Line 649" />
-          <path stroke="#000" strokeWidth="4" d="m52.001 980.956 2-91" className="Line 650" />
-          <path stroke="#000" strokeWidth="4" d="M19 912h35" className="Line 651" />
-          <path stroke="#000" strokeWidth="4" d="m52.09 888.002 918.99 41.224" className="Line 652" />
-          <path stroke="#000" strokeWidth="4" d="m975.05 929.001 759 19" className="Line 653" />
-          <path stroke="#000" strokeWidth="4" d="m1734.01 948 1201 7" className="Line 654" />
-          <path stroke="#000" strokeWidth="4" d="m2934.99 955 568.98-4.028" className="Line 655" />
-          <path stroke="#000" strokeWidth="4" d="M3502 953v106" className="Line 656" />
-          <path stroke="#000" strokeWidth="4" d="M3500 1057h-79" className="Line 657" />
-          <path stroke="#000" strokeWidth="4" d="m3420.3 1055.01-1.31 255" className="Line 658" />
-          <path stroke="#000" strokeWidth="4" d="m3417.01 1311-224 1" className="Line 659" />
-          <path stroke="#000" strokeWidth="4" d="m3192.5 1310-1.5 165" className="Line 660" />
-          <path stroke="#000" strokeWidth="4" d="M3191 1477h-168" className="Line 661" />
-          <path stroke="#000" strokeWidth="4" d="m3021 1475.99 1-167" className="Line 662" />
-          <path stroke="#000" strokeWidth="4" d="M3001 1307h105" className="Line 663" />
-          <path stroke="#000" strokeWidth="4" d="M2999 1309v-264" className="Line 664" />
-          <path stroke="#000" strokeWidth="4" d="m3004 1294 413 1" className="Line 665" />
-          <path stroke="#000" strokeWidth="4" d="m3399 1165.02-1.03 131" className="Line 666" />
-          <path stroke="#000" strokeWidth="4" d="m3154 1295.99 1-292" className="Line 667" />
-          <path stroke="#000" strokeWidth="4" d="M3155 1006h191" className="Line 668" />
-          <path stroke="#000" strokeWidth="4" d="M3346 1005v-37" className="Line 669" />
-          <path stroke="#000" strokeWidth="4" d="M3370 1386h71" className="Line 670" />
-          <path stroke="#000" strokeWidth="4" d="M3443 1388v218" className="Line 671" />
-          <path stroke="#000" strokeWidth="4" d="M3274 1472v134" className="Line 672" />
-          <path stroke="#000" strokeWidth="4" d="M3272 1604h169" className="Line 673" />
-          <path stroke="#000" strokeWidth="4" d="m3000.99 1047-1050-5" className="Line 674" />
-          <path stroke="#000" strokeWidth="4" d="m1950.96 1041.98-504-8.98" className="Line 675" />
-          <path stroke="#000" strokeWidth="4" d="m1446.95 1033-391-9.02" className="Line 676" />
-          <path stroke="#000" strokeWidth="4" d="m1055.95 1024-127.997-3.02" className="Line 677" />
-          <path stroke="#000" strokeWidth="4" d="m927.883 1021-34-2" className="Line 678" />
-          <path stroke="#000" strokeWidth="4" d="m895.997 1019.11-7 128" className="Line 679" />
-          <path stroke="#000" strokeWidth="4" d="m887.083 1145 220.807 9.2" className="Line 680" />
-          <path stroke="#000" strokeWidth="4" d="m1104.99 1156.14-9 124" className="Line 681" />
-          <path stroke="#000" strokeWidth="4" d="m1097.78 1282-229.852-8.25" className="Line 682" />
-          <path stroke="#000" strokeWidth="4" d="m1235 1354.13-4 60" className="Line 683" />
-          <path stroke="#000" strokeWidth="4" d="m1232.49 1415.96-479.572-20.28" className="Line 684" />
-          <path stroke="#000" strokeWidth="4" d="m755.004 1395.88 4.117-65.88" className="Line 685" />
-          <path stroke="#000" strokeWidth="4" d="m757.122 1328 395.268 24.08" className="Line 686" />
-          <path stroke="#000" strokeWidth="4" d="m34.05 712.001 42.987 1.074" className="Line 687" />
-          <path stroke="#000" strokeWidth="4" d="m82.995 641.149-7.13 95.734" className="Line 688" />
-          <path stroke="#000" strokeWidth="4" d="M81 642h12" className="Line 689" />
-          <path stroke="#000" strokeWidth="4" d="M91 644v6" className="Line 690" />
-          <path stroke="#000" strokeWidth="4" d="m89.08 648.002 400.998 16.04" className="Line 691" />
-          <path stroke="#000" strokeWidth="4" d="m74.093 736.002 797 37" className="Line 692" />
-          <path stroke="#000" strokeWidth="4" d="m871.043 773 736.997 16.022" className="Line 693" />
-          <path stroke="#000" strokeWidth="4" d="m1608.03 789.015 798 11.985" className="Line 694" />
-          <path stroke="#000" strokeWidth="4" d="m2405.99 801 1100-6" className="Line 695" />
-          <path stroke="#000" strokeWidth="4" d="M3504 797v-86" className="Line 696" />
-          <path stroke="#000" strokeWidth="4" d="M3506 713h-96" className="Line 697" />
-          <path stroke="#000" strokeWidth="4" d="m3506.03 775 78 1.013" className="Line 698" />
-          <path stroke="#000" strokeWidth="4" d="M3408 715V550" className="Line 699" />
-          <path stroke="#000" strokeWidth="4" d="M3410 552h170" className="Line 700" />
-          <path stroke="#000" strokeWidth="4" d="M3578 554V408" className="Line 701" />
-          <path stroke="#000" strokeWidth="4" d="M3580 410h-378" className="Line 702" />
-          <path stroke="#000" strokeWidth="4" d="M3408 408v-11" className="Line 703" />
-          <path stroke="#000" strokeWidth="4" d="M3410 399h-208" className="Line 704" />
-          <path stroke="#000" strokeWidth="4" d="M3204 397v314" className="Line 705" />
-          <path stroke="#000" strokeWidth="4" d="M3569 598v142" className="Line 706" />
-          <path stroke="#000" strokeWidth="4" d="M3567 738h279" className="Line 707" />
-          <path stroke="#000" strokeWidth="4" d="M3844 740V598" className="Line 708" />
-          <path stroke="#000" strokeWidth="4" d="M3846 600h-279" className="Line 709" />
-          <path stroke="#000" strokeWidth="4" d="M3776 813h181" className="Line 710" />
-          <path stroke="#000" strokeWidth="4" d="M3955 815v-18" className="Line 711" />
-          <path stroke="#000" strokeWidth="4" d="m3775.99 875 259-1" className="Line 712" />
-          <path stroke="#000" strokeWidth="4" d="M4033 876V730" className="Line 713" />
-          <path stroke="#000" strokeWidth="4" d="M4035 732h-45" className="Line 714" />
-          <path stroke="#000" strokeWidth="4" d="m3500.02 975 84 1" className="Line 715" />
-          <path stroke="#000" strokeWidth="4" d="M3500 1048h9" className="Line 716" />
-          <path stroke="#000" strokeWidth="4" d="m3507 1049.94 2.06-73.967" className="Line 717" />
-          <path stroke="#000" strokeWidth="4" d="m3206 713-977-1" className="Line 718" />
-          <path stroke="#000" strokeWidth="4" d="m2228.97 712-621-9" className="Line 719" />
-          <path stroke="#000" strokeWidth="4" d="m1607.96 702.979-572-11.979" className="Line 720" />
-          <path stroke="#000" strokeWidth="4" d="m1035.92 690.999-344.745-13.182" className="Line 721" />
-          <path stroke="#000" strokeWidth="4" d="m693.006 675.842 18-227" className="Line 722" />
-          <path stroke="#000" strokeWidth="4" d="M709 447h84" className="Line 723" />
-          <path stroke="#000" strokeWidth="4" d="m794.007 448.83 33-387" className="Line 724" />
-          <path stroke="#000" strokeWidth="4" d="m828.894 63.997-170-9" className="Line 725" />
-          <path stroke="#000" strokeWidth="4" d="m660.994 53.149-14 187" className="Line 726" />
-          <path stroke="#000" strokeWidth="4" d="M804 353h-79" className="Line 727" />
-          <path stroke="#000" strokeWidth="4" d="m515.067 336.001 213.881 7.129" className="Line 728" />
-          <path stroke="#000" strokeWidth="4" d="M727 345v19" className="Line 729" />
-          <path stroke="#000" strokeWidth="4" d="m728.914 365.998-211.805-9.077" className="Line 730" />
-          <path stroke="#000" strokeWidth="4" d="m516.994 338.152-25 328" className="Line 731" />
-          <path stroke="#000" strokeWidth="4" d="m766.991 351.184-5 54" className="Line 732" />
-          <path stroke="#000" strokeWidth="4" d="m763.896 406.997-117.84-6.148" className="Line 733" />
-          <path stroke="#000" strokeWidth="4" d="m646.986 399.238-6 50" className="Line 734" />
-          <path stroke="#000" strokeWidth="4" d="M643 451h-66" className="Line 735" />
-          <path stroke="#000" strokeWidth="4" d="m578.992 449.176-23 260" className="Line 736" />
-          <path stroke="#000" strokeWidth="4" d="m557.591 710.998-316.684-14.165" className="Line 737" />
-          <path stroke="#000" strokeWidth="4" d="m242.982 695.268-5.491 40.63" className="Line 738" />
-          <path stroke="#000" strokeWidth="4" d="m238.008 732.415-162.086-2.829" className="Line 739" />
-          <g className="Rect">
-            <path fill="#000" d="m230.795 723.768 14.965 1.026-1.027 14.965-14.964-1.026z" className="Rectangle 75" />
-          </g>
-          <g className="Rect">
-            <path fill="#000" d="m235.202 688.803 14.995.398-.398 14.995-14.995-.398z" className="Rectangle 75" />
-          </g>
-          <g className="Rect">
-            <path fill="#000" d="m548.18 701.982 14.838 2.198-2.198 14.838-14.838-2.198z" className="Rectangle 75" />
-          </g>
-          <g className="Rect">
-            <path fill="#000" d="M570 442h15v15h-15z" className="Rectangle 75" />
-          </g>
-          <g className="Rect">
-            <path fill="#000" d="M632 444h15v15h-15z" className="Rectangle 75" />
-          </g>
-          <g className="Rect">
-            <path fill="#000" d="M639 393h15v15h-15z" className="Rectangle 75" />
-          </g>
-          <g className="Rect">
-            <path fill="#000" d="M752 399h15v15h-15z" className="Rectangle 75" />
-          </g>
-          <g className="Rect">
-            <path fill="#000" d="M3148 998h15v15h-15z" className="Rectangle 75" />
-          </g>
-          <g className="Rect">
-            <path fill="#000" d="M3338 998h15v15h-15z" className="Rectangle 75" />
-          </g>
+        <g className="Vector">
+          <path fill="#000" d="m565.656 1000.21-.181 3.99L53 981l.18-3.996 512.476 23.206Z" />
+          <path
+            fill="#000"
+            d="M565 1029h-4v-25h4v25Zm-98.008 238.25L463 1267l17-267 3.992.25-17 267Zm16.995-17.93L480 1249l20-249 3.987.32-20 249Z"
+          />
+          <path
+            fill="#000"
+            d="m871.167 1280-.167 4-408-17 .167-4 408 17Zm-13.987-14-.18 4-377.002-16.96.18-3.99L857.18 1266Z"
+          />
+          <path
+            fill="#000"
+            d="m859.011 1204.7 3.989.3-6 79-3.989-.3 6-79Zm15.006 3.93 3.983.37-7 75-3.983-.37 7-75ZM52.001 889.912 56 890l-2 91-3.999-.088 2-91Z"
+          />
+          <path
+            fill="#000"
+            d="M54 910v4H19v-4h35Zm917.169 17.228-.179 3.996L52 890l.18-3.996 918.989 41.224Zm762.931 18.773L1734 950l-759-19 .1-3.999 759 19Z"
+          />
+          <path fill="#000" d="m2935.02 953-.02 4-1201-7 .02-4 1201 7Z" />
+          <path fill="#000" d="m3503.96 948.972.03 4L2935 957l-.03-4 568.99-4.028Z" />
+          <path fill="#000" d="M3504 1059h-4V953h4v106Zm-83 0v-4h79v4h-79Z" />
+          <path fill="#000" d="m3420.99 1310.02-4-.02 1.31-255 4 .02-1.31 255Z" />
+          <path fill="#000" d="m3193.02 1314-.02-4 224-1 .02 4-224 1Z" />
+          <path fill="#000" d="m3193 1475.02-4-.04 1.5-164.99 4 .03-1.5 165Z" />
+          <path fill="#000" d="M3023 1479v-4h168v4h-168Z" />
+          <path fill="#000" d="m3020 1308.98 4 .02-1 167-4-.02 1-167Z" />
+          <path fill="#000" d="M3106 1305v4h-105v-4h105Zm-109-260h4v264h-4v-264Zm420.01 248-.01 4-413-1 .01-4 413 1Z" />
+          <path fill="#000" d="m3399.97 1296.03-4-.03 1.03-131 4 .03-1.03 131ZM3153 1003.99l4 .01-1 292-4-.01 1-292Z" />
+          <path fill="#000" d="M3346 1004v4h-191v-4h191Z" />
+          <path fill="#000" d="M3344 968h4v37h-4v-37Zm97 416v4h-71v-4h71Zm4 222h-4v-218h4v218Zm-169 0h-4v-134h4v134Z" />
+          <path
+            fill="#000"
+            d="M3441 1602v4h-169v-4h169Zm-1490.02-558 .02-4 1050 5-.02 4-1050-5Zm-504.05-9 .07-4 504 8.98-.07 4-504-8.98Zm-391.02-9.02.09-4 391 9.02-.09 4-391-9.02Z"
+          />
+          <path
+            fill="#000"
+            d="m927.906 1022.98.095-4L1056 1022l-.09 4-128.004-3.02Zm-34.141-1.99L894 1017l34 2-.235 3.99-34-2Z"
+          />
+          <path fill="#000" d="M890.994 1147.22 887 1147l7-128 3.994.22-7 128Z" />
+          <path
+            fill="#000"
+            d="m1107.97 1152.2-.16 4L887 1147l.167-4 220.803 9.2Zm-9.98 128.09-3.99-.29 9-124 3.99.29-9 124Z"
+          />
+          <path
+            fill="#000"
+            d="m867.856 1275.75.143-4 229.851 8.25-.14 4-229.854-8.25Zm365.134 138.52-3.99-.27 4-60 3.99.27-4 60Z"
+          />
+          <path fill="#000" d="m752.834 1397.68.169-4 479.567 20.28-.16 3.99-479.576-20.27Z" />
+          <path fill="#000" d="m757.125 1329.88 3.992.25L757 1396l-3.992-.25 4.117-65.87Z" />
+          <path
+            fill="#000"
+            d="m1152.51 1350.08-.24 4L757 1330l.243-3.99 395.267 24.07ZM77.087 711.076l-.1 3.999L34 714l.1-3.999 42.986 1.075Z"
+          />
+          <path fill="#000" d="m77.86 737.032-3.99-.297L81 641l3.989.297-7.13 95.735Z" />
+          <path fill="#000" d="M93 640v4H81v-4h12Zm0 10h-4v-6h4v6Z" />
+          <path
+            fill="#000"
+            d="m490.159 662.043-.16 3.997L89 650l.16-3.997 400.999 16.04Zm381.026 108.961L871 775 74 738l.186-3.996 796.999 37Z"
+          />
+          <path fill="#000" d="m1608.09 787.023-.09 3.999L871 775l.087-3.999 737.003 16.022Z" />
+          <path fill="#000" d="M2406.06 799.001 2406 803l-798-11.985.06-3.999 798 11.985Z" />
+          <path fill="#000" d="m3505.98 793 .02 4-1100 6-.02-4 1100-6Z" />
+          <path fill="#000" d="M3502 711h4v86h-4v-86Z" />
+          <path
+            fill="#000"
+            d="M3410 715v-4h96v4h-96Zm174.05 59.013-.05 4-78-1.013.05-4 78 1.013ZM3406 550h4v165h-4V550Zm174 0v4h-170v-4h170Z"
+          />
+          <path fill="#000" d="M3576 408h4v146h-4V408Z" />
+          <path fill="#000" d="M3202 412v-4h378v4h-378Zm204-15h4v11h-4v-11Z" />
+          <path fill="#000" d="M3202 401v-4h208v4h-208Z" />
+          <path fill="#000" d="M3206 711h-4V397h4v314Zm365 29h-4V598h4v142Z" />
+          <path fill="#000" d="M3846 736v4h-279v-4h279Z" />
+          <path fill="#000" d="M3842 598h4v142h-4V598Z" />
+          <path fill="#000" d="M3567 602v-4h279v4h-279Zm390 209v4h-181v-4h181Z" />
+          <path fill="#000" d="M3953 797h4v18h-4v-18Zm81.98 75 .02 4-259 1-.02-4 259-1Z" />
+          <path fill="#000" d="M4031 730h4v146h-4V730Z" />
+          <path fill="#000" d="M3990 734v-4h45v4h-45Zm-405.95 240-.05 4-84-1 .05-4 84 1Zm-75.05 72v4h-9v-4h9Z" />
+          <path
+            fill="#000"
+            d="m3507.06 975.917 3.99.112L3509 1050l-4-.11 2.06-73.973ZM2229 714v-4l977 1v4l-977-1Zm-621.06-9 .06-4 621 9-.06 4-621-9Zm-572.02-12.001L1036 689l572 11.979-.08 3.999-572-11.979Zm-344.821-13.183.153-3.998L1036 689l-.15 3.997-344.751-13.181Z"
+          />
+          <path fill="#000" d="M709.013 448.684 713 449l-18 227-3.987-.316 18-227Z" />
+          <path fill="#000" d="M793 445v4h-84v-4h84Z" />
+          <path fill="#000" d="M825.014 61.66 829 62l-33 387-3.986-.34 33-387Z" />
+          <path fill="#000" d="M658.788 56.994 659 53l170 9-.211 3.994-170.001-9Z" />
+          <path
+            fill="#000"
+            d="M648.989 240.299 645 240l14-187 3.989.299-14 187ZM725 355v-4h79v4h-79Zm4.014-13.868-.133 3.997L515 338l.133-3.998 213.881 7.13Z"
+          />
+          <path fill="#000" d="M729 364h-4v-19h4v19Z" />
+          <path fill="#000" d="m517.023 358.919.171-3.996L729 364l-.171 3.996-211.806-9.077Z" />
+          <path
+            fill="#000"
+            d="M493.988 666.304 490 666l25-328 3.988.304-25 328Zm269.995-260.935L760 405l5-54 3.983.369-5 54Z"
+          />
+          <path fill="#000" d="m645.952 402.846.208-3.994L764 405l-.208 3.995-117.84-6.149Z" />
+          <path fill="#000" d="M642.972 449.476 639 449l6-50 3.971.477-5.999 49.999Z" />
+          <path fill="#000" d="M577 453v-4h66v4h-66Z" />
+          <path fill="#000" d="M557.984 709.353 554 709l23-260 3.984.352-23 260.001Z" />
+          <path fill="#000" d="m240.818 698.831.179-3.996L557.68 709l-.178 3.996-316.684-14.165Z" />
+          <path fill="#000" d="m239.473 736.166-3.964-.535L241 695l3.964.536-5.491 40.63Z" />
+          <path fill="#000" d="m75.887 731.585.07-3.999 162.086 2.829-.07 3.999-162.086-2.829Z" />
+          <path
+            fill="#000"
+            d="m230.795 723.768 14.965 1.027-1.027 14.965-14.965-1.027 1.027-14.965Zm4.407-34.965 14.994.398-.398 14.995-14.994-.398.398-14.995Zm312.978 13.179 14.838 2.198-2.198 14.838-14.838-2.198 2.198-14.838ZM570 442h15v15h-15v-15Zm62 2h15v15h-15v-15Zm7-51h15v15h-15v-15Zm113 6h15v15h-15v-15Zm2396 599h15v15h-15v-15Zm190 0h15v15h-15v-15Z"
+          />
         </g>
         <g className="Quirino Assets">
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m103.377 658.039 95.923 3.836-.679 16.986-95.923-3.836z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m380.739 670.039 95.923 3.836-.679 16.986-95.923-3.836z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m242.058 663.039 95.923 3.836-.679 16.986-95.923-3.836z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m704.325 686.034 95.942 3.35-.594 16.99-95.941-3.35z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m876.929 692.034 95.942 3.35-.594 16.99-95.941-3.35z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1049.53 697.034 95.942 3.35-.594 16.99-95.941-3.35z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1222.13 700.034 95.942 3.35-.594 16.99-95.941-3.35z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1394.74 705.034 95.942 3.35-.594 16.99-95.941-3.35z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1567.22 709.604 95.975 2.205-.39 16.995-95.975-2.204z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M1739.62 712.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M1912.22 715.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M2084.83 717.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M2257.43 718.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M2430.03 721.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M2602.64 722.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M2775.24 721.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M2947.84 720.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="M3120.45 720.704h96v17h-96z" className="P1" />
-            </g>
-          </g>
+          {SBparapetData.map((item, index) => {
+            const pos = positionsP[index];
+            if (!pos) return null;
+            return <ParapetSlot key={item.asset_id} item={item} pos={pos} onClick={onClick2} />;
+          })}
+          {backlitData.slice(0, backlitData.length).map((item, index) => {
+            const pos = positionsB[index];
+            if (!pos) return null;
+            return <BacklitSlot key={item.asset_id} item={item} pos={pos} onClick={onClick1} />;
+          })}
           <g className="ENTRY/EXIT_SB_R">
             <g className="ENTRY/EXIT_SB_R">
               <path
@@ -336,573 +246,171 @@ const Quirino = () => {
               />
             </g>
           </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m324.772 970.042 95.911 4.129-.731 16.984-95.911-4.129z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m461.448 976.136 95.911 4.129-.731 16.984-95.911-4.129z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1002.79 1014.28-95.973-2.262.4-16.995 95.974 2.262z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1183.79 1019.23-95.975-2.211.392-16.996 95.975 2.212z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1364.79 1024.23-95.975-2.211.392-16.996 95.975 2.212z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1545.84 1027.85-95.985-1.709.303-16.997 95.985 1.709z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1726.84 1030.85-95.985-1.709.303-16.997 95.985 1.709z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1907.84 1033.85-95.985-1.709.303-16.997 95.985 1.709z"
-                className="P1"
-              />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="m2088.96 1036.23-95.999-.452.08-17 96 .452z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="m2269.96 1036.23-95.999-.452.08-17 96 .452z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="m2450.96 1038.23-95.999-.452.08-17 96 .452z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="m2631.96 1038.23-95.999-.452.08-17 96 .452z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="m2812.96 1037.23-95.999-.452.08-17 96 .452z" className="P1" />
-            </g>
-          </g>
-          <g className="P1">
-            <g className="P1">
-              <path stroke="#000" strokeWidth="2" d="m2993.96 1038.23-95.999-.452.08-17 96 .452z" className="P1" />
-            </g>
-          </g>
-          <g className="B1">
-            <path stroke="#000" d="m1137.76 751.513 129.955 3.403-.47 17.994-129.956-3.403z" />
-            <g className="B1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1138.24 752.026 128.956 3.377-.445 16.994-128.956-3.377z"
-                className="B1"
-              />
-            </g>
-          </g>
-          <g className="B1">
-            <path stroke="#000" strokeWidth="2" d="m2600.68 774.503 128.999-.495.065 17-128.999.495z" className="B1" />
-          </g>
-          <g className="B1">
+
+          <g className="Stairs">
+            <path stroke="#000" d="m665.695 97.538 57.603 4.54-11.157 141.552-57.604-4.54z" />
             <path
               stroke="#000"
               strokeWidth="2"
-              d="m1869.31 769.017 128.98 2.251-.296 16.998-128.98-2.252z"
-              className="B1"
+              d="m665.183 97.672 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.104 58.601 4.62m-59.131 2.105 58.601 4.619m-59.131 2.105 58.601 4.619m-59.131 2.105 58.601 4.619m-59.131 2.105 58.601 4.619m-59.131 2.105 58.601 4.619m-59.131 2.105 58.601 4.619m-59.131 2.105 58.601 4.619m-59.131 2.105 58.6 4.619m-59.13 2.105 58.6 4.619m10.654-135.153L665.236 97l-11.183 141.877 58.6 4.619 11.184-141.877Z"
+              className="Vector"
             />
-          </g>
-          <g className="B1">
-            <path stroke="#000" d="m1137.98 945.513 129.955 3.403-.47 17.994-129.956-3.403z" />
-            <g className="B1">
-              <path
-                stroke="#000"
-                strokeWidth="2"
-                d="m1138.47 946.026 128.956 3.377-.445 16.994-128.956-3.377z"
-                className="B1"
-              />
-            </g>
-          </g>
-          <g className="B1">
-            <path stroke="#000" strokeWidth="2" d="m2600.91 968.503 128.999-.495.065 17-128.999.495z" className="B1" />
-          </g>
-          <g className="B1">
-            <path stroke="#000" strokeWidth="2" d="M1869.38 961.14h129v17h-129z" className="B1" />
-          </g>
-          <g className="Stairs">
-            <path stroke="#000" d="m665.695 97.538 57.603 4.54-11.157 141.552-57.604-4.54z" />
-            <path stroke="#000" d="m723.293 102.077-57.604-4.54-11.104 140.88 57.603 4.54z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="m665.209 97.348 58.601 4.619" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="m664.679 104.072 58.6 4.619" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="m664.149 110.796 58.601 4.619" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="m663.619 117.52 58.6 4.619" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="m663.089 124.244 58.6 4.619" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="m662.559 130.968 58.6 4.619" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="m662.029 137.692 58.6 4.619" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="m661.499 144.416 58.601 4.619" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="m660.969 151.14 58.6 4.619" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="m660.439 157.864 58.601 4.619" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="m659.909 164.588 58.6 4.619" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="m659.379 171.312 58.6 4.619" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="m658.849 178.036 58.6 4.619" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="m658.319 184.76 58.6 4.619" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="m657.789 191.484 58.6 4.619" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="m657.259 198.208 58.6 4.619" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="m656.728 204.932 58.601 4.619" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="m656.199 211.656 58.6 4.619" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="m655.668 218.38 58.601 4.619" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="m655.139 225.104 58.6 4.619" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="m654.608 231.828 58.601 4.619" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="m654.079 238.552 58.6 4.619" className="Line 790" />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="m753.479 107.538 57.603 4.54-7.941 100.75-57.603-4.542z" />
-            <path stroke="#000" d="m811.076 112.077-57.603-4.541-7.904 100.268 57.603 4.54z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="m753.023 106.963 58.601 4.619" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="m752.644 111.762 58.601 4.62" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="m752.267 116.562 58.6 4.619" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="m751.888 121.361 58.601 4.619" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="m751.51 126.16 58.6 4.62" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="m751.131 130.96 58.601 4.619" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="m750.753 135.759 58.601 4.619" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="m750.375 140.558 58.601 4.619" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="m749.997 145.357 58.6 4.619" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="m749.618 150.156 58.601 4.62" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="m749.24 154.956 58.6 4.619" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="m748.862 159.755 58.6 4.619" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="m748.483 164.554 58.601 4.62" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="m748.105 169.354 58.601 4.619" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="m747.727 174.153 58.6 4.619" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="m747.348 178.952 58.601 4.62" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="m746.97 183.752 58.601 4.619" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="m746.592 188.551 58.6 4.619" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="m746.213 193.35 58.601 4.619" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="m745.835 198.15 58.601 4.619" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="m745.457 202.949 58.601 4.619" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="m745.079 207.748 58.6 4.619" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="m752.982 107.48 58.601 4.619m-58.979.18 58.6 4.619m-58.978.181 58.6 4.619m-58.979.18 58.601 4.619m-58.979.18 58.601 4.619m-58.979.18 58.6 4.62m-58.979.18 58.601 4.619m-58.979.18 58.601 4.619m-58.979.18 58.6 4.62m-58.979.18 58.601 4.619m-58.979.18 58.601 4.619m-58.979.18 58.6 4.619m-58.978.18 58.6 4.62m-58.979.18 58.601 4.619m-58.979.18 58.601 4.619m-58.979.18 58.6 4.62m-58.979.18 58.601 4.619m-58.979.18 58.601 4.619m-58.979.18 58.6 4.619m-58.979.181 58.601 4.619m-58.979.18 58.601 4.619m7.604-96.466L753.02 107l-7.982 101.265 58.6 4.619 7.983-101.265Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="m741.799 236.531 57.662 3.725-6.268 97.03-57.662-3.724z" />
-            <path stroke="#000" d="m799.428 240.245-57.662-3.724-6.238 96.567 57.662 3.725z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="m741.337 235.927 58.66 3.789" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="m741.039 240.551 58.66 3.789" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="m740.74 245.175 58.66 3.789" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="m740.441 249.799 58.66 3.789" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="m740.143 254.423 58.66 3.789" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="m739.844 259.047 58.66 3.789" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="m739.545 263.671 58.66 3.789" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="m739.246 268.295 58.66 3.789" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="m738.948 272.919 58.66 3.789" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="m738.649 277.543 58.66 3.789" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="m738.35 282.167 58.66 3.789" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="m738.051 286.791 58.66 3.789" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="m737.753 291.415 58.66 3.789" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="m737.454 296.039 58.66 3.789" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="m737.155 300.663 58.66 3.789" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="m736.856 305.287 58.661 3.789" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="m736.558 309.91 58.66 3.79" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="m736.259 314.534 58.66 3.79" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="m735.96 319.158 58.661 3.79" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="m735.662 323.782 58.66 3.79" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="m735.363 328.406 58.66 3.79" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="m735.064 333.03 58.661 3.79" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="m741.303 236.462 58.66 3.79m-58.959.834 58.66 3.79m-58.959.834 58.66 3.79m-58.958.834 58.66 3.79m-58.959.834 58.66 3.79m-58.959.834 58.66 3.79m-58.959.834 58.661 3.79m-58.959.834 58.66 3.79m-58.959.834 58.66 3.79m-58.959.834 58.66 3.79m-58.958.834 58.66 3.79m-58.959.834 58.66 3.79m-58.959.834 58.66 3.79m-58.959.834 58.661 3.79m-58.959.834 58.66 3.79m-58.959.834 58.66 3.789m-58.959.835 58.66 3.789m-58.958.835 58.66 3.789m-58.959.835 58.66 3.789m-58.959.835 58.66 3.789m-58.959.835 58.661 3.789m6.004-92.942L741.333 236l-6.303 97.566 58.66 3.789 6.303-97.566Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3776.5 868.5v-44h171v44z" />
-            <path stroke="#000" d="M3776.5 824.5v44h170.189v-44z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3776.62 869v-45" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3784.74 869v-45" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3792.85 869v-45" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3800.96 869v-45" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3809.08 869v-45" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3817.19 869v-45" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3825.3 869v-45" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3833.42 869v-45" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3841.53 869v-45" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3849.64 869v-45" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3857.75 869v-45" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3865.87 869v-45" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3873.98 869v-45" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3882.09 869v-45" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3890.21 869v-45" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3898.32 869v-45" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3906.43 869v-45" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3914.55 869v-45" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3922.66 869v-45" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3930.77 869v-45" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3938.89 869v-45" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3947 869v-45" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3776.81 869v-45m8.11 45v-45m8.12 45v-45m8.11 45v-45m8.11 45v-45m8.12 45v-45m8.11 45v-45m8.11 45v-45m8.12 45v-45m8.11 45v-45m8.11 45v-45m8.12 45v-45m8.11 45v-45m8.11 45v-45m8.12 45v-45m8.11 45v-45m8.11 45v-45m8.12 45v-45m8.11 45v-45m8.11 45v-45m8.12 45v-45M3776 824v45h171.19v-45H3776Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3654.5 732.5v-44h106v44z" />
-            <path stroke="#000" d="M3654.5 688.5v44h105.495v-44z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3654.01 733v-45" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3659.06 733v-45" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3664.1 733v-45" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3669.15 733v-45" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3674.2 733v-45" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3679.25 733v-45" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3684.29 733v-45" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3689.34 733v-45" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3694.39 733v-45" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3699.43 733v-45" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3704.48 733v-45" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3709.53 733v-45" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3714.58 733v-45" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3719.62 733v-45" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3724.67 733v-45" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3729.72 733v-45" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3734.76 733v-45" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3739.81 733v-45" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3744.86 733v-45" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3749.91 733v-45" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3754.95 733v-45" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3760 733v-45" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3654.5 733v-45m5.05 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45M3654 688v45h106.5v-45H3654Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3655.5 647.5v-44h106v44z" />
-            <path stroke="#000" d="M3655.5 603.5v44h105.495v-44z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3655.01 648v-45" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3660.06 648v-45" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3665.1 648v-45" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3670.15 648v-45" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3675.2 648v-45" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3680.25 648v-45" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3685.29 648v-45" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3690.34 648v-45" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3695.39 648v-45" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3700.43 648v-45" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3705.48 648v-45" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3710.53 648v-45" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3715.58 648v-45" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3720.62 648v-45" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3725.67 648v-45" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3730.72 648v-45" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3735.76 648v-45" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3740.81 648v-45" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3745.86 648v-45" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3750.91 648v-45" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3755.95 648v-45" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3761 648v-45" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3655.5 648v-45m5.05 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45m5.04 45v-45m5.05 45v-45m5.05 45v-45M3655 603v45h106.5v-45H3655Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3410.5 459.5v-44h95v44z" />
-            <path stroke="#000" d="M3410.5 415.5v44h94.547v-44z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3409.91 460v-45" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3414.43 460v-45" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3418.96 460v-45" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3423.49 460v-45" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3428.02 460v-45" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3432.55 460v-45" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3437.08 460v-45" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3441.6 460v-45" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3446.13 460v-45" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3450.66 460v-45" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3455.19 460v-45" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3459.72 460v-45" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3464.25 460v-45" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3468.77 460v-45" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3473.3 460v-45" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3477.83 460v-45" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3482.36 460v-45" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3486.89 460v-45" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3491.42 460v-45" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3495.94 460v-45" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3500.47 460v-45" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3505 460v-45" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3410.45 460v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.52 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.52 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.52 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m-91.02 0v45h95.55v-45H3410Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3415.5 546.5v-44h95v44z" />
-            <path stroke="#000" d="M3415.5 502.5v44h94.547v-44z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3414.91 547v-45" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3419.43 547v-45" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3423.96 547v-45" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3428.49 547v-45" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3433.02 547v-45" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3437.55 547v-45" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3442.08 547v-45" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3446.6 547v-45" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3451.13 547v-45" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3455.66 547v-45" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3460.19 547v-45" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3464.72 547v-45" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3469.25 547v-45" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3473.77 547v-45" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3478.3 547v-45" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3482.83 547v-45" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3487.36 547v-45" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3491.89 547v-45" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3496.42 547v-45" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3500.94 547v-45" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3505.47 547v-45" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3510 547v-45" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3415.45 547v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.52 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.52 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m4.52 45v-45m4.53 45v-45m4.53 45v-45m4.53 45v-45m-91.02 0v45h95.55v-45H3415Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3028.5 1314.5h59v107h-59z" />
-            <path stroke="#000" d="M3087.5 1314.5h-59v106.491h59z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1314.02h60" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1319.11h60" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1324.21h60" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1329.3h60" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1334.4h60" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1339.49h60" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1344.58h60" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1349.68h60" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1354.77h60" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1359.87h60" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1364.96h60" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1370.06h60" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1375.15h60" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1380.25h60" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1385.34h60" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1390.43h60" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1395.53h60" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1400.62h60" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1405.72h60" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1410.81h60" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1415.91h60" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3028 1421h60" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3028 1314.51h60m-60 5.09h60m-60 5.1h60m-60 5.09h60m-60 5.1h60m-60 5.09h60m-60 5.1h60m-60 5.09h60m-60 5.09h60m-60 5.1h60m-60 5.09h60m-60 5.1h60m-60 5.09h60m-60 5.1h60m-60 5.09h60m-60 5.09h60m-60 5.1h60m-60 5.09h60m-60 5.1h60m-60 5.09h60m-60 5.1h60m0-102.4h-60v107.49h60V1314Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3130.5 1314.5h55v107h-55z" />
-            <path stroke="#000" d="M3185.5 1314.5h-55v106.491h55z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1314.02h56" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1319.11h56" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1324.21h56" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1329.3h56" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1334.4h56" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1339.49h56" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1344.58h56" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1349.68h56" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1354.77h56" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1359.87h56" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1364.96h56" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1370.06h56" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1375.15h56" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1380.25h56" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1385.34h56" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1390.43h56" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1395.53h56" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1400.62h56" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1405.72h56" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1410.81h56" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1415.91h56" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3130 1421h56" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3130 1314.51h56m-56 5.09h56m-56 5.1h56m-56 5.09h56m-56 5.1h56m-56 5.09h56m-56 5.1h56m-56 5.09h56m-56 5.09h56m-56 5.1h56m-56 5.09h56m-56 5.1h56m-56 5.09h56m-56 5.1h56m-56 5.09h56m-56 5.09h56m-56 5.1h56m-56 5.09h56m-56 5.1h56m-56 5.09h56m-56 5.1h56m0-102.4h-56v107.49h56V1314Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3279.5 1470.5h56v91h-56z" />
-            <path stroke="#000" d="M3335.5 1470.5h-56v90.566h56z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1469.87h57" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1474.21h57" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1478.55h57" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1482.89h57" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1487.23h57" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1491.57h57" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1495.91h57" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1500.25h57" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1504.58h57" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1508.92h57" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1513.26h57" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1517.6h57" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1521.94h57" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1526.28h57" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1530.62h57" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1534.96h57" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1539.3h57" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1543.64h57" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1547.98h57" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1552.32h57" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1556.66h57" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3279 1561h57" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3279 1470.43h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m0-87.23h-57v91.57h57V1470Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="M3377.5 1470.5h56v91h-56z" />
-            <path stroke="#000" d="M3433.5 1470.5h-56v90.566h56z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1469.87h57" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1474.21h57" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1478.55h57" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1482.89h57" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1487.23h57" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1491.57h57" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1495.91h57" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1500.25h57" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1504.58h57" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1508.92h57" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1513.26h57" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1517.6h57" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1521.94h57" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1526.28h57" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1530.62h57" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1534.96h57" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1539.3h57" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1543.64h57" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1547.98h57" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1552.32h57" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1556.66h57" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="M3377 1561h57" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="M3377 1470.43h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m-57 4.34h57m0-87.23h-57v91.57h57V1470Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="m767.201 1389.6 2.783-54.344 160.56 8.224-2.782 54.344z" />
             <path
               stroke="#000"
-              d="m769.992 1335.252-2.784 54.344 159.799 8.184 2.783-54.343z"
-              className="Rectangle 76"
+              strokeWidth="2"
+              d="m767.438 1390.11 2.835-55.34m4.786 55.73 2.834-55.34m4.786 55.73 2.835-55.34m4.786 55.73 2.835-55.34m4.786 55.73 2.835-55.34m4.785 55.73 2.835-55.34m4.786 55.73 2.835-55.34m4.786 55.73 2.835-55.34m4.785 55.73 2.835-55.34m4.786 55.73 2.835-55.34m4.786 55.73 2.835-55.34m4.786 55.74 2.835-55.35m4.785 55.74 2.835-55.35m4.786 55.74 2.835-55.35m4.786 55.74 2.835-55.35m4.785 55.74 2.835-55.35m4.786 55.74 2.835-55.35m4.786 55.74 2.835-55.35m4.786 55.74 2.834-55.34m4.786 55.73 2.835-55.34m4.786 55.73 2.835-55.34m-153.176-7.85-2.835 55.34 160.797 8.24 2.835-55.34-160.797-8.24Z"
+              className="Vector"
             />
-            <path stroke="#000" strokeWidth="2" d="m767.201 1390.1 2.835-55.34" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="m774.822 1390.49 2.835-55.34" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="m782.443 1390.88 2.835-55.34" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="m790.063 1391.27 2.835-55.34" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="m797.684 1391.66 2.835-55.34" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="m805.305 1392.05 2.834-55.34" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="m812.926 1392.44 2.835-55.34" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="m820.546 1392.83 2.835-55.34" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="m828.167 1393.22 2.835-55.34" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="m835.787 1393.61 2.835-55.34" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="m843.408 1394 2.835-55.34" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="m851.029 1394.39 2.835-55.34" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="m858.65 1394.78 2.835-55.34" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="m866.27 1395.17 2.835-55.34" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="m873.891 1395.56 2.835-55.34" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="m881.512 1395.95 2.835-55.34" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="m889.133 1396.34 2.835-55.34" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="m896.753 1396.74 2.835-55.35" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="m904.374 1397.13 2.835-55.35" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="m911.994 1397.52 2.835-55.35" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="m919.616 1397.91 2.835-55.35" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="m927.236 1398.3 2.835-55.35" className="Line 790" />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="m887.517 1194.34 1.518-43.82 134.11 4.645-1.518 43.82z" />
-            <path stroke="#000" d="m889.027 1150.519-1.518 43.82 133.472 4.624 1.518-43.82z" className="Rectangle 76" />
-            <path stroke="#000" strokeWidth="2" d="m887.275 1194.83 1.552-44.82" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="m893.648 1195.05 1.552-44.82" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="m900.021 1195.27 1.552-44.82" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="m906.395 1195.49 1.552-44.82" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="m912.768 1195.71 1.552-44.82" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="m919.141 1195.93 1.552-44.82" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="m925.514 1196.15 1.552-44.82" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="m931.887 1196.38 1.552-44.83" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="m938.26 1196.6 1.552-44.82" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="m944.633 1196.82 1.552-44.82" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="m951.006 1197.04 1.552-44.82" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="m957.379 1197.26 1.552-44.82" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="m963.752 1197.48 1.552-44.82" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="m970.125 1197.7 1.552-44.82" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="m976.498 1197.92 1.552-44.82" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="m982.871 1198.14 1.553-44.82" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="m989.244 1198.36 1.553-44.82" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="m995.617 1198.58 1.553-44.82" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="m1001.99 1198.8 1.55-44.82" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="m1008.36 1199.02 1.56-44.82" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="m1014.74 1199.24 1.55-44.82" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="m1021.11 1199.47 1.55-44.83" className="Line 790" />
+            <path
+              stroke="#000"
+              strokeWidth="2"
+              d="m887.637 1194.84 1.553-44.82m4.82 45.04 1.553-44.82m4.82 45.04 1.553-44.82m4.821 45.05 1.552-44.83m4.821 45.05 1.552-44.82m4.821 45.04 1.552-44.82m4.821 45.04 1.552-44.82m4.821 45.04 1.552-44.82m4.821 45.04 1.552-44.82m4.821 45.04 1.552-44.82m4.821 45.04 1.552-44.82m4.821 45.04 1.552-44.82m4.821 45.04 1.552-44.82m4.821 45.04 1.553-44.82m4.82 45.04 1.553-44.82m4.82 45.04 1.553-44.82m4.82 45.04 1.553-44.82m4.82 45.05 1.553-44.83m4.818 45.05 1.55-44.82m4.83 45.04 1.55-44.82m4.82 45.04 1.55-44.82M888.552 1150 887 1194.82l134.47 4.66 1.55-44.82-134.468-4.66Z"
+              className="Vector"
+            />
           </g>
           <g className="Stairs">
             <path stroke="#000" d="m983.525 1400.87 2.783-54.344 160.56 8.224-2.782 54.344z" />
             <path
               stroke="#000"
-              d="m986.317 1346.52-2.783 54.345 159.798 8.184 2.784-54.344z"
-              className="Rectangle 76"
+              strokeWidth="2"
+              d="m983.762 1401.38 2.835-55.34m4.786 55.73 2.835-55.34m4.785 55.73 2.837-55.34m4.78 55.73 2.84-55.34m4.78 55.73 2.84-55.34m4.79 55.73 2.83-55.34m4.79 55.73 2.83-55.34m4.79 55.73 2.83-55.34m4.79 55.73 2.83-55.34m4.79 55.74 2.83-55.35m4.79 55.74 2.83-55.35m4.79 55.74 2.83-55.35m4.79 55.74 2.84-55.35m4.78 55.74 2.84-55.35m4.78 55.74 2.84-55.35m4.78 55.74 2.84-55.35m4.78 55.74 2.84-55.35m4.78 55.74 2.84-55.34m4.78 55.73 2.84-55.34m4.79 55.73 2.83-55.34m4.79 55.73 2.83-55.34M985.835 1346 983 1401.34l160.8 8.24 2.83-55.34-160.795-8.24Z"
+              className="Vector"
             />
-            <path stroke="#000" strokeWidth="2" d="m983.525 1401.37 2.835-55.34" className="Line 772" />
-            <path stroke="#000" strokeWidth="2" d="m991.146 1401.76 2.835-55.34" className="Line 792" />
-            <path stroke="#000" strokeWidth="2" d="m998.767 1402.15 2.833-55.34" className="Line 793" />
-            <path stroke="#000" strokeWidth="2" d="m1006.39 1402.54 2.83-55.34" className="Line 794" />
-            <path stroke="#000" strokeWidth="2" d="m1014.01 1402.93 2.83-55.34" className="Line 781" />
-            <path stroke="#000" strokeWidth="2" d="m1021.63 1403.32 2.83-55.34" className="Line 780" />
-            <path stroke="#000" strokeWidth="2" d="m1029.25 1403.71 2.83-55.34" className="Line 779" />
-            <path stroke="#000" strokeWidth="2" d="m1036.87 1404.1 2.84-55.34" className="Line 778" />
-            <path stroke="#000" strokeWidth="2" d="m1044.49 1404.49 2.84-55.34" className="Line 777" />
-            <path stroke="#000" strokeWidth="2" d="m1052.11 1404.88 2.84-55.34" className="Line 776" />
-            <path stroke="#000" strokeWidth="2" d="m1059.73 1405.27 2.84-55.34" className="Line 775" />
-            <path stroke="#000" strokeWidth="2" d="m1067.35 1405.66 2.84-55.34" className="Line 774" />
-            <path stroke="#000" strokeWidth="2" d="m1074.97 1406.05 2.84-55.34" className="Line 773" />
-            <path stroke="#000" strokeWidth="2" d="m1082.59 1406.44 2.84-55.34" className="Line 782" />
-            <path stroke="#000" strokeWidth="2" d="m1090.22 1406.84 2.83-55.35" className="Line 783" />
-            <path stroke="#000" strokeWidth="2" d="m1097.84 1407.23 2.83-55.35" className="Line 784" />
-            <path stroke="#000" strokeWidth="2" d="m1105.46 1407.62 2.83-55.35" className="Line 785" />
-            <path stroke="#000" strokeWidth="2" d="m1113.08 1408.01 2.83-55.35" className="Line 786" />
-            <path stroke="#000" strokeWidth="2" d="m1120.7 1408.4 2.83-55.35" className="Line 787" />
-            <path stroke="#000" strokeWidth="2" d="m1128.32 1408.79 2.83-55.35" className="Line 788" />
-            <path stroke="#000" strokeWidth="2" d="m1135.94 1409.18 2.83-55.35" className="Line 789" />
-            <path stroke="#000" strokeWidth="2" d="m1143.56 1409.57 2.84-55.35" className="Line 790" />
           </g>
-          <g className="General Asset">
+          <g className="GeneralAsset">
             <path stroke="#000" strokeWidth="3" d="M760.5 1089.5h76v40h-76z" />
-            <path stroke="#000" d="M759.5 1088.5h78v42h-78z" className="Rectangle 77" />
+            <path stroke="#000" d="M759.5 1088.5h78v42h-78z" className="Rectangle" />
           </g>
-          <g className="General Asset">
+          <g className="GeneralAsset">
             <path stroke="#000" strokeWidth="3" d="m506.243 558.528 39.375.738-.715 38.15-39.375-.739z" />
-            <path stroke="#000" d="m505.262 557.509 41.375.776-.753 40.149-41.375-.776z" className="Rectangle 77" />
+            <path stroke="#000" d="m505.262 557.509 41.375.776-.753 40.149-41.375-.776z" className="Rectangle" />
           </g>
-          <g className="General Asset">
+          <g className="GeneralAsset">
             <path stroke="#000" strokeWidth="3" d="M3311.5 1126.5h47v34h-47z" />
-            <path stroke="#000" d="M3310.5 1125.5h49v36h-49z" className="Rectangle 77" />
+            <path stroke="#000" d="M3310.5 1125.5h49v36h-49z" className="Rectangle" />
           </g>
-          <g className="General Asset">
+          <g className="GeneralAsset">
             <path stroke="#000" strokeWidth="3" d="M3208.5 561.5h51v35h-51z" />
-            <path stroke="#000" d="M3207.5 560.5h53v37h-53z" className="Rectangle 77" />
+            <path stroke="#000" d="M3207.5 560.5h53v37h-53z" className="Rectangle" />
           </g>
         </g>
       </g>
     </svg>
   );
 };
-
+Quirino.propTypes = {
+  backlitData: PropTypes.array,
+  SBparapetData: PropTypes.array,
+  ticketBoothsData: PropTypes.array,
+  onClick1: PropTypes.func,
+  onClick2: PropTypes.func,
+  onClick3: PropTypes.func,
+  handleSouthClick: PropTypes.func,
+  handleNorthClick: PropTypes.func,
+};
 export default Quirino;

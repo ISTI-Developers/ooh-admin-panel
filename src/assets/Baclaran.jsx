@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { ParapetSlot, BacklitSlot } from "~components/ParapetSlot";
 
 const BaclaranSVG = ({
   backlitData = [],
@@ -49,107 +50,13 @@ const BaclaranSVG = ({
       {backlitData.slice(0, backlitData.length).map((item, index) => {
         const pos = positionsB[index];
         if (!pos) return null;
-        const isDisabled = item.asset_status === "TAKEN";
-        const brand = item.brand ? (item.brand.length > 15 ? `${item.brand.slice(0, 15)}...` : item.brand) : "Backlit";
-        return (
-          <g key={item.asset_id} cursor={isDisabled ? "not-allowed" : "pointer"} onClick={() => onClick1(item)}>
-            <rect
-              x={pos.x}
-              y={pos.y}
-              rx="4"
-              ry="4"
-              width="96.5"
-              height="25"
-              fill={isDisabled ? "#525252" : "#4F46E5"}
-              stroke="none"
-            />
-            {!isDisabled && (
-              <rect
-                x={pos.x}
-                y={pos.y}
-                rx="4"
-                ry="4"
-                width="96.5"
-                height="25"
-                fill="#4338CA"
-                opacity="0"
-                className="hover:opacity-100 transition-opacity duration-200"
-              />
-            )}
-            <text
-              x={pos.x + 48.25}
-              y={pos.y + 17}
-              textAnchor="middle"
-              fontFamily="Inter, sans-serif"
-              fontWeight="600"
-              fontSize="14"
-              fill="white"
-              pointerEvents="none"
-            >
-              {brand}
-            </text>
-          </g>
-        );
+        return <BacklitSlot key={item.asset_id} item={item} pos={pos} onClick={onClick1} />;
       })}
 
-      {parapetData.slice(0, parapetData.length).map((item, index) => {
+      {parapetData.map((item, index) => {
         const pos = positionsP[index];
         if (!pos) return null;
-
-        const isLarge = item.asset_size === "LARGE";
-        const isBlocked = item.asset_status === "BLOCKED";
-        const isDisabled = item.asset_status === "TAKEN";
-
-        const width = isLarge ? 112 : 96;
-        const height = isLarge ? 46 : 20;
-        const rx = 6;
-        const ry = 6;
-        const fill = isDisabled ? "#525252" : isBlocked ? "#A3A3A3" : "#1D4ED8";
-        const hoverFill = isDisabled || isBlocked ? fill : "#1E40AF";
-
-        const centerX = pos.x + width / 2;
-        const centerY = pos.y + height / 2;
-
-        return (
-          <g
-            key={item.asset_id}
-            cursor={isDisabled || isBlocked ? "not-allowed" : "pointer"}
-            onClick={() => onClick2(item)}
-          >
-            <rect
-              x={pos.x}
-              y={pos.y}
-              rx={rx}
-              ry={ry}
-              width={width}
-              height={height}
-              fill={fill}
-              stroke="none"
-              className="transition-colors duration-200 hover:fill-[var(--hover)]"
-              style={{ "--hover": hoverFill }}
-            />
-            {isBlocked && (
-              <>
-                <line x1={pos.x} y1={pos.y} x2={pos.x + width} y2={pos.y + height} stroke="white" strokeWidth="2" />
-                <line x1={pos.x + width} y1={pos.y} x2={pos.x} y2={pos.y + height} stroke="white" strokeWidth="2" />
-              </>
-            )}
-            {!isBlocked && (
-              <text
-                x={centerX}
-                y={centerY + 4}
-                textAnchor="middle"
-                fontFamily="Inter, sans-serif"
-                fontWeight="600"
-                fontSize="14"
-                fill="white"
-                pointerEvents="none"
-              >
-                {item.brand ? (item.brand.length > 15 ? `${item.brand.slice(0, 15)}...` : item.brand) : "Parapet"}
-              </text>
-            )}
-          </g>
-        );
+        return <ParapetSlot key={item.asset_id} item={item} pos={pos} onClick={onClick2} />;
       })}
       {sbStairsData.slice(0, sbStairsData.length).map((item, index) => {
         const pos = positionsS[index];
@@ -292,7 +199,7 @@ const BaclaranSVG = ({
         y="447.5"
         width="62"
         height="46"
-        transform="rotate(-90 1808.5 447.5)"
+        transform="rotate(270 1808.5 447.5)"
         stroke="black"
         strokeWidth="3"
       />

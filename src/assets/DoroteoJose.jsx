@@ -1,26 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
 const DoroteoJose = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2, onClick3 }) => {
-//   const positionsSB = [
-//     { x: 366, y: 1541, width: 167 },
-//     { x: 577, y: 1541, width: 251 },
-//     { x: 876, y: 1541, width: 322 },
-//     { x: 1244, y: 1541, width: 327 },
-//     { x: 1614, y: 1541, width: 323 },
-//     { x: 1985, y: 1541, width: 321 },
-//     { x: 2353, y: 1541, width: 326 },
-//     { x: 2728, y: 1541, width: 320 },
-//     { x: 3097, y: 1541, width: 322 },
-//     { x: 3466, y: 1541, width: 326 },
-//     { x: 3839, y: 1541, width: 323 },
-//     { x: 4208, y: 1541, width: 333 },
-//     { x: 6080, y: 1541, width: 260 },
-//     { x: 6392, y: 1541, width: 277 },
-//     { x: 6715, y: 1541, width: 290 },
-//     { x: 7051, y: 1541, width: 286 },
-//     { x: 7380, y: 1541, width: 294 },
-//     { x: 7727, y: 1541, width: 249 },
-//   ];
+  //   const positionsSB = [
+  //     { x: 366, y: 1541, width: 167 },
+  //     { x: 577, y: 1541, width: 251 },
+  //     { x: 876, y: 1541, width: 322 },
+  //     { x: 1244, y: 1541, width: 327 },
+  //     { x: 1614, y: 1541, width: 323 },
+  //     { x: 1985, y: 1541, width: 321 },
+  //     { x: 2353, y: 1541, width: 326 },
+  //     { x: 2728, y: 1541, width: 320 },
+  //     { x: 3097, y: 1541, width: 322 },
+  //     { x: 3466, y: 1541, width: 326 },
+  //     { x: 3839, y: 1541, width: 323 },
+  //     { x: 4208, y: 1541, width: 333 },
+  //     { x: 6080, y: 1541, width: 260 },
+  //     { x: 6392, y: 1541, width: 277 },
+  //     { x: 6715, y: 1541, width: 290 },
+  //     { x: 7051, y: 1541, width: 286 },
+  //     { x: 7380, y: 1541, width: 294 },
+  //     { x: 7727, y: 1541, width: 249 },
+  //   ];
 
   return (
     <svg className="w-full h-auto" viewBox="0 0 8866 4550" fill="none" xmlns="http://www.w3.org/2000/svg">

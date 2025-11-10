@@ -31,6 +31,11 @@ import RPapa from "~assets/RPapa";
 import Fifth from "~assets/Fifth";
 import Balintawak from "~assets/Balintawak";
 import FPJ from "~assets/FPJ";
+import ZoomableSVG from "./ZoomableSVG";
+import WIPWrapper from "./WIPWrapper";
+import DetailedLegend from "./DetailedLegend";
+import AutoCrosses from "./CrossOverlay";
+
 const Template = ({
   station_id,
   station_name,
@@ -52,6 +57,7 @@ const Template = ({
   nbBelow,
   sbStairs,
   nbStairs,
+  layoutType,
 }) => {
   const { assetContracts, attachedContract, refreshAllStationAssets } = useStations();
   const { updateAsset } = useLRTapi();
@@ -69,6 +75,7 @@ const Template = ({
   const [isModalOpentb, setIsModalOpentb] = useState(false);
   const [isModalOpenStairs, setIsModalOpenStairs] = useState(false);
   const [brandOwner, setBrandOwner] = useState("");
+  // const [layoutType, setLayoutType] = useState(true);
   const handleParapetClick = (parapet) => {
     setSelectedParapet(parapet);
     setSelectedStatus(parapet.asset_status);
@@ -329,21 +336,125 @@ const Template = ({
           />
         );
       case 9:
-        return <Bambang />;
+        return (
+          <Bambang
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
       case 8:
-        return <Tayuman />;
+        return (
+          <Tayuman
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
       case 7:
-        return <Blumentritt />;
+        return (
+          <Blumentritt
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
       case 6:
-        return <AbadSantos />;
+        return (
+          <AbadSantos
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
       case 5:
-        return <RPapa />;
+        return (
+          <RPapa
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
       case 4:
-        return <Fifth />;
+        return (
+          <Fifth
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
       case 2:
-        return <Balintawak />;
+        return (
+          <Balintawak
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
       case 1:
-        return <FPJ />;
+        return (
+          <FPJ
+            backlitData={[...backLitsSB, ...backLitsNB]}
+            SBparapetData={[...parapetSB, ...parapetNB]}
+            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+            sbStairsData={sbStairs}
+            nbStairsData={nbStairs}
+            onClick1={handleBacklitClick}
+            onClick2={handleParapetClick}
+            onClick3={handleTicketBoothClick}
+            handleSouthClick={handleSouthClick}
+            handleNorthClick={handleNorthClick}
+          />
+        );
       default:
         return <></>;
     }
@@ -353,104 +464,121 @@ const Template = ({
     <div>
       <header className="flex justify-center items-center mb-5">
         <h1 className="text-2xl font-bold text-center">{station_name} Station</h1>
-        {station_id}
       </header>
-      {renderStationLayout()}
-      <>
-        <hr className="h-[3px] bg-black border-none" />
-        <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
-        <Stairs
-          direction="SOUTH"
-          stairsData={sbStairs}
-          activeSpots={sbStairs?.map((stair) => stair.position_index)}
-          onClick={handleStairsClick}
-          icon="▲"
-        />
-        <TicketBooth
-          direction="SOUTH"
-          ticketBoothData={sbTop}
-          activeSpots={sbTop?.map((booth) => booth.position_index)}
-          onClick={handleTicketBoothClick}
-          icon="▲"
-        />
 
-        <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
+      {!layoutType ? (
+        [10].includes(station_id) ? (
+          <WIPWrapper>
+            <DetailedLegend />
+            <ZoomableSVG>{renderStationLayout()}</ZoomableSVG>
+          </WIPWrapper>
+        ) : (
+          <div className="relative w-full h-full">
+            <DetailedLegend />
+            <AutoCrosses />
+            <ZoomableSVG>{renderStationLayout()}</ZoomableSVG>
+          </div>
+        )
+      ) : (
+        <>
+          <Legend />
+          <hr className="h-[3px] bg-black border-none" />
+          <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
 
-        <TicketBooth
-          direction="SOUTH"
-          ticketBoothData={sbMid}
-          activeSpots={sbMid?.map((booth) => booth.position_index)}
-          onClick={handleTicketBoothClick}
-          icon="▲"
-        />
-
-        <Parapets
-          direction="SOUTH"
-          parapetData={parapetSB}
-          entryExitIndexes={SBentryExitButton}
-          onClick={handleParapetClick}
-        />
-
-        <TicketBooth
-          direction="SOUTH"
-          ticketBoothData={sbBelow}
-          activeSpots={sbBelow?.map((booth) => booth.position_index)}
-          onClick={handleTicketBoothClick}
-          icon="▲"
-        />
-
-        <div className="w-full flex justify-center my-4">
-          <RouteDisplay
-            SouthBound={southBound}
-            NorthBound={northBound}
-            handleSouth={handleSouthClick}
-            handleNorth={handleNorthClick}
+          <Stairs
+            direction="SOUTH"
+            stairsData={sbStairs}
+            activeSpots={sbStairs?.map((stair) => stair.position_index)}
+            onClick={handleStairsClick}
+            icon="▲"
           />
-        </div>
+          <TicketBooth
+            direction="SOUTH"
+            ticketBoothData={sbTop}
+            activeSpots={sbTop?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▲"
+          />
 
-        <TicketBooth
-          direction="NORTH"
-          ticketBoothData={nbBelow}
-          activeSpots={nbBelow?.map((booth) => booth.position_index)}
-          onClick={handleTicketBoothClick}
-          icon="▼"
-        />
+          <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
 
-        <Parapets
-          direction="NORTH"
-          parapetData={parapetNB}
-          entryExitIndexes={NBentryExitButton}
-          onClick={handleParapetClick}
-        />
-        <TicketBooth
-          direction="NORTH"
-          ticketBoothData={nbMid}
-          activeSpots={nbMid?.map((booth) => booth.position_index)}
-          onClick={handleTicketBoothClick}
-          icon="▼"
-        />
+          <TicketBooth
+            direction="SOUTH"
+            ticketBoothData={sbMid}
+            activeSpots={sbMid?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▲"
+          />
 
-        <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
+          <Parapets
+            direction="SOUTH"
+            parapetData={parapetSB}
+            entryExitIndexes={SBentryExitButton}
+            onClick={handleParapetClick}
+          />
 
-        <TicketBooth
-          direction="NORTH"
-          ticketBoothData={nbTop}
-          activeSpots={nbTop?.map((booth) => booth.position_index)}
-          icon="▼"
-          onClick={handleTicketBoothClick}
-        />
-        <Stairs
-          direction="NORTH"
-          stairsData={nbStairs}
-          activeSpots={nbStairs?.map((stair) => stair.position_index)}
-          onClick={handleStairsClick}
-          icon="▼"
-        />
+          <TicketBooth
+            direction="SOUTH"
+            ticketBoothData={sbBelow}
+            activeSpots={sbBelow?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▲"
+          />
 
-        <h1 className="text-2xl font-bold text-center">NORTH BOUND</h1>
-        <hr className="h-[3px] bg-black border-none" />
-        <Legend />
-      </>
+          <div className="w-full flex justify-center my-4">
+            <RouteDisplay
+              SouthBound={southBound}
+              NorthBound={northBound}
+              handleSouth={handleSouthClick}
+              handleNorth={handleNorthClick}
+            />
+          </div>
+
+          <TicketBooth
+            direction="NORTH"
+            ticketBoothData={nbBelow}
+            activeSpots={nbBelow?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▼"
+          />
+
+          <Parapets
+            direction="NORTH"
+            parapetData={parapetNB}
+            entryExitIndexes={NBentryExitButton}
+            onClick={handleParapetClick}
+          />
+          <TicketBooth
+            direction="NORTH"
+            ticketBoothData={nbMid}
+            activeSpots={nbMid?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▼"
+          />
+
+          <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
+
+          <TicketBooth
+            direction="NORTH"
+            ticketBoothData={nbTop}
+            activeSpots={nbTop?.map((booth) => booth.position_index)}
+            icon="▼"
+            onClick={handleTicketBoothClick}
+          />
+          <Stairs
+            direction="NORTH"
+            stairsData={nbStairs}
+            activeSpots={nbStairs?.map((stair) => stair.position_index)}
+            onClick={handleStairsClick}
+            icon="▼"
+          />
+
+          <h1 className="text-2xl font-bold text-center">NORTH BOUND</h1>
+          <hr className="h-[3px] bg-black border-none" />
+          <Legend />
+        </>
+      )}
+
       {selectedParapet && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded shadow-lg relative w-80">
@@ -865,6 +993,7 @@ Template.propTypes = {
   nbBelow: PropTypes.array,
   sbStairs: PropTypes.array,
   nbStairs: PropTypes.array,
+  layoutType: PropTypes.bool,
 };
 
 export default Template;
