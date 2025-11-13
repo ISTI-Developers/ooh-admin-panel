@@ -13,11 +13,12 @@ const VitoCruz = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [],
   ];
   const positionsP = [
     { x: 70, y: 621 },
-    { x: 175, y: 621 },
-    { x: 295, y: 621 },
-    { x: 429, y: 621 },
-    { x: 552, y: 621 },
-    { x: 675, y: 621 },
+    { x: 199, y: 621 },
+    { x: 328, y: 621 },
+    { x: 457, y: 621 },
+    { x: 586, y: 621 },
+    { x: 715, y: 621 },
+
     { x: 1216, y: 621 },
     { x: 1354, y: 621 },
     { x: 1492, y: 621 },

@@ -167,298 +167,366 @@ const Template = ({
   useEffect(() => {
     setSelectedContract(attachedContract);
   }, [attachedContract]);
-  const renderStationLayout = () => {
-    switch (station_id) {
-      case 20:
-        return (
-          <BaclaranSVG
-            backlitData={backLitsSB}
-            parapetData={parapetSB}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleStairsClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
 
-      case 19:
-        return (
-          <EDSA
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 18:
-        return (
-          <Libertad
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-
-      case 17:
-        return (
-          <GilPuyat
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 16:
-        return (
-          <VitoCruz
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 15:
-        return (
-          <Quirino
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 14:
-        return (
-          <PedroGil
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 13:
-        return (
-          <UNAve
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 12:
-        return (
-          <Central
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 11:
-        return (
-          <Carriedo
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 10:
-        return (
-          <DoroteoJose
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 9:
-        return (
-          <Bambang
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 8:
-        return (
-          <Tayuman
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 7:
-        return (
-          <Blumentritt
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 6:
-        return (
-          <AbadSantos
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 5:
-        return (
-          <RPapa
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 4:
-        return (
-          <Fifth
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 2:
-        return (
-          <Balintawak
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      case 1:
-        return (
-          <FPJ
-            backlitData={[...backLitsSB, ...backLitsNB]}
-            SBparapetData={[...parapetSB, ...parapetNB]}
-            // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
-            sbStairsData={sbStairs}
-            nbStairsData={nbStairs}
-            onClick1={handleBacklitClick}
-            onClick2={handleParapetClick}
-            onClick3={handleTicketBoothClick}
-            handleSouthClick={handleSouthClick}
-            handleNorthClick={handleNorthClick}
-          />
-        );
-      default:
-        return <></>;
-    }
+  const stationComponents = {
+    20: BaclaranSVG,
+    19: EDSA,
+    18: Libertad,
+    17: GilPuyat,
+    16: VitoCruz,
+    15: Quirino,
+    14: PedroGil,
+    13: UNAve,
+    12: Central,
+    11: Carriedo,
+    10: DoroteoJose,
+    9: Bambang,
+    8: Tayuman,
+    7: Blumentritt,
+    6: AbadSantos,
+    5: RPapa,
+    4: Fifth,
+    2: Balintawak,
+    1: FPJ,
   };
+  const stationsWithTicketBooths = [12, 13, 14, 15, 16, 17, 18, 19]; // those that use ticketBoothsData
+  const renderStationLayout = () => {
+    const StationComponent = stationComponents[station_id];
+    if (!StationComponent) return null;
+
+    const baseProps = {
+      backlitData: [...backLitsSB, ...backLitsNB],
+      SBparapetData: [...parapetSB, ...parapetNB],
+      sbStairsData: [sbStairs],
+      nbStairsData: [nbStairs],
+      onClick1: handleBacklitClick,
+      onClick2: handleParapetClick,
+      onClick3: handleTicketBoothClick,
+      handleSouthClick,
+      handleNorthClick,
+    };
+
+    // Baclaran unique case
+    if (station_id === 20) {
+      return (
+        <BaclaranSVG
+          backlitData={backLitsSB}
+          parapetData={parapetSB}
+          sbStairsData={sbStairs}
+          nbStairsData={nbStairs}
+          onClick1={handleBacklitClick}
+          onClick2={handleParapetClick}
+          onClick3={handleStairsClick}
+          handleSouthClick={handleSouthClick}
+          handleNorthClick={handleNorthClick}
+        />
+      );
+    }
+
+    // Stations that include ticket booths
+    if (stationsWithTicketBooths.includes(station_id)) {
+      return (
+        <StationComponent
+          {...baseProps}
+          ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+        />
+      );
+    }
+    // Stations without ticket booths
+    return <StationComponent {...baseProps} />;
+  };
+  // const renderStationLayout = () => {
+  //   switch (station_id) {
+  //     case 20:
+  //       return (
+  //         <BaclaranSVG
+  //           backlitData={backLitsSB}
+  //           parapetData={parapetSB}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleStairsClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+
+  //     case 19:
+  //       return (
+  //         <EDSA
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 18:
+  //       return (
+  //         <Libertad
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+
+  //     case 17:
+  //       return (
+  //         <GilPuyat
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 16:
+  //       return (
+  //         <VitoCruz
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 15:
+  //       return (
+  //         <Quirino
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 14:
+  //       return (
+  //         <PedroGil
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 13:
+  //       return (
+  //         <UNAve
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 12:
+  //       return (
+  //         <Central
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 11:
+  //       return (
+  //         <Carriedo
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 10:
+  //       return (
+  //         <DoroteoJose
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 9:
+  //       return (
+  //         <Bambang
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 8:
+  //       return (
+  //         <Tayuman
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 7:
+  //       return (
+  //         <Blumentritt
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 6:
+  //       return (
+  //         <AbadSantos
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 5:
+  //       return (
+  //         <RPapa
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 4:
+  //       return (
+  //         <Fifth
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 2:
+  //       return (
+  //         <Balintawak
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     case 1:
+  //       return (
+  //         <FPJ
+  //           backlitData={[...backLitsSB, ...backLitsNB]}
+  //           SBparapetData={[...parapetSB, ...parapetNB]}
+  //           // ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+  //           sbStairsData={sbStairs}
+  //           nbStairsData={nbStairs}
+  //           onClick1={handleBacklitClick}
+  //           onClick2={handleParapetClick}
+  //           onClick3={handleTicketBoothClick}
+  //           handleSouthClick={handleSouthClick}
+  //           handleNorthClick={handleNorthClick}
+  //         />
+  //       );
+  //     default:
+  //       return <></>;
+  //   }
+  // };
 
   return (
     <div>
@@ -469,14 +537,16 @@ const Template = ({
       {!layoutType ? (
         [10].includes(station_id) ? (
           <WIPWrapper>
+            <AutoCrosses />
             <DetailedLegend />
             <ZoomableSVG>{renderStationLayout()}</ZoomableSVG>
           </WIPWrapper>
         ) : (
           <div className="relative w-full h-full">
             <DetailedLegend />
-            <AutoCrosses />
-            <ZoomableSVG>{renderStationLayout()}</ZoomableSVG>
+            <ZoomableSVG>
+              {renderStationLayout()} <AutoCrosses />
+            </ZoomableSVG>
           </div>
         )
       ) : (

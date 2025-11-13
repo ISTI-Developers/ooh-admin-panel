@@ -1,5 +1,3 @@
-import React from "react";
-
 const DetailedLegend = () => {
   const legendItems = [
     { label: "Parapet", color: "bg-blue-700" },
