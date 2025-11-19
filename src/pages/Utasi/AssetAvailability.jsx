@@ -204,8 +204,162 @@ const AssetAvailability = () => {
     };
     fetchAssets();
   }, []);
+  // Prime IDs
+  const primeIDs = [20, 19, 17, 12, 10];
+  const primeBacklits = backlits.filter((b) => primeIDs.includes(b.station_id));
+  const nonPrimeBacklits = backlits.filter((b) => !primeIDs.includes(b.station_id));
+  const primeTB = ticketbooths.filter((b) => primeIDs.includes(b.station_id));
+  const nonPrimeTB = ticketbooths.filter((b) => !primeIDs.includes(b.station_id));
+
+  const computeStats = (items) => {
+    const total = items.length;
+    const booked = items.filter((i) => i.asset_status === "TAKEN").length;
+    const occupancy = total > 0 ? ((booked / total) * 100).toFixed(2) + "%" : "0%";
+    return { total, booked, occupancy };
+  };
+
+  const primeStats = computeStats(primeBacklits);
+  const primeStatsTB = computeStats(primeTB);
+
+  const primeStationNames = [...new Set(primeBacklits.map((i) => i.station_name))];
+  const primeTable = [
+    {
+      assets: "Backlits",
+      total: primeStats.total,
+      booked: primeStats.booked,
+      occupancy: primeStats.occupancy,
+    },
+    {
+      assets: "Ticketbooths",
+      total: primeStatsTB.total,
+      booked: primeStatsTB.booked,
+      occupancy: primeStatsTB.occupancy,
+    },
+  ];
+  const nonPrimeStats = computeStats(nonPrimeBacklits);
+  const nonPrimeStatsTB = computeStats(nonPrimeTB);
+
+  const nonPrimeTable = [
+    {
+      assets: "Backlits",
+      total: nonPrimeStats.total,
+      booked: nonPrimeStats.booked,
+      occupancy: nonPrimeStats.occupancy,
+    },
+    {
+      assets: "Ticketbooths",
+      total: nonPrimeStatsTB.total,
+      booked: nonPrimeStatsTB.booked,
+      occupancy: nonPrimeStatsTB.occupancy,
+    },
+  ];
+  const allStars = computeStats(stairs);
+  const stairsTable = [
+    {
+      assets: "Stairs",
+      total: allStars.total,
+      booked: allStars.booked,
+      occupancy: allStars.occupancy,
+    },
+  ];
   return (
     <div className=" flex flex-col p-4 bg-white rounded-lg container gap-3">
+      <>
+        {/* PRIME SITES TABLE */}
+        {/* Header with station names */}
+        <h2 className="font-bold text-lg mb-2">Prime Sites: {primeStationNames.join(", ")}</h2>
+
+        <table className="table-auto w-full border mb-6">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2">Assets</th>
+              <th className="p-2">Total</th>
+              <th className="p-2">Booked</th>
+              <th className="p-2">Occupancy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {primeTable.map((row, i) => (
+              <tr key={i} className="border">
+                <td className="p-2 text-center">{row.assets}</td>
+                <td className="p-2 text-center">{row.total}</td>
+                <td className="p-2 text-center">{row.booked}</td>
+                <td className="p-2 text-center">{row.occupancy}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* NON-PRIME SITES TABLE */}
+        <table className="table-auto w-full mt-6 border">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2">Assets</th>
+              <th className="p-2">Total</th>
+              <th className="p-2">Booked</th>
+              <th className="p-2">Occupancy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {nonPrimeTable.map((row, i) => (
+              <tr key={i} className="border">
+                <td className="p-2 text-center">{row.assets}</td>
+                <td className="p-2 text-center">{row.total}</td>
+                <td className="p-2 text-center">{row.booked}</td>
+                <td className="p-2 text-center">{row.occupancy}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h2 className="font-bold text-lg mb-2">TRAIN ASSETS</h2>
+        <table>
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2">Asset</th>
+              <th className="p-2">Total</th>
+              <th className="p-2">Booked</th>
+              <th className="p-2">Occupancy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {trainAssets.map((row, i) => {
+              const total = row.available + row.booked;
+              const occupancy = total > 0 ? (row.booked / total) * 100 : 0;
+              return (
+                <tr key={i} className="border">
+                  <td className="p-2 text-center capitalize">{row.asset_name}</td>
+                  <td className="p-2 text-center">{total}</td>
+                  <td className="p-2 text-center">{row.booked}</td>
+                  <td className="p-2 text-center">{occupancy.toFixed(2)}%</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
+        <h2 className="font-bold text-lg mb-2">STAIRS</h2>
+        <table className="table-auto w-full mt-6 border">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2">Assets</th>
+              <th className="p-2">Total</th>
+              <th className="p-2">Booked</th>
+              <th className="p-2">Occupancy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {stairsTable.map((row, i) => (
+              <tr key={i} className="border">
+                <td className="p-2 text-center">{row.assets}</td>
+                <td className="p-2 text-center">{row.total}</td>
+                <td className="p-2 text-center">{row.booked}</td>
+                <td className="p-2 text-center">{row.occupancy}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
       <div>
         <h2 className="text-xl font-bold mb-4">Availability</h2>
         <div className="flex gap-2">
