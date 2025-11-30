@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-const DoroteoJose = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2, onClick3 }) => {
+const DoroteoJose = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2,
+  onClick3,
+  isHoverAll,
+  setIsHoverAll, }) => {
   //   const positionsSB = [
   //     { x: 366, y: 1541, width: 167 },
   //     { x: 577, y: 1541, width: 251 },

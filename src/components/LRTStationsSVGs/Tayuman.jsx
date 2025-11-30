@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
-import { ParapetSlot, BacklitSlot } from "~components/ParapetSlot";
-const Tayuman = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2, onClick3 }) => {
+import { ParapetSlot, BacklitSlot } from "~components/assetSlot";
+const Tayuman = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2,
+  onClick3,
+  isHoverAll,
+  setIsHoverAll, }) => {
   const positionsP = [
     // === y = 323 ===
     { x: 744.018, y: 323 },
@@ -130,7 +133,9 @@ const Tayuman = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], 
           {backlitData.slice(0, backlitData.length).map((item, index) => {
             const pos = positionsB[index];
             if (!pos) return null;
-            return <BacklitSlot key={item.asset_id} item={item} pos={pos} onClick={onClick1} />;
+            return <BacklitSlot key={item.asset_id} item={item} pos={pos} onClick={onClick1}
+                isHoverAll={isHoverAll}
+                setIsHoverAll={setIsHoverAll} />;
           })}
           <g className="Stairs">
             <path stroke="#000" d="M220.518 211.5v-44h118v44z" />

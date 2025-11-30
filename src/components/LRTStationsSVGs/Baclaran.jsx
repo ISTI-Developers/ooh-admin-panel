@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { ParapetSlot, BacklitSlot } from "~components/ParapetSlot";
+import { ParapetSlot, BacklitSlot } from "~components/assetSlot";
 
 const BaclaranSVG = ({
   backlitData = [],
@@ -11,6 +11,8 @@ const BaclaranSVG = ({
   onClick3,
   handleSouthClick,
   handleNorthClick,
+  isHoverAll,
+  setIsHoverAll,
 }) => {
   const positionsB = [
     { x: 216, y: 177 },
@@ -50,7 +52,16 @@ const BaclaranSVG = ({
       {backlitData.slice(0, backlitData.length).map((item, index) => {
         const pos = positionsB[index];
         if (!pos) return null;
-        return <BacklitSlot key={item.asset_id} item={item} pos={pos} onClick={onClick1} />;
+        return (
+          <BacklitSlot
+            key={item.asset_id}
+            item={item}
+            pos={pos}
+            onClick={onClick1}
+            isHoverAll={isHoverAll}
+            setIsHoverAll={setIsHoverAll}
+          />
+        );
       })}
 
       {parapetData.map((item, index) => {

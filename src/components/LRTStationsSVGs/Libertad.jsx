@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
-import { ParapetSlot, BacklitSlot } from "~components/ParapetSlot";
-const Libertad = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2, onClick3 }) => {
+import { ParapetSlot, BacklitSlot } from "~components/assetSlot";
+const Libertad = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2,
+  onClick3,
+  isHoverAll,
+  setIsHoverAll, }) => {
   const positionsP = [
     { x: 58, y: 389 },
     { x: 176, y: 389 },
@@ -63,7 +66,9 @@ const Libertad = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [],
           {backlitData.slice(0, backlitData.length).map((item, index) => {
             const pos = positionsB[index];
             if (!pos) return null;
-            return <BacklitSlot key={item.asset_id} item={item} pos={pos} onClick={onClick1} />;
+            return <BacklitSlot key={item.asset_id} item={item} pos={pos} onClick={onClick1}
+                isHoverAll={isHoverAll}
+                setIsHoverAll={setIsHoverAll} />;
           })}
 
           <g className="TURNSTILE_SB_R">

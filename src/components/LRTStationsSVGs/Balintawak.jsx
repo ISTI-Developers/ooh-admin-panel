@@ -1,7 +1,16 @@
 import PropTypes from "prop-types";
-import { ParapetSlot, BacklitSlot } from "~components/ParapetSlot";
+import { ParapetSlot, BacklitSlot } from "~components/assetSlot";
 import WIPWrapper from "~components/WIPWrapper";
-const Balintawak = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2, onClick3 }) => {
+const Balintawak = ({
+  backlitData = [],
+  SBparapetData = [],
+  ticketBoothsData = [],
+  onClick1,
+  onClick2,
+  onClick3,
+  isHoverAll,
+  setIsHoverAll,
+}) => {
   const positionsB = [
     // === Backlits (y = 334) ===
     { x: 978, y: 335 },
@@ -86,7 +95,16 @@ const Balintawak = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [
             {backlitData.slice(0, backlitData.length).map((item, index) => {
               const pos = positionsB[index];
               if (!pos) return null;
-              return <BacklitSlot key={item.asset_id} item={item} pos={pos} onClick={onClick1} />;
+              return (
+                <BacklitSlot
+                  key={item.asset_id}
+                  item={item}
+                  pos={pos}
+                  onClick={onClick1}
+                  isHoverAll={isHoverAll}
+                  setIsHoverAll={setIsHoverAll}
+                />
+              );
             })}
           </g>
         </g>

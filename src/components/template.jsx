@@ -35,7 +35,7 @@ import ZoomableSVG from "./ZoomableSVG";
 import WIPWrapper from "./WIPWrapper";
 import DetailedLegend from "./DetailedLegend";
 import AutoCrosses from "./CrossOverlay";
-
+import { useImageUrl } from "~misc/useImageUrl";
 const Template = ({
   station_id,
   station_name,
@@ -59,6 +59,9 @@ const Template = ({
   nbStairs,
   layoutType,
 }) => {
+  const parapet_pic = useImageUrl("parapet_pic.png");
+  const backlit_pic = useImageUrl("backlit_pic.jpg");
+  const tb_pic = useImageUrl("tb_pic.png");
   const { assetContracts, attachedContract, refreshAllStationAssets } = useStations();
   const { updateAsset } = useLRTapi();
   const [selectedParapet, setSelectedParapet] = useState(null);
@@ -163,6 +166,7 @@ const Template = ({
   const matchedContract = assetContracts?.find((contract) => contract.backlit_id === selectedBacklit?.asset_id);
   const matchedContractTB = assetContracts?.find((contract) => contract.ticketbooth_id === selectedTB?.asset_id);
   const matchedContractStairs = assetContracts?.find((contract) => contract.stairs_id === selectedStairs?.asset_id);
+  const [isHoverAll, setIsHoverAll] = useState(false);
 
   useEffect(() => {
     setSelectedContract(attachedContract);
@@ -195,7 +199,10 @@ const Template = ({
     if (!StationComponent) return null;
 
     const baseProps = {
-      backlitData: [...backLitsSB, ...backLitsNB],
+      backlitData: [...backLitsSB, ...backLitsNB].map((item) => ({
+        ...item,
+        backlit_pic: item.backlit_pic || backlit_pic,
+      })),
       SBparapetData: [...parapetSB, ...parapetNB],
       sbStairsData: [sbStairs],
       nbStairsData: [nbStairs],
@@ -204,13 +211,18 @@ const Template = ({
       onClick3: handleTicketBoothClick,
       handleSouthClick,
       handleNorthClick,
+      isHoverAll,
+      setIsHoverAll,
     };
 
     // Baclaran unique case
     if (station_id === 20) {
       return (
         <BaclaranSVG
-          backlitData={backLitsSB}
+          backlitData={backLitsSB.map((item) => ({
+            ...item,
+            backlit_pic: item.backlit_pic || backlit_pic,
+          }))}
           parapetData={parapetSB}
           sbStairsData={sbStairs}
           nbStairsData={nbStairs}
@@ -219,6 +231,8 @@ const Template = ({
           onClick3={handleStairsClick}
           handleSouthClick={handleSouthClick}
           handleNorthClick={handleNorthClick}
+          isHoverAll={isHoverAll}
+          setIsHoverAll={setIsHoverAll}
         />
       );
     }

@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
-import { ParapetSlot, BacklitSlot } from "~components/ParapetSlot";
-const Central = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2, onClick3 }) => {
+import { ParapetSlot, BacklitSlot } from "~components/assetSlot";
+const Central = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], onClick1, onClick2,
+  onClick3,
+  isHoverAll,
+  setIsHoverAll, }) => {
   const positionsB = [
     { x: 1440, y: 270 },
     { x: 1971, y: 270 },
@@ -78,6 +81,8 @@ const Central = ({ backlitData = [], SBparapetData = [], ticketBoothsData = [], 
                 item={item}
                 pos={pos}
                 onClick={onClick1}
+                isHoverAll={isHoverAll}
+                setIsHoverAll={setIsHoverAll}
                 size={{ width: 220, height: 35 }}
                 fontSize={24}
               />

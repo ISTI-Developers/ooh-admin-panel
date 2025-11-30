@@ -114,7 +114,6 @@ ParapetSlot.propTypes = {
   className: PropTypes.string,
 };
 
-// Reusable Backlit slot
 export const BacklitSlot = ({
   item,
   pos,
@@ -129,6 +128,8 @@ export const BacklitSlot = ({
     label: "white",
   },
   className,
+  isHoverAll,
+  setIsHoverAll,
 }) => {
   const isDisabled = item.asset_status === "TAKEN";
   const brand = item.brand ? (item.brand.length > 15 ? `${item.brand.slice(0, 15)}...` : item.brand) : "Backlit";
@@ -139,7 +140,10 @@ export const BacklitSlot = ({
       cursor={isDisabled ? "not-allowed" : "pointer"}
       onClick={() => onClick && onClick(item)}
       className={className}
+      onMouseEnter={() => setIsHoverAll(true)}
+      onMouseLeave={() => setIsHoverAll(false)}
     >
+      {/* Base Rectangle */}
       <rect
         x={pos.x}
         y={pos.y}
@@ -150,6 +154,8 @@ export const BacklitSlot = ({
         fill={isDisabled ? colors.disabled : colors.normal}
         stroke="none"
       />
+
+      {/* Hover Overlay */}
       {!isDisabled && (
         <rect
           x={pos.x}
@@ -159,10 +165,12 @@ export const BacklitSlot = ({
           width={size.width}
           height={size.height}
           fill={colors.hover}
-          opacity="0"
-          className="hover:opacity-100 transition-opacity duration-200"
+          opacity={isHoverAll ? "1" : "0"}
+          className="transition-opacity duration-200"
         />
       )}
+
+      {/* Label */}
       <text
         x={pos.x + size.width / 2}
         y={pos.y + size.height * 0.68}
@@ -175,9 +183,23 @@ export const BacklitSlot = ({
       >
         {brand}
       </text>
+
+      {/* Hover Image Preview (HTML floating box) */}
+      {isHoverAll && item.backlit_pic && (
+        <foreignObject x={pos.x + size.width / 2 - 100} y={pos.y - 150} width="200" height="200">
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            className="bg-white border shadow-xl rounded-lg p-2"
+            style={{ pointerEvents: "none" }}
+          >
+            <img src={item.backlit_pic} style={{ maxHeight: "180px", borderRadius: "8px" }} />
+          </div>
+        </foreignObject>
+      )}
     </g>
   );
 };
+
 BacklitSlot.propTypes = {
   item: PropTypes.object.isRequired,
   pos: PropTypes.shape({
@@ -199,4 +221,6 @@ BacklitSlot.propTypes = {
     label: PropTypes.string,
   }),
   className: PropTypes.string,
+  isHoverAll: PropTypes.bool,
+  setIsHoverAll: PropTypes.func,
 };
