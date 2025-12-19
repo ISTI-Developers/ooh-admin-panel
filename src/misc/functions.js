@@ -1,4 +1,4 @@
-import geofence_list from "./geofence_list.json";
+import { segments } from "./segments";
 
 const conjunctionWords = [
   "and",
@@ -60,7 +60,7 @@ const regionList = [
   "Central Luzon",
   "Calabarzon",
   "Mimaropa",
-  "Bicol",
+  "Bicol Region",
   "Western Visayas",
   "Central Visayas",
   "Eastern Visayas",
@@ -243,6 +243,8 @@ const locationMap = {
   "Lungsod Quezon": "Quezon City",
   "Hilagang Mindanao": "Northern Mindanao",
   "Rehiyong Pampangasiwaan ng Cordillera": "Cordillera Administrative Region",
+  "Gitnang Kabisayaan": "Central Visayas",
+  Bicol: "Bicol Region",
   SOCCSKSARGEN: "Region XII",
 };
 const batchUploadHeaders = [
@@ -325,50 +327,30 @@ function searchItems(array, query) {
   return matches;
 }
 function findClosestLocations(givenCoord) {
-  const locations = geofence_list;
-  // Calculate distance between two lat/lng points using the Haversine formula
-  function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Radius of the earth in km
-    const dLat = deg2rad(lat2 - lat1);
-    const dLon = deg2rad(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const d = R * c; // Distance in km
-    return d;
+  const locations = segments;
+  let nearest = { areaCode: "", distance: Infinity };
+
+  for (const [areaCode, routeGroup] of Object.entries(locations)) {
+    for (const route of Object.values(routeGroup)) {
+      const points = [...route.origin, ...route.destination];
+
+      for (const point of points) {
+        console.log(points);
+        const distance = haversineDistance(
+          givenCoord.lat,
+          givenCoord.lng,
+          Number(point.lat),
+          Number(point.lng)
+        );
+
+        if (distance < nearest.distance) {
+          nearest = { areaCode, distance };
+        }
+      }
+    }
   }
 
-  function deg2rad(deg) {
-    return deg * (Math.PI / 180);
-  }
-
-  // Calculate distances and add them to each location object
-  locations.forEach((location) => {
-    const NB_distance = calculateDistance(
-      location.nb_lat,
-      location.nb_long,
-      givenCoord.lat,
-      givenCoord.lng
-    );
-    const SB_distance = calculateDistance(
-      location.sb_lat,
-      location.sb_long,
-      givenCoord.lat,
-      givenCoord.lng
-    );
-    // Taking the minimum of the two distances for each location
-    location.distance = Math.min(NB_distance, SB_distance);
-  });
-
-  // Sort locations by distance
-  locations.sort((a, b) => a.distance - b.distance);
-
-  // Return the top two closest locations
-  return locations.slice(0, 2);
+  return nearest;
 }
 
 const retrieveIdealViewCoordinates = (link) => {
@@ -401,21 +383,17 @@ const capitalizeFirst = (text = "", sep = " ") => {
   });
   return tempText.join(" ");
 };
-const haversineDistance = (coords1, coords2) => {
-  const toRad = (x) => (x * Math.PI) / 180;
+const haversineDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371; // Earth radius in km
+  const toRad = (deg) => (deg * Math.PI) / 180;
 
-  const R = 6371e3; // Earth's radius in meters
-  const dLat = toRad(coords2.lat - coords1.lat);
-  const dLng = toRad(coords2.lng - coords1.lng);
-  const lat1 = toRad(coords1.lat);
-  const lat2 = toRad(coords2.lat);
-
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
   const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.sin(dLng / 2) * Math.sin(dLng / 2) * Math.cos(lat1) * Math.cos(lat2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
 
-  return R * c;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 export const useFunction = () => {
   return {

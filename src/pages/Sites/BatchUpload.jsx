@@ -7,7 +7,6 @@ import {
   Table,
   TextInput,
 } from "flowbite-react";
-import template from "../../assets/template.xlsx";
 import Title from "~components/Title";
 import { useEffect, useMemo, useState } from "react";
 import * as XLSX from "xlsx";
@@ -23,6 +22,7 @@ import { mainButtonTheme } from "~/misc/themes";
 import { useServices } from "~/contexts/ServiceContext";
 import { useSites } from "~/contexts/SiteContext";
 import { Link, useNavigate } from "react-router-dom";
+import { locations } from "~misc/locations";
 
 function BatchUpload() {
   const [data, setData] = useState(null);
@@ -31,6 +31,14 @@ function BatchUpload() {
   const { setAlert, getInitials, setLoading } = useServices();
   const { doReload, insertMultipleSites, getLastSiteCode } = useSites();
   const navigate = useNavigate();
+
+  function normalizeCityName(name) {
+    return name
+      .toUpperCase()
+      .replace(/\bCITY\b/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
 
   const onRowDeletion = () => {
     setData((currentData) => {
@@ -46,6 +54,10 @@ function BatchUpload() {
     let lastIndex = 0;
     const uploadData = data.map((item) => {
       const siteOwnerInitial = getInitials(item.site_owner);
+      // console.log(item);
+      const locationCode = locations.find(
+        (loc) => normalizeCityName(loc.city) === normalizeCityName(item.city)
+      );
 
       // Get the current site codes for this site owner initial
       let currentIndex = getLastSiteCode(siteOwnerInitial);
@@ -57,18 +69,23 @@ function BatchUpload() {
 
       // Increment currentIndex for this item's new site code
       currentIndex++;
-      lastIndex = String(currentIndex).padStart(4, "0");
+      lastIndex = String(currentIndex).padStart(3, "0");
 
-      // Create the new code for this item
-      const newCode = `${siteOwnerInitial}${lastIndex}`;
+      let newCode = `${siteOwnerInitial}-${lastIndex}`;
+      if (locationCode) {
+        // Create the new code for this item
+        newCode = `${siteOwnerInitial}-${locationCode.tag}${locationCode.regionCode}${locationCode.code}${lastIndex}`;
+      }
       item.type = item.type.toLowerCase();
 
       return {
+        structure: newCode,
         site_code: newCode,
         site: newCode,
         area: item.area,
         city: item.city,
         region: item.region,
+        address: item.address,
         ...item,
         size: `${item.size_width}${item.size_unit} x ${item.size_height}${item.size_unit}`,
         imageURL:
@@ -115,7 +132,7 @@ function BatchUpload() {
                 <li>
                   Download the{" "}
                   <a
-                    href={template}
+                    href="/template.xlsx"
                     className="underline text-secondary"
                     target="_blank"
                     rel="noreferrer"
@@ -477,7 +494,7 @@ function FileUpload({ setData }) {
             item.latitude,
             item.longitude
           );
-          const [city, region] = address.filter(
+          const [city, region] = address.components.filter(
             (component) =>
               component.types.includes("locality") ||
               component.types.includes("administrative_area_level_1")
@@ -490,27 +507,21 @@ function FileUpload({ setData }) {
           }
 
           const latLng = retrieveIdealViewCoordinates(item.ideal_view);
-          const areas = findClosestLocations(latLng);
-          let area_code;
-          if (areas) {
-            area_code = areas.map(({ ID }) => ID);
-            area_code = area_code.join("_");
-          } else {
-            area_code = "N-A";
-          }
+          const area = findClosestLocations(latLng);
 
-          // console.log(area_code);
+          console.log(area);
           return {
             ...item,
             // city: city,
             // region: address.region,
-            area: area_code,
+            area: area.areaCode,
             city: locationMap[city.long_name]
               ? locationMap[city.long_name]
               : city.long_name,
             region: locationMap[region.long_name]
               ? locationMap[region.long_name]
               : region.long_name,
+            address: address.address,
           };
         } catch (e) {
           console.log(e);
