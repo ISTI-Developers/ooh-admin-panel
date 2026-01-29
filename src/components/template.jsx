@@ -12,6 +12,30 @@ import TicketBooth from "./TicketBooth";
 import Stairs from "./Stairs";
 import { SWS, NWS, SES, NES, SBS, NBS } from "../pages/Utasi/utasi.const";
 import { useLRTapi } from "~contexts/LRT.api";
+import BaclaranSVG from "./LRTStationsSVGs/Baclaran";
+import EDSA from "./LRTStationsSVGs/EDSA";
+import GilPuyat from "./LRTStationsSVGs/GilPuyat";
+import DoroteoJose from "./LRTStationsSVGs/DoroteoJose";
+import Libertad from "./LRTStationsSVGs/Libertad";
+import VitoCruz from "./LRTStationsSVGs/VitoCruz";
+import Quirino from "./LRTStationsSVGs/Quirino";
+import PedroGil from "./LRTStationsSVGs/PedroGil";
+import UNAve from "./LRTStationsSVGs/UNAve";
+import Central from "./LRTStationsSVGs/Central";
+import Carriedo from "./LRTStationsSVGs/Carriedo";
+import Bambang from "./LRTStationsSVGs/Bambang";
+import Tayuman from "./LRTStationsSVGs/Tayuman";
+import AbadSantos from "./LRTStationsSVGs/AbadSantos";
+import Blumentritt from "./LRTStationsSVGs/Blumentritt";
+import RPapa from "./LRTStationsSVGs/RPapa";
+import Fifth from "./LRTStationsSVGs/Fifth";
+import Balintawak from "./LRTStationsSVGs/Balintawak";
+import FPJ from "./LRTStationsSVGs/FPJ";
+import ZoomableSVG from "./ZoomableSVG";
+import WIPWrapper from "./WIPWrapper";
+import DetailedLegend from "./DetailedLegend";
+import AutoCrosses from "./CrossOverlay";
+import { useImageUrl } from "~misc/useImageUrl";
 const Template = ({
   station_id,
   station_name,
@@ -33,7 +57,11 @@ const Template = ({
   nbBelow,
   sbStairs,
   nbStairs,
+  layoutType,
 }) => {
+  const parapet_pic = useImageUrl("parapet_pic.png");
+  const backlit_pic = useImageUrl("backlit_pic.jpg");
+  const tb_pic = useImageUrl("tb_pic.png");
   const { assetContracts, attachedContract, refreshAllStationAssets } = useStations();
   const { updateAsset } = useLRTapi();
   const [selectedParapet, setSelectedParapet] = useState(null);
@@ -49,8 +77,8 @@ const Template = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpentb, setIsModalOpentb] = useState(false);
   const [isModalOpenStairs, setIsModalOpenStairs] = useState(false);
-
   const [brandOwner, setBrandOwner] = useState("");
+  // const [layoutType, setLayoutType] = useState(true);
   const handleParapetClick = (parapet) => {
     setSelectedParapet(parapet);
     setSelectedStatus(parapet.asset_status);
@@ -138,110 +166,210 @@ const Template = ({
   const matchedContract = assetContracts?.find((contract) => contract.backlit_id === selectedBacklit?.asset_id);
   const matchedContractTB = assetContracts?.find((contract) => contract.ticketbooth_id === selectedTB?.asset_id);
   const matchedContractStairs = assetContracts?.find((contract) => contract.stairs_id === selectedStairs?.asset_id);
+  const [isHoverAll, setIsHoverAll] = useState(false);
 
   useEffect(() => {
     setSelectedContract(attachedContract);
   }, [attachedContract]);
+
+  const stationComponents = {
+    20: BaclaranSVG,
+    19: EDSA,
+    18: Libertad,
+    17: GilPuyat,
+    16: VitoCruz,
+    15: Quirino,
+    14: PedroGil,
+    13: UNAve,
+    12: Central,
+    11: Carriedo,
+    10: DoroteoJose,
+    9: Bambang,
+    8: Tayuman,
+    7: Blumentritt,
+    6: AbadSantos,
+    5: RPapa,
+    4: Fifth,
+    2: Balintawak,
+    1: FPJ,
+  };
+  const stationsWithTicketBooths = [12, 13, 14, 15, 16, 17, 18, 19]; // those that use ticketBoothsData
+  const renderStationLayout = () => {
+    const StationComponent = stationComponents[station_id];
+    if (!StationComponent) return null;
+
+    const baseProps = {
+      backlitData: [...backLitsSB, ...backLitsNB].map((item) => ({
+        ...item,
+        backlit_pic: item.backlit_pic || backlit_pic,
+      })),
+      SBparapetData: [...parapetSB, ...parapetNB],
+      sbStairsData: [sbStairs],
+      nbStairsData: [nbStairs],
+      onClick1: handleBacklitClick,
+      onClick2: handleParapetClick,
+      onClick3: handleTicketBoothClick,
+      handleSouthClick,
+      handleNorthClick,
+      isHoverAll,
+      setIsHoverAll,
+    };
+
+    // Baclaran unique case
+    if (station_id === 20) {
+      return (
+        <BaclaranSVG
+          backlitData={backLitsSB.map((item) => ({
+            ...item,
+            backlit_pic: item.backlit_pic || backlit_pic,
+          }))}
+          parapetData={parapetSB}
+          sbStairsData={sbStairs}
+          nbStairsData={nbStairs}
+          onClick1={handleBacklitClick}
+          onClick2={handleParapetClick}
+          onClick3={handleStairsClick}
+          handleSouthClick={handleSouthClick}
+          handleNorthClick={handleNorthClick}
+          isHoverAll={isHoverAll}
+          setIsHoverAll={setIsHoverAll}
+        />
+      );
+    }
+
+    // Stations that include ticket booths
+    if (stationsWithTicketBooths.includes(station_id)) {
+      return (
+        <StationComponent
+          {...baseProps}
+          ticketBoothsData={[...sbTop, ...sbMid, ...sbBelow, ...nbBelow, ...nbMid, ...nbTop]}
+        />
+      );
+    }
+    // Stations without ticket booths
+    return <StationComponent {...baseProps} />;
+  };
 
   return (
     <div>
       <header className="flex justify-center items-center mb-5">
         <h1 className="text-2xl font-bold text-center">{station_name} Station</h1>
       </header>
-      <hr className="h-[3px] bg-black border-none" />
-      <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
 
-      <Stairs
-        direction="SOUTH"
-        stairsData={sbStairs}
-        activeSpots={sbStairs?.map((stair) => stair.position_index)}
-        onClick={handleStairsClick}
-        icon="▲"
-      />
-      <TicketBooth
-        direction="SOUTH"
-        ticketBoothData={sbTop}
-        activeSpots={sbTop?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▲"
-      />
+      {!layoutType ? (
+        [10].includes(station_id) ? (
+          <WIPWrapper>
+            <AutoCrosses />
+            <DetailedLegend />
+            <ZoomableSVG>{renderStationLayout()}</ZoomableSVG>
+          </WIPWrapper>
+        ) : (
+          <div className="relative w-full h-full">
+            <DetailedLegend />
+            <ZoomableSVG>
+              {renderStationLayout()} <AutoCrosses />
+            </ZoomableSVG>
+          </div>
+        )
+      ) : (
+        <>
+          <Legend />
+          <hr className="h-[3px] bg-black border-none" />
+          <h1 className="text-2xl font-bold text-center">SOUTH BOUND</h1>
 
-      <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
+          <Stairs
+            direction="SOUTH"
+            stairsData={sbStairs}
+            activeSpots={sbStairs?.map((stair) => stair.position_index)}
+            onClick={handleStairsClick}
+            icon="▲"
+          />
+          <TicketBooth
+            direction="SOUTH"
+            ticketBoothData={sbTop}
+            activeSpots={sbTop?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▲"
+          />
 
-      <TicketBooth
-        direction="SOUTH"
-        ticketBoothData={sbMid}
-        activeSpots={sbMid?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▲"
-      />
+          <Backlits direction="SOUTH" backlitData={backLitsSB} onClick={handleBacklitClick} icon="▲" />
 
-      <Parapets
-        direction="SOUTH"
-        parapetData={parapetSB}
-        entryExitIndexes={SBentryExitButton}
-        onClick={handleParapetClick}
-      />
+          <TicketBooth
+            direction="SOUTH"
+            ticketBoothData={sbMid}
+            activeSpots={sbMid?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▲"
+          />
 
-      <TicketBooth
-        direction="SOUTH"
-        ticketBoothData={sbBelow}
-        activeSpots={sbBelow?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▲"
-      />
+          <Parapets
+            direction="SOUTH"
+            parapetData={parapetSB}
+            entryExitIndexes={SBentryExitButton}
+            onClick={handleParapetClick}
+          />
 
-      <div className="w-full flex justify-center my-4">
-        <RouteDisplay
-          SouthBound={southBound}
-          NorthBound={northBound}
-          handleNorth={handleNorthClick}
-          handleSouth={handleSouthClick}
-        />
-      </div>
+          <TicketBooth
+            direction="SOUTH"
+            ticketBoothData={sbBelow}
+            activeSpots={sbBelow?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▲"
+          />
 
-      <TicketBooth
-        direction="NORTH"
-        ticketBoothData={nbBelow}
-        activeSpots={nbBelow?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▼"
-      />
+          <div className="w-full flex justify-center my-4">
+            <RouteDisplay
+              SouthBound={southBound}
+              NorthBound={northBound}
+              handleSouth={handleSouthClick}
+              handleNorth={handleNorthClick}
+            />
+          </div>
 
-      <Parapets
-        direction="NORTH"
-        parapetData={parapetNB}
-        entryExitIndexes={NBentryExitButton}
-        onClick={handleParapetClick}
-      />
-      <TicketBooth
-        direction="NORTH"
-        ticketBoothData={nbMid}
-        activeSpots={nbMid?.map((booth) => booth.position_index)}
-        onClick={handleTicketBoothClick}
-        icon="▼"
-      />
+          <TicketBooth
+            direction="NORTH"
+            ticketBoothData={nbBelow}
+            activeSpots={nbBelow?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▼"
+          />
 
-      <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
+          <Parapets
+            direction="NORTH"
+            parapetData={parapetNB}
+            entryExitIndexes={NBentryExitButton}
+            onClick={handleParapetClick}
+          />
+          <TicketBooth
+            direction="NORTH"
+            ticketBoothData={nbMid}
+            activeSpots={nbMid?.map((booth) => booth.position_index)}
+            onClick={handleTicketBoothClick}
+            icon="▼"
+          />
 
-      <TicketBooth
-        direction="NORTH"
-        ticketBoothData={nbTop}
-        activeSpots={nbTop?.map((booth) => booth.position_index)}
-        icon="▼"
-        onClick={handleTicketBoothClick}
-      />
-      <Stairs
-        direction="NORTH"
-        stairsData={nbStairs}
-        activeSpots={nbStairs?.map((stair) => stair.position_index)}
-        onClick={handleStairsClick}
-        icon="▼"
-      />
+          <Backlits direction="NORTH" backlitData={backLitsNB} onClick={handleBacklitClick} icon="▼" />
 
-      <h1 className="text-2xl font-bold text-center">NORTH BOUND</h1>
-      <hr className="h-[3px] bg-black border-none" />
-      <Legend />
+          <TicketBooth
+            direction="NORTH"
+            ticketBoothData={nbTop}
+            activeSpots={nbTop?.map((booth) => booth.position_index)}
+            icon="▼"
+            onClick={handleTicketBoothClick}
+          />
+          <Stairs
+            direction="NORTH"
+            stairsData={nbStairs}
+            activeSpots={nbStairs?.map((stair) => stair.position_index)}
+            onClick={handleStairsClick}
+            icon="▼"
+          />
+
+          <h1 className="text-2xl font-bold text-center">NORTH BOUND</h1>
+          <hr className="h-[3px] bg-black border-none" />
+          <Legend />
+        </>
+      )}
 
       {selectedParapet && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -657,6 +785,7 @@ Template.propTypes = {
   nbBelow: PropTypes.array,
   sbStairs: PropTypes.array,
   nbStairs: PropTypes.array,
+  layoutType: PropTypes.bool,
 };
 
 export default Template;

@@ -31,6 +31,9 @@
             ],
             "~Utasi/*": [
                 "src/pages/Utasi/*"
+            ],
+            "~LRTStationsSVGs/*": [
+                "src/components/LRTStationsSVGs/*"
             ]
         }
     }

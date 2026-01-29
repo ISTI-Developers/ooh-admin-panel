@@ -26,6 +26,8 @@ const StationAssets = ({ onBackStations }) => {
   const [bookParapets, setBookParapets] = useState(false);
   const [bound, setBound] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [layoutType, setLayoutType] = useState(true);
+
   const componentRef = useRef();
 
   const refresh = async () => {
@@ -167,9 +169,19 @@ const StationAssets = ({ onBackStations }) => {
             ))}
           </select>
         </div>
-
         {/* Right cluster: Actions */}
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setLayoutType(!layoutType)}
+            className={`px-4 py-2 rounded-lg font-semibold transition-all duration-300 shadow-sm ${
+              layoutType
+                ? "bg-gray-100 text-gray-800 hover:bg-gray-200 border border-gray-300"
+                : "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
+            }`}
+          >
+            {layoutType ? "Show Detailed Layout" : "Show Basic Layout"}
+          </button>
+
           {/* Refresh */}
           <button
             onClick={refresh}
@@ -217,6 +229,7 @@ const StationAssets = ({ onBackStations }) => {
 
       <div ref={componentRef}>
         <Template
+          layoutType={layoutType}
           key={currentStation.station_id}
           station_id={currentStation.station_id}
           station_name={currentStation?.station_name || "Sample Station"}
