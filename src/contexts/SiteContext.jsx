@@ -4,6 +4,7 @@ import useSearch from "~/hooks/useSearchWithNumerals";
 import { endpoints, headers } from "./endpoints";
 import axios from "axios";
 import { format } from "date-fns";
+import Cookies from "js-cookie";
 
 const SiteContext = React.createContext();
 
@@ -12,6 +13,7 @@ export function useSites() {
 }
 
 export function SiteProvider({ children }) {
+  const user = Cookies.get("user");
   const [sites, setSites] = useState();
   const [cities, setCities] = useState([]);
   const [site, setSite] = useState(null);
@@ -20,9 +22,20 @@ export function SiteProvider({ children }) {
   const [reload, doReload] = useState(0);
 
   const retrieveSites = async () => {
+    let params = {};
+
+    if (user) {
+      const userData = JSON.parse(user);
+      if (userData.company && userData.company === "Summit Media") {
+        params = {
+          owner: userData.company,
+        };
+      }
+    }
     try {
       const response = await axios.get(endpoints.sites, {
         ...headers,
+        params: params,
       });
       if (response.data) {
         return response.data;
@@ -83,7 +96,7 @@ export function SiteProvider({ children }) {
       })
       .map((item) => Object.values(item));
 
-    if (data[0].structure) {
+    if (data[0].address) {
       mappedAdditionalData = data.map((item) => [
         item.structure,
         item.site_code,
@@ -143,8 +156,6 @@ export function SiteProvider({ children }) {
       return site.site.startsWith(pre);
     });
 
-    // console.log(matchSites.length);
-
     if (matchSites.length > 0) {
       return matchSites[matchSites.length - 1].site.match(/\d+/);
     } else {
@@ -159,7 +170,10 @@ export function SiteProvider({ children }) {
       const response = await fetch(geocodeAPI);
       const data = await response.json();
       if (data.status === "OK") {
-        return data.results[0].address_components;
+        return {
+          components: data.results[0].address_components,
+          address: data.results[0].formatted_address,
+        };
       } else {
         throw new Error(data.error_message || "Geocoding request failed");
       }
