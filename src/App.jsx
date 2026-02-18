@@ -16,12 +16,12 @@ import { StationProvider } from "./contexts/LRTContext";
 import Sites from "~pages/Sites";
 import { SiteProvider } from "./contexts/SiteContext";
 import Loading from "~components/Loading";
-import SiteAvailability from "~pages/Availability";
+// import SiteAvailability from "~pages/Availability";
 import Modules from "~pages/Modules";
-import Contract from "~pages/Utasi/Contract";
-import LandingPage from "~pages/Utasi/LandingPage";
-import AssetAvailability from "~pages/Utasi/AssetAvailability";
-import ExpiredContracts from "~pages/Utasi/ExpiredContracts";
+// import Contract from "~pages/Utasi/Contract";
+// import LandingPage from "~pages/Utasi/LandingPage";
+// import AssetAvailability from "~pages/Utasi/AssetAvailability";
+// import ExpiredContracts from "~pages/Utasi/ExpiredContracts";
 import APIKeys from "~pages/APIKeys";
 function App() {
   return (
@@ -67,12 +67,12 @@ function AppRoutes() {
 
   const componentMap = {
     sites: Sites,
-    analytics: Sites,
-    availability: SiteAvailability,
-    contracts: Contract,
-    assets: LandingPage,
-    asset_availability: AssetAvailability,
-    expired_contracts: ExpiredContracts,
+    // analytics: Sites,
+    // availability: SiteAvailability,
+    // contracts: Contract,
+    // assets: LandingPage,
+    // asset_availability: AssetAvailability,
+    // expired_contracts: ExpiredContracts,
     users: Users,
     roles: Roles,
     modules: Modules,
